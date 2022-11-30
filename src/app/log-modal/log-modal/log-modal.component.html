@@ -1,0 +1,28 @@
+<ibm-modal class="cancel-mdl" size="sm" (overlaySelected)="closeModal()">
+    <section class="modal-body">
+        <h5 class="title">
+            Feedback
+        </h5>
+        <br><br>
+
+        <TextArea ibmTextArea [(ngModel)]="feedback" ngDefaultControl placeholder="Describe your feedback" style="width: 100%"></TextArea>
+
+        <br><br>
+
+        <h5>Your Last Statement: {{ lastUserInput }}</h5>
+
+        <div className="bx--file__container">
+            <ibm-file-uploader [(files)]="files" buttonType="tertiary" [multiple]="false" multiple="false" buttonLabel="Choose files" filenameStatus="edit" iconDescription="Clear file" labelDescription="" size="sm" labelTitle="Upload">
+            </ibm-file-uploader>
+        </div>
+
+        <div class="btn-row" ibmRow>
+            <div ibmCol>
+
+            </div>
+            <div ibmCol>
+                <button class="bx--btn bx--btn--primary" (click)="sendLog(); closeModal();">Send Feedback</button>
+            </div>
+        </div>
+    </section>
+</ibm-modal>

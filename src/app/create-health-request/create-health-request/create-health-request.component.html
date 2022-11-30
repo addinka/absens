@@ -1,0 +1,99 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Create {{ itemType }} Request</p>
+        <div class="form-field">
+            <br><br>
+            <h5>Pick Up Point</h5>
+            <br>
+
+            <ibm-combo-box [invalid]="invalidPickupPoint" invalidText="Please input your pick up point." placeholder="Pick Up Point" [(ngModel)]="pickupPoint" [items]="filteredPickup" (selected)="onSelectedPickup($event)" (keyup)="onSearchPickup($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+        
+        <div class="form-field" [formGroup]="submitForm">
+            <br><br>
+            <h5>Pick Up Date</h5>
+            <br>
+            <div>
+                <mat-form-field>
+                    <input matInput formControlName="pickupDate" [matDatepicker]="pickupDate" (dateInput)="addpickupDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="pickupDate"></mat-datepicker-toggle>
+                    <mat-datepicker #pickupDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <br>
+            <h5>Pick Up Time</h5>
+            <br>
+            <app-custom-timepicker (selectedHour)="hourChanged($event)" (selectedMinute)="minuteChanged($event)"></app-custom-timepicker>
+        </div>
+
+        <div class="form-field">
+            <br><br>
+            <h5>Quantity</h5>
+            <br>
+            <div class="bx--number__input-wrapper">
+                <ibm-number [(ngModel)]="quantity" ngDefaultControl [min]="0"></ibm-number>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <br><br>
+            <h5>Remarks</h5>
+            <br>
+            <div>
+                <TextArea [(ngModel)]="remarks" ibmTextArea ngDefaultControl placeholder="e.g: Requesting 20 Masks on behalf of my team (Team Names)" style="width: 100%"></TextArea>
+            </div>
+        </div>
+
+        <br><br>
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" *ngIf="itemType === 'Mask'">
+            <div class="bx--tooltip__label">
+                <ibm-checkbox (change)="onChecked($event)">
+                    <h5 class="checkboxText">By checking this you agree that the mask requested will be worn at all times during your visit to the office.</h5>
+                </ibm-checkbox>
+            </div>
+        </div>
+
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" *ngIf="itemType === 'Hand Sanitizer'">
+            <div class="bx--tooltip__label">
+                <ibm-checkbox (change)="onChecked($event)">
+                    <h5 class="checkboxText">By checking this I agree to use this hand sanitizer requested to aid in my personal hygiene practices.
+                        <br><br>Disclaimer:<br>Hand Sanitizer is meant to be distributed to "Field Engineer" only, therefore do not submit this request if you are not a "Field Engineer".
+                    </h5>
+                </ibm-checkbox>
+            </div>
+        </div>
+
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" *ngIf="itemType === 'Thermometer'">
+            <div class="bx--tooltip__label">
+                <ibm-checkbox (change)="onChecked($event)">
+                    <h5 class="checkboxText">By checking this I agree that I don't have thermometer at home.</h5>
+                </ibm-checkbox>
+            </div>
+        </div>
+
+        <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" *ngIf="itemType === 'Vitamin'">
+            <div class="bx--tooltip__label">
+                <ibm-checkbox (change)="onChecked($event)">
+                    <h5 class="checkboxText">By checking this I agree that the vitamin requested are only going to be used for my own personal consumption.</h5>
+                </ibm-checkbox>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div ibmRow class="btn-row">
+            <div ibmCol class="btn-col">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol class="btn-col">
+                <button ibmButton="primary" id="buttonSubmit" disabled="true" (click)="reqItems()">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

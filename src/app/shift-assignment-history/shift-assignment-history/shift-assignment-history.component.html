@@ -1,0 +1,34 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title" style="text-align: center;">Pending Shift Assignment</p>
+        <!-- Start of Body -->
+        <div class="body-text" ibmRow>
+            <div ibmCol [columnNumbers]="{'lg': 16, 'md': 8, 'sm': 4}" class="scrollable">
+                <table ibmTable [sortable]="false">
+                    <thead ibmTableHead>
+                        <tr>
+                            <th class="row-header" ibmTableHeadCell *ngFor="let column of model.header" [column]="column">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody ibmTableBody *ngIf="dataExist">
+                        <tr *ngFor="let row of model.data; let i = index" ibmTableRow [row]="row" (click)="openModal(responseData[i].requestType, responseData[i]._id)">
+                            <td *ngFor="let item of row; let j = index" class="row-text" ibmTableData [item]="item">
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!dataExist">
+                        <tr>
+                            <td class="no-data" colspan="3">
+                                <div>No history yet.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <!-- Start of Pagination -->
+                <!-- End of Pagination -->
+            </div>
+        </div>
+        <!-- End of Body -->
+    </div>
+</div>

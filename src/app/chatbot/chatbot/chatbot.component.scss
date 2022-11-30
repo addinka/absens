@@ -1,0 +1,171 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+.wrapper {
+	background-color: #001d6c;
+	max-width: 576px;
+	min-height: 100vh;
+	padding-top: 2rem;
+	padding-bottom: 2rem;
+}
+
+.wrapper-2 {
+	background-color: white;
+	border-radius: 2px;
+	/* Rounded borders */
+	padding: 16px;
+	/* Padding */
+}
+
+.bx--col.bubble {
+	border-radius: 10px;
+	padding: 10px;
+	margin-bottom: 15px;
+	&-right {
+		background: #aed6ae;
+		text-align: right;
+	}
+	&-left {
+		text-align: left;
+		background: #9db4df;
+	}
+}
+
+div.center {
+	text-align: center;
+	display: block;
+	border: 2px solid;
+	border-color: black;
+	border-radius: 10px;
+	padding: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	background: white;
+}
+
+.bx--btn--secondary {
+	@media only screen and (max-width: 4096px) {
+		margin-left: 0%;
+		padding: calc(0.875rem - 15px) 10% calc(0.875rem - 15px) 8%;
+	}
+	@media only screen and (max-width: 1024px) {
+		margin-left: 0%;
+		padding: calc(0.875rem - 15px) 10% calc(0.875rem - 15px) 8%;
+	}
+	@media only screen and (max-width: 768px) {
+		margin-left: 0%;
+		padding: calc(0.875rem - 15px) 10% calc(0.875rem - 15px) 8%;
+	}
+	@media only screen and (max-width: 428px) {
+		margin-left: 0%;
+		padding: calc(0.875rem - 15px) 10% calc(0.875rem - 15px) 10%;
+	}
+	@media only screen and (max-width: 375px) {
+		margin-left: 0%;
+		padding: calc(0.875rem - 15px) 10% calc(0.875rem - 15px) 25%;
+	}
+	@media only screen and (max-width: 320px) {
+		margin-left: 0%;
+		width: 130%;
+		padding: calc(0.875rem - 15px) 0% calc(0.875rem - 15px) 18%;
+	}
+}
+
+//  .bx--btn--primary {
+//     @media only screen and (max-width: 4096px) {
+//         margin-left: 35%;
+//     }
+//     @media only screen and (max-width: 1024px) {
+//         margin-left: 35%;
+//     }
+//     @media only screen and (max-width: 768px) {
+//         margin-left: 48%;
+//     }
+//     @media only screen and (max-width: 428px) {
+//         margin-left: 30%;
+//     }
+//     @media only screen and (max-width: 375px) {
+//     }
+//     @media only screen and (max-width: 320px) {
+//         margin-left: 0%;
+//     }
+// }
+.bx--row.chat-row {
+	padding-left: 0;
+	padding-right: 0;
+	margin-left: 0;
+	width: 100%;
+	scroll-snap-align: end;
+}
+
+.user-label {
+	font-size: 12px;
+}
+
+.content-label {
+	font-size: 16px;
+	font-weight: 400;
+}
+
+.container {
+	-webkit-overflow-scrolling: touch;
+	height: 300px;
+	background-color: white;
+	overflow-y: scroll;
+	// overscroll-behavior-y: contain;
+	scroll-snap-type: y mandatory;
+	-webkit-scroll-snap-type: y mandatory;
+}
+
+.container div.bx--row.chat-row:last-child {
+	scroll-snap-align: end;
+	-webkit-scroll-snap-align: end;
+	-webkit-overflow-scrolling: touch;
+}
+
+.multiple-div {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 2%;
+	margin-top: 3%;
+}
+
+.bx--btn--tertiary {
+	background-color: transparent;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #0f62fe;
+	color: #0f62fe;
+	background-color: white;
+	width: 90%;
+}
+
+.bx--btn--tertiary:focus {
+	color: #ffffff;
+	background-color: #0f62fe;
+}
+
+.bx--btn--tertiary:hover {
+	color: #ffffff;
+	background-color: #0f62fe;
+}
+
+.bx--col.div-back-next {
+	@media only screen and (max-width: 375px) {
+		max-width: 50%;
+	}
+}
+
+.tutorial-img {
+	width: 120px;
+	height: 150px;
+	@media only screen and (max-width: 768px) {
+		height: 100%;
+	}
+}
+
+agm-map {
+	height: 400px;
+	width: 400px;
+}

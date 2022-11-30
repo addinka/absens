@@ -1,0 +1,98 @@
+.title{
+    font-size: 22px;
+    text-align: left;
+    @media only screen and (max-width: 428px) {
+        font-size: 21px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 18px;
+    }
+}
+
+.bx--col{
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    @media only screen and (max-width: 671px) {
+        margin-top: 30%;
+        height: 400px;
+        width: 400px;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-top: 30%;
+        height: 400px;
+        width: 400px;
+       
+    }
+    @media only screen and (max-width: 414px) {
+        margin-top: 30%;
+        height: 400px;
+        width: 400px;
+        
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 30%;
+        height: 380px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 360px) {
+        margin-top: 30%;
+        height: 380px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 30%;
+        height: 340px;
+        width: 290px;
+    }
+}
+
+.modal-body{
+    scroll-behavior: auto; 
+    margin: 2rem;
+    @media only screen and (max-width: 320px) {
+        margin: 1rem;
+    }
+}
+
+.bx--btn {
+    max-width: 100%;
+    justify-content: center;
+    padding: 0;
+}
+
+.bx--btn--primary {
+    width: 80%;
+    margin-bottom: 5%;
+    @media only screen and (max-width: 428px) {
+        height: 3rem;
+    }
+    @media only screen and (max-width: 375px) {
+        
+    }
+}
+
+.bx--text-area{
+    @media only screen and (max-width: 768px) {
+        height: 80px;
+    }
+    @media only screen and (max-width: 428px) {
+        height: 80px;
+    }
+    @media only screen and (max-width: 320px) {
+        height: 70px;
+    }
+}
+
+.bx--row.btn-row{
+    margin-top: 10%;
+}
+
+.log-text{
+    font-size: 12px;
+}

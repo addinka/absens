@@ -1,0 +1,93 @@
+<mat-toolbar class="navbar-menu">
+    <div class="row" style="display: flex; align-items: center; width: 100%; margin-left: 0;">
+
+        <!-- Start of Home Navigation -->
+        <div class="col-4" (click)="goToDashboard()" style="cursor: pointer; outline: none;">
+            <p class="menu-title">IBM NSquare</p>
+        </div>
+        <!-- End of Home Navigation -->
+
+        <div class="col-8" *ngIf="router.url !== '/login'">
+            <div class="button-div menu">
+
+                <!-- Start of Role -->
+                <div>
+                    <button class="button-menu" [disabled]="isDisabled" mat-button [matMenuTriggerFor]="switchMenu"><img src="../../../../assets/images/user-switch.svg" style="height: 30px"></button>
+                    <mat-menu #switchMenu="matMenu" yPosition="above" backdropClass="customize">
+                        <button mat-menu-item (click)="changeUser('user')">Employee</button>
+                        <button *ngIf="userTypes[0]===true" mat-menu-item (click)="changeUser('sc')">Site Coordinator</button>
+                        <button *ngIf="userTypes[1]===true" mat-menu-item (click)="changeUser('hsc')">Health & Safety Coordinator</button>
+                        <button *ngIf="userTypes[2]===true" mat-menu-item (click)="changeUser('manager')">Manager</button>
+                        <button *ngIf="userTypes[3]===true" mat-menu-item (click)="changeUser('contentManager')">Content Manager</button>
+                    </mat-menu>
+                </div>
+                <!-- End of Role -->
+
+                <!-- Start of Notification -->
+                <div>
+                    <button class="button-menu" [disabled]="isDisabled" [matMenuTriggerFor]="notificationMenu">
+                        <img [src]="adaYangUnread ? '../../../assets/images/notification_on.svg' : '../../../assets/images/notification_off.svg'">
+                    </button>
+                    <mat-menu #notificationMenu="matMenu" yPosition="below">
+                        <div *ngIf="notifications.length === 0">
+                            <button mat-menu-item>No new notifications...</button>
+                        </div>
+                        <div *ngIf="notifications.length > 0">
+                            <div style="display: flex;">
+                                <div class="col-6 date-title">
+                                    Today
+                                </div>
+                                <div class="col-6 dismiss-div">
+                                    <button mat-menu-item class="btn-dismiss" (click)="deleteAllNotifs($event)"><u>Dismiss all</u></button>
+                                </div>
+                            </div>
+                        </div>
+                        <mat-divider *ngIf="notifications.length > 0"></mat-divider>
+                        <div *ngIf="notifications.length > 0">
+                            <ng-container *ngFor="let item of notifications; let i = index">
+                                <div class="notif" style="cursor: pointer;">
+                                    <div class="button-div-2">
+                                        <div class="col-9" style="width:100%;">
+                                            <p class="notif-text" (click)="navigateViaNotif(item.refID, item.message)">{{item.message}}</p>
+                                        </div>
+                                        <div class="col-3" style="display:flex; justify-content: end;">
+                                            <div class="col p-0" style="margin-right: 5px;">
+                                                <img class="flag-img" (click)="flagNotif($event, item._id, i)" [src]="item.read === 'Y' ? '../../../../assets/images/flag.svg' : '../../../../assets/images/flag-filled.svg'">
+                                            </div>
+                                            <div class="col p-0">
+                                                <img class="trash-img" (click)="deleteNotif($event, item._id, i)" src="../../../../assets/images/trash-can.svg">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="row ">
+
+                                </div>
+                                <mat-divider *ngIf="i < (notifications.length - 1)"></mat-divider>
+                            </ng-container>
+                        </div>
+                    </mat-menu>
+                </div>
+                <!-- End of Notification -->
+
+                <!-- Start of Account -->
+                <div>
+                    <button class="button-menu" [disabled]="isDisabled" mat-button [matMenuTriggerFor]="switchProfile">
+                        <img src="../../../../assets/images/user-icon.svg" style="height: 22px;"></button>
+                    <mat-menu #switchProfile="matMenu" yPosition="above">
+                        <button mat-menu-item [routerLink]="'/account'">Account Settings</button>
+                        <button mat-menu-item (click)="openModal()">Logout</button>
+                    </mat-menu>
+                </div>
+                <!-- End of Account -->
+
+            </div>
+        </div>
+    </div>
+
+
+
+</mat-toolbar>
+<router-outlet></router-outlet>

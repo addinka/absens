@@ -1,0 +1,778 @@
+<!-- Employee Dashboard -->
+<div *ngIf="dashboardMode === 0">
+    <div class="wrapper" ibmGrid (window:resize)="onResize($event)">
+        <div class="wrapper-2">
+            <div class="body-text" ibmRow>
+                <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" style="margin-bottom: 1rem;">
+                    <h1 class="title">Hi, {{userName}}</h1>
+                    <span class="subtitle">At </span><span class="subtitle-bold">{{currTime}}</span><span class="subtitle"> In </span><span class="subtitle-bold">{{zone}}</span><span class="subtitle">, the temperature is </span><span class="subtitle-bold">{{temperature}}°C</span>
+                    <span class="subtitle">, the humidity is </span>
+                    <span class="subtitle-bold">{{humidity}}%</span><span class="subtitle"> and epidemic risk is </span>
+                    <span class="subtitle-risk" [ngClass]="{'risk-3': risk === 'high', 'risk-2': risk === 'medium', 'risk-1' : risk === 'low'}">{{risk}}</span>
+                </div>
+            </div>
+
+            <p class="title">Ongoing Events</p>
+            <div style="margin-top: 10px" *ngIf="firstContent === undefined || firstContent === null">
+                <p class="alumni-name" style="text-align: center;">No Event Found</p>
+            </div>
+
+            <div style="margin-top: 10px" *ngIf="firstContent !== undefined && firstContent !== null">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li *ngIf="contents.length > 0" data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li *ngIf="contents.length > 1" data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                        <li *ngIf="contents.length > 2" data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                        <li *ngIf="contents.length > 3" data-target="#carouselExampleIndicators" data-slide-to="4"></li>
+                    </ol>
+
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" (click)="onDetailContent(firstContent?._id)">
+                            <img class="d-block w-100" [src]="firstContent?.image" onerror="this.src='../../../../../assets/images/black.jpeg'" alt="First slide">
+                        </div>
+
+                        <div class="carousel-item" *ngIf="contents.length > 0" (click)="onDetailContent(contents[0]?._id)">
+                            <img class="d-block w-100" [src]="contents[0]?.image" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                        </div>
+
+                        <div class="carousel-item" *ngIf="contents.length > 1" (click)="onDetailContent(contents[1]?._id)">
+                            <img class="d-block w-100" [src]="contents[1]?.image" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                        </div>
+
+                        <div class="carousel-item" *ngIf="contents.length > 2" (click)="onDetailContent(contents[2]?._id)">
+                            <img class="d-block w-100" [src]="contents[2]?.image" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                        </div>
+
+                        <div class="carousel-item" *ngIf="contents.length > 3" (click)="onDetailContent(contents[3]?._id)">
+                            <img class="d-block w-100" [src]="contents[3]?.image" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <div style="text-align: center" class="row">
+                    <div class="col" style="margin-top: 5%">
+                        <button style="width: 200px" class="dialog-button button-primary" (click)="onSeeMoreContents()">See All Events</button>
+                    </div>
+                </div>
+            </div>
+
+            <br><br>
+
+            <div class="body-text" ibmRow>
+                <div ibmCol [columnNumbers]="12">
+                    <p class="activity-text">Today's activity list</p>
+
+                    <div style="display: flex; justify-content: center;">
+                        <div *ngIf="boxes.length === 0" class="no-activity">
+                            <img style="margin-right: 5px;" src="../../../assets/images/no-activity.svg">
+                            <p class="no-act">No activity found.</p>
+                        </div>
+                    </div>
+
+                    <div id="some-activity" class="some-activity">
+                        <ng-container *ngIf="boxes.length > 0">
+                            <div *ngFor="let box of boxes; let i = index">
+                                <div [style.left]="box.left" [style.top]="box.top" class="z6">
+                                    <svg [attr.width]="boxWidth" [attr.height]="box.height">
+                                        <rect class="boundingbox" [attr.width]="boxWidth" [attr.height]="box.height"/>
+                                    </svg>
+                                    <div *ngFor="let trail of box.trails; let j = index">
+                                        <ng-container *ngIf="trail.invis === true">
+                                            <img [style.left]="trail.left" [style.top]="trail.top" class="z6">
+                                        </ng-container>
+                                        <ng-container *ngIf="trail.invis === false">
+                                            <img [src]="srcTrail" [style.left]="trail.left" [style.top]="trail.top" class="z6">
+                                        </ng-container>
+                                    </div>
+                                </div>
+                                <div *ngFor="let item of box.items; let j = index">
+                                    <ng-container *ngIf="item.boxDate === undefined || item.boxDate === null">
+                                        <div [style.left]="item.left" [style.top]="item.top" [style.width]="boxWidth" [style.height]="item.height" class="z6">
+                                            <button *ngIf="item.button1.isLatest === 'Y' && item.button1.text !== '' && todayDate >= item.requestDateTypeDate" class="warnaijo buttonaction z6" style="cursor: pointer;" [style.right]="item.button1.right" [style.top]="item.button1.top" (click)="openModal2(box.type, item.status.text, item._id, item.requestDate, item.checkInTime)">
+                                                {{item.button1.text}}
+                                            </button>
+                                            <button disabled *ngIf="item.button1.isLatest === 'Y' && item.button1.text !== '' && todayDate < item.requestDateTypeDate" class="warnaabu buttonaction z6" [style.right]="item.button1.right" [style.top]="item.button1.top" (click)="openModal2(box.type, item.status.text, item._id, item.requestDate, item.checkInTime)">
+                                                {{item.button1.text}}
+                                            </button>
+                                            <button *ngIf="item.button2.isLatest === 'Y'" class="buttonaction z6" style="background-color: black; cursor: pointer;" [style.right]="item.button2.right" [style.top]="item.button2.top" (click)="openModal3(box.type, item._id)">
+                                                {{item.button2.text}}
+                                            </button>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                                <div *ngFor="let item of box.items; let j = index">
+                                    <ng-container *ngIf="item.boxDate !== undefined">
+                                        <div [style.left]="item.left" [style.top]="item.top" [style.width]="boxWidth" [style.height]="item.height" class="z5">
+                                            <span class="activefont z5" [style.left]="item.boxDate.left" [style.top]="item.boxDate.top">{{item.boxDate.text}}</span>
+                                        </div>
+                                    </ng-container>
+                                    <ng-container *ngIf="item.boxDate === undefined || item.boxDate === null">
+                                        <div [style.left]="item.left" [style.top]="item.top" [style.width]="boxWidth" [style.height]="item.height" class="z5">
+                                            <img class="z5" [src]="item.bullet.src" [style.left]="item.bullet.left" [style.top]="item.bullet.top">
+                                            <span [className]="item.request.isActive ? 'activefont ellipsis z5' : 'inactivefont ellipsis z5'" [style.width]="requestSpanWidth" [style.left]="item.request.left" [style.top]="item.request.top">{{item.request.text}}</span>
+                                            <span [className]="item.request.isActive ? 'activefont z5' : 'inactivefont z5'" [style.left]="item.status.left" [style.top]="item.status.top">STATUS: {{item.status.text}}</span>
+                                        </div>
+                                    </ng-container>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+
+            <div id="dashboardMenu" ibmRow class="button-div">
+                <div class="" ibmRow>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Travel')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Travel</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('History')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">View Request History</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" ibmRow>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Mask')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Mask</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('StatusDetails')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">View Status History</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" ibmRow>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Hand Sanitizer')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Hand Sanitizer</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('PositionHistory')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">View Position History</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="orgID === 'JTI'" class="" ibmRow>
+                    <div *ngIf="otEligibility === 'Y'" ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Overtime')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Overtime</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="otEligibility === 'N'" ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('WorkAssignment')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Work<br>Assignment</h3>
+                            </div>
+                            <div ibmRow class="button-icon-wa">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="otEligibility === 'Y'" ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('OvertimeDetails')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Overtime Details</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="otEligibility === 'N'" ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('WorkAssignmentDetails')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Work Assignment Details</h3>
+                            </div>
+                            <div ibmRow class="button-icon-wa">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" ibmRow>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Leave')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Leave</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('LeaveDetails')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Leave Details</h3>
+                            </div>
+                            <div ibmRow class="button-chatbot">
+                                <img style="height: 24px;" src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp">
+                            <div ibmRow class="button-title">
+                            </div>
+                            <div ibmRow class="button-icon">
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <!-- <div *ngIf="isManager === 'Y'" ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('ShiftAssignment')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Shift Assignment</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="" ibmRow>
+                    <!-- <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('SurveyPage')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Vaccination Registration</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div> -->
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('ShiftSchedule')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">Request for Shift Change</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/request_icon.svg">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('RiskCalculator')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">View YOUR Risk Profile</h3>
+                            </div>
+                            <div ibmRow class="button-icon">
+                                <img src="../../../../assets/images/view.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="" ibmRow>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp">
+                        </div>
+                    </div>
+                    <div ibmCol class="menu-col" [columnNumbers]="6">
+                        <div class="border-button-emp" (click)="navigate('Chatbot')">
+                            <div ibmRow class="button-title">
+                                <h3 class="btn-title">View Tutorial (Talk to Chatbot)</h3>
+                            </div>
+                            <div ibmRow class="button-chatbot">
+                                <img style="height: 24px;" src="../../../../assets/images/chat.svg">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Non Employee Dashboard -->
+<div *ngIf="dashboardMode === 1">
+    <div class="wrapper" ibmGrid>
+        <!-- <ibm-loading [isActive]="isActive" [size]="size" [overlay]="overlay"></ibm-loading> -->
+        <div class="wrapper-2">
+            <div class="body-text" ibmRow>
+                <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" style="margin-bottom: 1rem;">
+                    <h1 class="title">Hi, {{userName}}</h1>
+                    <span class="subtitle">Logged in as </span><span class="subtitle-bold">{{loginText}}</span>
+                </div>
+            </div>
+
+            <mat-tab-group *ngIf="userType !== 'contentManager'" mat-align-tabs="center">
+                <mat-tab label="Today">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="col-chart">
+                            <ibm-donut-chart class="donut-chart" [data]="data" [options]="options" style="font-size: 9.5px; font-weight:500;"></ibm-donut-chart>
+                        </div>
+                    </div>
+
+                    <ibm-clickable-tile *ngIf="userType === 'manager'" href="vaccine-approval/">
+                        <div class="vaccine-text">Vaccine Certificates ({{totalEmployee}})</div>
+                        <div class="vaccine-subtext">
+                            Need verification from you
+                        </div>
+                    </ibm-clickable-tile>
+
+                    <div ibmRow *ngIf="userType === 'manager'" class="shift-box" style="border: 2px solid; border-bottom: 0px; border-color: black; padding: 5px;">
+                        <span class="employee-text" style="margin-top: 2px;">Employee Shift
+                        </span>
+                        <span class="employee-text">
+                            <button (click)="onGetExcel()" style="margin-left: 200px;">
+                                Download
+                            </button>
+                        </span>
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'manager'" class="shift-content-box" style="border: 2px solid; border-color: black; padding: 5px;">
+                        <div ibmRow class="item-row">
+                            <span class="employee-text">
+                                <button ibmButton="tertiary" (click)="navigate('ShiftAssignment')" style="margin-top: 20px;">
+                                    Manage Employee Shift
+                                </button>
+                            </span>
+                            <span class="employee-text" *ngIf="userType === 'manager'">
+                                <button ibmButton="tertiary" (click)="navigate('ShiftAssignmentHistory')" style="margin-top: 20px;">
+                                    Shift Assignment
+                                </button>
+                            </span>
+                        </div>
+                        <div ibmRow class="item-row">
+                            <span class="employee-text">
+                                <input id="fileExcel" hidden type="file" (change)="onExcelSelected($event)">
+                                <button ibmButton="tertiary" (click)="onSelectFileExcel()" style="margin-top: 20px; margin-bottom: 20px;">
+                                    Upload Shift Excel
+                                </button>
+                            </span>
+
+                            <span class="employee-text">
+                                <button ibmButton="tertiary" (click)="navigate('ShiftExcelApproval')" style="margin-top: 20px; margin-bottom: 20px;">
+                                    Upload Excel Approval
+                                </button>
+                            </span>
+                        </div>
+
+
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'hsc'" class="item-row">
+                        <button ibmButton="tertiary" (click)="navigate('ItemStock')">
+                            Item Stocks
+                        </button>
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'sc'" class="item-row">
+                        <button ibmButton="tertiary" (click)="navigate('SiteManagement')">
+                            Site Management
+                        </button>
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'sc'" class="item-row">
+                        <button ibmButton="tertiary" (click)="navigate('SeatManagement')">
+                            Seating Management
+                        </button>
+                    </div>
+
+                    <br><br><br>
+
+                    <ibm-content-switcher>
+                        <button *ngIf="userType !== 'sc'" class="custom-button" (click)="selected($event, false)" style="display:unset; font-size: 12px; padding: 0.5rem 0.3rem; color: white; text-align: center; background-color: rgb(110, 50, 201)" name="Pending">Pending ({{this.data[0].value}})</button>
+                        <button class="custom-button" (click)="selected($event, false)" style="display:unset; font-size: 12px; padding: 0.5rem 0.3rem; color: white; text-align: center; background-color: rgb(17, 145, 230)" name="Approved">Approved ({{this.data[1].value}})</button>
+                        <button class="custom-button" (click)="selected($event, false)" style="display:unset; font-size: 12px; padding: 0.5rem 0.3rem; color: white; text-align: center; background-color: rgb(0, 97, 97)" name="Revoked">Revoked ({{this.data[2].value}})</button>
+                        <button class="custom-button" (click)="selected($event, false)" style="display:unset; font-size: 12px; padding: 0.5rem 0.3rem; color: white; text-align: center; background-color: rgb(161, 25, 80)" name="Rejected">Rejected ({{this.data[3].value}})</button>
+                    </ibm-content-switcher>
+
+                    <br>
+                </mat-tab>
+                <mat-tab label="History">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="col-chart">
+                            <ibm-donut-chart [data]="historyData" [options]="optionsHistory" style="font-size: 9.5px; font-weight:500;"></ibm-donut-chart>
+                        </div>
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'hsc'" class="item-row">
+                        <button ibmButton="tertiary" (click)="navigate('ItemStock')">
+                            Item Stocks
+                        </button>
+                    </div>
+
+                    <div ibmRow *ngIf="userType === 'sc'" class="item-row">
+                        <button ibmButton="tertiary" (click)="navigate('SiteManagement')">
+                            Site Management
+                        </button>
+                    </div>
+
+                    <br><br><br>
+
+                    <ibm-content-switcher>
+                        <button class="custom-button" (click)="selected($event, true)" style="display:unset; color: white; text-align: center; background-color: rgb(17, 145, 230)" name="Approved">Approved ({{this.historyData[1].value}})</button>
+                        <button class="custom-button" (click)="selected($event, true)" style="display:unset; color: white; text-align: center; background-color: rgb(0, 97, 97)" name="Revoked">Revoked ({{this.historyData[2].value}})</button>
+                        <button class="custom-button" (click)="selected($event, true)" style="display:unset; color: white; text-align: center; background-color: rgb(161, 25, 80)" name="Rejected">Rejected ({{this.historyData[3].value}})</button>
+                    </ibm-content-switcher>
+                </mat-tab>
+            </mat-tab-group>
+
+            <mat-tab-group *ngIf="userType === 'contentManager'" mat-align-tabs="center">
+                <mat-tab label="Create Content">
+                    <br><br>
+                    <h5>Event Thumbnail</h5>
+                    <br>
+                    <div>
+                        <div class="img-upload d-flex justify-content-center">
+                            <img *ngIf="!pathPhoto" class="image-select" src="../../../assets/images/ic_image.png'" onerror="this.src='../../../assets/images/ic_image.png'">
+                            <img *ngIf="pathPhoto" class="image-select" [src]="pathPhoto" onerror="this.src='../../../assets/images/ic_image.png'">
+                        </div>
+                        <input id="photo" hidden type="file" (change)="onPhotoSelected($event)" accept="image/*">
+                    </div>
+
+                    <div>
+                        <div class="button-select">
+                            <button class="select-buttons mt-3" (click)="onSelectPhoto()">
+                                {{ isPathPhoto ? 'Change Photo': 'Select Photo'}}
+                            </button>
+                        </div>
+                    </div>
+                    <form [formGroup]="contentForm">
+                        <div class="mt-2">
+                            <h5>Event Title</h5>
+                            <br>
+                            <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="title" placeholder="Title">
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 mt-2">
+                                <h5>Event Type</h5>
+                                <fieldset class="bx--fieldset mt-2">
+                                    <ibm-radio-group aria-label="radiogroup" formControlName="type">
+                                        <ibm-radio value="Online" name="event" checked="false">
+                                            Online
+                                        </ibm-radio>
+                                        <ibm-radio value="Offline" name="event" checked="false">
+                                            Offline
+                                        </ibm-radio>
+                                        <ibm-radio hidden id="null" value="null" name="event" checked="true">
+                                            Null
+                                        </ibm-radio>
+                                    </ibm-radio-group>
+                                </fieldset>
+                            </div>
+                            <div class="col-md-6 mt-2">
+                                <h5>Event Date</h5>
+                                <div class="input-group" style="margin-top: -5px;">
+                                    <mat-form-field class="datepicker">
+                                        <input matInput [matDatepicker]="pickerupdate" class="datepicker" formControlName="date">
+                                        <mat-datepicker-toggle matSuffix [for]="pickerupdate"></mat-datepicker-toggle>
+                                        <mat-datepicker #pickerupdate></mat-datepicker>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-field">
+                                            <br>
+                                            <h5>Start Time</h5>
+                                            <br>
+                                            <div ibmRow class="time-row">
+                                                <div ibmCol class="time-col">
+
+                                                    <div class="time-format">
+                                                        <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourStart($event)">
+                                                            <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                                        </ibm-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div ibmCol class="time-sprt">
+                                                    :
+                                                </div>
+                                                <div ibmCol class="time-col">
+                                                    <div class="time-format">
+                                                        <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteStart($event)">
+                                                            <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                                        </ibm-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-field">
+                                            <br>
+                                            <h5>End Time</h5>
+                                            <br>
+                                            <div ibmRow class="time-row">
+                                                <div ibmCol class="time-col">
+
+                                                    <div class="time-format">
+                                                        <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourEnd($event)">
+                                                            <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                                        </ibm-dropdown>
+                                                    </div>
+                                                </div>
+                                                <div ibmCol class="time-sprt">
+                                                    :
+                                                </div>
+                                                <div ibmCol class="time-col">
+                                                    <div class="time-format">
+                                                        <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteEnd($event)">
+                                                            <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                                        </ibm-dropdown>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <h5>Event Location</h5>
+                                <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="location" placeholder="Borobudur 1">
+                            </div>
+                            <div class="col-md-12 mt-4">
+                                <h5>Event Link</h5>
+                                <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="link" placeholder="https://ibm.webex.com/meet/ibm-jti">
+                            </div>
+
+                            <div class="col-md-12 mt-4">
+                                <h5>Event Description</h5>
+                                <textarea class="form-control form-control-borderless form-bg col-grid" formControlName="description" placeholder="Description" rows="8"></textarea>
+                                <!-- <angular-editor formControlName="description" [config]="config"></angular-editor> -->
+                            </div>
+
+                            <br><br>
+                            <div class="col-md-6 mt-4">
+                                <button ibmButton="danger" (click)="reset()">Reset Form</button>
+                            </div>
+                            <div class="col-md-6 mt-4">
+                                <button [disabled]="contentForm.status === 'INVALID'" ibmButton="primary" (click)="createContent();">Create</button>
+                            </div>
+
+                            <img *ngIf="loading" src="../../../../../assets/images/load-spinner.gif" height="30">
+                        </div>
+                    </form>
+                </mat-tab>
+                <mat-tab label="Update Content">
+                    <mat-list>
+                        <input class="form-control form-control-search form-bg col-grid" placeholder="Search Content / Event" (keyup)="onSearchEvent($event)">
+                        <div *ngFor="let item of filteredBanners; let i = index">
+                            <mat-list-item (click)="updateContent(item)">
+                                <h5>{{i+1}}. </h5>&nbsp;{{item.title}}
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                        </div>
+                    </mat-list>
+                    <br><br>
+
+                    <div *ngIf="isEditing">
+                        <h5>Event Thumbnail</h5>
+                        <br>
+                        <div>
+                            <div class="img-upload d-flex justify-content-center">
+                                <img *ngIf="!pathPhotoTwo" class="image-select" src="../../../assets/images/ic_image.png'" onerror="this.src='../../../assets/images/ic_image.png'">
+                                <img *ngIf="pathPhotoTwo" class="image-select" [src]="pathPhotoTwo" onerror="this.src='../../../assets/images/ic_image.png'">
+                            </div>
+                            <input id="phototwo" hidden type="file" (change)="onPhotoSelectedTwo($event)" accept="image/*">
+                        </div>
+
+                        <div>
+                            <div class="button-select">
+                                <button class="select-buttons mt-3" (click)="onSelectPhotoTwo()">
+                                    {{ isPathPhotoTwo ? 'Change Photo': 'Select Photo'}}
+                                </button>
+                            </div>
+                        </div>
+                        <form [formGroup]="updateForm">
+                            <div class="mt-2">
+                                <h5>Event Title</h5>
+                                <br>
+                                <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="title" placeholder="Title">
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="col-md-6 mt-2">
+                                    <h5>Event Type</h5>
+                                    <fieldset class="bx--fieldset mt-2">
+                                        <ibm-radio-group aria-label="radiogroup" formControlName="type">
+                                            <!-- <ibm-radio value="Online" name="event" checked="true">
+                                                Online
+                                            </ibm-radio>
+                                            <ibm-radio value="Offline" name="event" checked="false">
+                                                Offline
+                                            </ibm-radio> -->
+                                            <ibm-radio value="Online" *ngIf="currentEvent.eventType == 'Offline'" name="event" [checked]="false">
+                                                Online
+                                            </ibm-radio>
+                                            <ibm-radio value="Online" *ngIf="currentEvent.eventType == 'Online'" name="event" [checked]="true">
+                                                Online
+                                            </ibm-radio>
+                                            <ibm-radio value="Offline" *ngIf="currentEvent.eventType == 'Online'" name="event" [checked]="false">
+                                                Offline
+                                            </ibm-radio>
+                                            <ibm-radio value="Offline" *ngIf="currentEvent.eventType == 'Offline'" name="event" [checked]="true">
+                                                Offline
+                                            </ibm-radio>
+                                        </ibm-radio-group>
+                                    </fieldset>
+                                </div>
+                                <div class="col-md-6 mt-2">
+                                    <h5>Event Date</h5>
+                                    <div class="input-group" style="margin-top: -5px;">
+                                        <mat-form-field class="datepicker">
+                                            <input matInput [matDatepicker]="pickerupdate" class="datepicker" formControlName="date">
+                                            <mat-datepicker-toggle matSuffix [for]="pickerupdate"></mat-datepicker-toggle>
+                                            <mat-datepicker #pickerupdate></mat-datepicker>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-field">
+                                                <br>
+                                                <h5>Start Time</h5>
+                                                <br>
+                                                <div ibmRow class="time-row">
+                                                    <div ibmCol class="time-col">
+                                                        <div class="time-format">
+                                                            <ibm-dropdown class="time-drop" [placeholder]="startHourTwo" (selected)="onSelectedHourStartTwo($event)">
+                                                                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                                            </ibm-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <div ibmCol class="time-sprt">
+                                                        :
+                                                    </div>
+                                                    <div ibmCol class="time-col">
+                                                        <div class="time-format">
+                                                            <ibm-dropdown class="time-drop" [placeholder]="startMinuteTwo" (selected)="onSelectedMinuteStartTwo($event)">
+                                                                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                                            </ibm-dropdown>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-field">
+                                                <br>
+                                                <h5>End Time</h5>
+                                                <br>
+                                                <div ibmRow class="time-row">
+                                                    <div ibmCol class="time-col">
+
+                                                        <div class="time-format">
+                                                            <ibm-dropdown class="time-drop" [placeholder]="endHourTwo" (selected)="onSelectedHourEndTwo($event)">
+                                                                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                                            </ibm-dropdown>
+                                                        </div>
+                                                    </div>
+                                                    <div ibmCol class="time-sprt">
+                                                        :
+                                                    </div>
+                                                    <div ibmCol class="time-col">
+                                                        <div class="time-format">
+                                                            <ibm-dropdown class="time-drop" [placeholder]="endMinuteTwo" (selected)="onSelectedMinuteEndTwo($event)">
+                                                                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                                            </ibm-dropdown>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <h5>Event Location</h5>
+                                    <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="location" placeholder="Borobudur 1">
+                                </div>
+                                <div class="col-md-12 mt-4">
+                                    <h5>Event Link</h5>
+                                    <input class="form-control form-control-borderless form-bg col-grid" type="text" formControlName="link" placeholder="https://ibm.webex.com/meet/ibm-jti">
+                                </div>
+
+                                <div class="col-md-12 mt-4">
+                                    <h5>Event Description</h5>
+                                    <textarea class="form-control form-control-borderless form-bg col-grid" formControlName="description" placeholder="Description" rows="8"></textarea>
+                                    <!-- <angular-editor formControlName="description" [config]="config"></angular-editor> -->
+                                </div>
+
+                                <br><br>
+                                <div class="col-md-6 mt-4">
+                                    <button ibmButton="danger" (click)="deleteEvent()">Delete</button>
+                                </div>
+                                <div class="col-md-6 mt-4">
+                                    <button [disabled]="updateForm.status === 'INVALID'" ibmButton="primary" (click)="submitUpdate();">Update</button>
+                                </div>
+
+                                <img *ngIf="loading" src="../../../../../assets/images/load-spinner.gif" height="30">
+                            </div>
+                        </form>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+</div>

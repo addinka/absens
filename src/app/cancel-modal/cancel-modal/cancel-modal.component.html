@@ -1,0 +1,22 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <h3 style="text-align: left;">
+                Cancel
+            </h3>
+            <br><br>
+
+            <p class="text">Are you sure you want to discard all changes made on this page?</p>
+
+
+            <div class="btn-row" ibmRow>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal()">Cancel</button>
+                </div>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--primary" (click)="closeModal(); navigate();">Yes</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</ibm-modal>

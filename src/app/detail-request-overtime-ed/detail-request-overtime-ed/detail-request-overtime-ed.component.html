@@ -1,0 +1,86 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()" style="max-height: 100%;">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ibmRow>
+                <div *ngIf="type === 'Overtime'" ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Overtime Details</p>
+                </div>
+                <div *ngIf="type === 'WorkAssignment'" ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Work Assignment Details</p>
+                </div>
+            </div>
+
+            <br>
+
+            <div *ngIf="type === 'Overtime'">
+                <br>
+                <p class="label-text">Overtime Date</p>
+                <input ibmText disabled value="Total OT Hour" [(ngModel)]="overtimeDate">
+                <br>
+            </div>
+
+            <div *ngIf="type === 'WorkAssignment'">
+                <br>
+                <p class="label-text">Work Assignment Date</p>
+                <input ibmText disabled value="Total OT Hour" [(ngModel)]="overtimeDate">
+                <br>
+            </div>
+
+            <br>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Time In</p>
+                        <input ibmText disabled value="Start Time" [(ngModel)]="timeIn">
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Time Out</p>
+                        <input ibmText disabled value="End Time" [(ngModel)]="timeOut">
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="type === 'Overtime'">
+                <br>
+                <p class="label-text">Overtime Hours</p>
+                <input ibmText disabled value="Total OT Hour" [(ngModel)]="totalOTHour">
+                <br>
+            </div>
+
+            <div *ngIf="type === 'WorkAssignment'">
+                <br>
+                <p class="label-text">Work Assignment Hours</p>
+                <input ibmText disabled value="Total OT Hour" [(ngModel)]="totalOTHour">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Points</p>
+                <input ibmText disabled value="Points" [(ngModel)]="points">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Purpose</p>
+                <input ibmText disabled value="Purpose" [(ngModel)]="purpose">
+                <br>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

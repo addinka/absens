@@ -1,0 +1,273 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeThis()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Request Detail</p>
+                </div>
+            </div>
+
+            <!-- Rejection -->
+
+            <div *ngIf="status === 'rejected'">
+                <p class="label-text">Reason of Rejection</p>
+                <input ibmText disabled [value]="reason">
+                <br><br>
+            </div>
+
+            <!-- Revocation -->
+
+            <div *ngIf="status === 'revoked'">
+                <p class="label-text">Reason of Revocation</p>
+                <input ibmText disabled [value]="reason">
+                <br><br>
+            </div>
+
+            <div style="display: flex;">
+                <div ibmCol class="left-col mb-4">
+                    <ng-container *ngIf="(status === 'approved' && isActive === 'Y' || status === 'checked-in' && isActive === 'Y') && destination === 'Office The Plaza (Jakarta)' && reservationId === null">
+                        <div ibmRow class="mb-3" style="float: left;">
+                            <button *ngIf="min !== 0 || sec !== 0" ibmButton="primary" disabled class="no-padding otp-token">
+                                <span style="font-weight: 600; letter-spacing: 5px;">{{ label1 }}</span>
+                                <div class="timer-label">
+                                    <span *ngIf="min < 10">0</span>{{ min }} : 
+                                    <span *ngIf="sec < 10">0</span>{{ sec }}
+                                </div>
+                            </button>
+                        </div>
+
+                        <div ibmRow style="float: left;">
+                            <button *ngIf="min === 0 && sec === 0" ibmButton="primary" class="no-padding" (click)="getOTP()">
+                                Generate Token
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="(status === 'approved' && isActive === 'Y' || status === 'checked-in' && isActive === 'Y') && destination === 'Office The Plaza (Jakarta)' && reservationId !== null">
+                        <div ibmRow style="float: left;">
+                            <button ibmButton="primary" disabled class="no-padding">
+                                <span style="font-weight: 600;">{{floorName}} >> {{dotName}}</span>
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="(status === 'checked-in' && isActive === 'Y' || status === 'checked-out' && isActive === 'Y') && destination === 'Office The Plaza (Jakarta)' && reservationId !== null">
+                        <div ibmRow class="mt-3" style="float: left;">
+                            <button ibmButton="primary" class="no-padding" (click)="releaseSeat(reservationId)">
+                                Release
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="label1 !== '' && floorName === 'Floor00'">
+                        <div ibmRow class="mt-3" style="float: left;">
+                            <button ibmButton="primary" class="no-padding" (click)="openVaccinationCertificate()">
+                                Vaccination Certificate
+                                <img [src]="documentIcon" style="float: right">
+                            </button>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="label1 === '' || floorName !== 'Floor00'">>
+                        <div ibmRow class="mt-3" style="float: left;">
+                            <button ibmButton="primary" class="no-padding" (click)="openVaccinationCertificate()">
+                                Vaccination Certificate
+                                <img [src]="documentIcon" style="float: right">
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+
+                <div ibmCol class="right-col mb-4">
+                    <ng-container *ngIf="status === 'approved' && isActive === 'Y' || status === 'checked-in' && isActive === 'Y' || status === 'checked-out'">
+                        <div ibmRow style="float: right;">
+                            <button ibmButton="primary" class="no-padding" (click)="openLetter()">
+                                Letter of Duty
+                                <img [src]="documentIcon" style="float: right">
+                            </button>
+                        </div>
+
+                        <div *ngIf=false ibmRow style="float: right;" class="mt-3">
+                            <div style="float: right; width: 100%; padding-left: 20px;">
+                                <p class="label-text m-0">Letter of Duty</p><br>
+                                <input ibmText style="width: 100%;padding-left: 10px;padding-right: 10px;">
+                            </div>
+
+                            <div style="float: right; width: 100%; padding-left: 20px; margin-top: 15px;">
+                                <p class="label-text m-0">Send To</p><br>
+                                <input ibmText value="22-04-2004 08:43 AM" style="width: 100%">
+                            </div>
+
+                            <div style="display: flex; justify-content: flex-end; width: 100%; padding-left: 20px; margin-top: 15px;">
+                                <button ibmButton="primary" (click)="openLetter()">Send <img [src]="sendIcon" style="float: right" width="16" height="16"></button>
+                            </div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="status === 'checked-in' && isActive === 'Y' && destination === 'Office The Plaza (Jakarta)'">
+                        <div ibmRow class="mt-3" style="float: right;">
+                            <button ibmButton="primary" class="no-padding" (click)="openPlazaAccess()">
+                                Plaza Access
+                                <img [src]="documentIcon" style="float: right">
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+
+            </div>
+
+
+            <!-- <div *ngIf="(status === 'approved' && isActive === 'Y' || status === 'checked-in' && isActive === 'Y') && (min === '')" ibmRow>
+                <div ibmCol [columnNumbers]="4"></div>
+                <div ibmCol [columnNumbers]="8">
+                    <div style="float: right;">
+                        <button ibmButton="primary" class="no-padding" (click)="getOTP()">
+                            Reserve Seating OTP
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="(status === 'approved' && isActive === 'Y' || status === 'checked-in' && isActive === 'Y') && (min !== '')" ibmRow>
+                <div ibmCol [columnNumbers]="4"></div>
+                <div ibmCol [columnNumbers]="8">
+                    <div style="float: right;">
+                        <button ibmButton="primary" class="no-padding">
+                            {{ label1 }}
+                            <div *ngIf="min !== ''" style="float: right">{{ min }} : {{ sec }}</div>
+                        </button>
+                    </div>
+                </div>
+            </div> -->
+
+            <div>
+                <p class="label-text">Status</p>
+                <input ibmText disabled [value]="status" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled [value]="name" [ngClass]="{
+                    'no-risk': riskRating === (undefined || null),
+                    'risk-1': riskRating === 1,
+                    'risk-2': riskRating === 2,
+                    'risk-3': riskRating === 3}">
+                <br>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled [value]="requestDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Origin</p>
+                        <input ibmText disabled [ngClass]="{
+                            'risk-1': originRisk === 'low',
+                            'risk-2': originRisk === 'medium',
+                            'risk-3': originRisk === 'high'}" [value]="origin" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Start Date</p>
+                        <input ibmText disabled value="StartDate" [(ngModel)]="startDisplayDate">
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Review Date</p>
+                        <input ibmText disabled [value]="reviewDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Destination</p>
+                        <input ibmText disabled [ngClass]="{
+                            'risk-1': destinationRisk === 'low',
+                            'risk-2': destinationRisk === 'medium',
+                            'risk-3': destinationRisk === 'high'}" [value]="destination" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">End Date</p>
+                        <input ibmText disabled value="EndDate" [(ngModel)]="endDisplayDate">
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Destination Floor</p>
+                <input ibmText disabled [value]="destinationFloor" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Transportation</p>
+                <input ibmText disabled [ngClass]="{
+                    'risk-1': transportation === 'Private Car' || 
+                    transportation === 'Private Motorcycle',
+                    'risk-2': transportation === 'Taxi/GrabCar/GoCar' ||
+                    transportation === 'Airplane' ||
+                    transportation === 'Ship / Ferry' ||
+                    transportation === 'Rental Car',
+                    'risk-3': transportation === 'Public Transports' || 
+                    transportation === 'GrabBike/GoRide'}" [value]="transportation" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Period</p>
+                <input ibmText disabled [value]="period" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Purpose</p>
+                <input ibmText disabled [value]="purpose" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Request Location</p>
+                <TextArea ibmTextArea class="location" ngDefaultControl disabled placeholder="Location" [(ngModel)]="location">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+
+            <div *ngIf="(status !== 'checked-in' && status !== 'checked-out') && isActive === 'Y'" ibmRow class="custom-row">
+                <div ibmCol style="text-align: center">
+                    <button style="justify-content: center; margin-left: 0%" id="buttonSubmit" class="bx--btn bx--btn--danger" (click)="sureCancel()">Cancel This Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

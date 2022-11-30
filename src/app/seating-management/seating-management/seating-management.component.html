@@ -1,0 +1,27 @@
+<div class="wrapper" ibmGrid>
+    <p class="request-title">Seating Management</p>
+
+    <div ibmRow class="form" style="margin-top: 50px;">
+        <div ibmCol >
+            <h5>Floor 16</h5>
+            <mat-slider style="margin-right: 30px;" thumbLabel [(ngModel)]="floorSixteenMax" tickInterval="25" min="0" max="200"></mat-slider>
+            <input matInput style="display: inline-block !important; width: 100px !important;" class="form-control" type="number" [(ngModel)]="floorSixteenMax" min="0" max="200">
+        </div>
+
+        <div ibmCol style="margin-top: 30px;">
+            <h5>Floor 17</h5>
+            <mat-slider style="margin-right: 30px;" thumbLabel [(ngModel)]="floorSeventeenMax" tickInterval="25" min="0" max="200"></mat-slider>
+            <input matInput style="display: inline-block !important; width: 100px !important;" class="form-control" type="number" [(ngModel)]="floorSeventeenMax" min="0" max="200">
+        </div>
+    </div>
+
+    <div ibmRow class="btn-row">
+        <div ibmCol class="btn-col">
+            <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+        </div>
+        <div ibmCol class="btn-col">
+            <button ibmButton="primary" id="buttonSubmit" (click)="updateSeat()">&nbsp;&nbsp;&nbsp;&nbsp;Update</button>
+        </div>
+    </div>
+
+</div>

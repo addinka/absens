@@ -1,0 +1,50 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <div style="justify-content: center;" class="body-text" ibmRow>
+            <p class="request-title">Status History</p>
+        </div>
+        <br>
+        <div style="justify-content: center;" class="body-text" ibmRow>
+            <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                <ibm-dropdown [placeholder]="monthName" (selected)="onSelectedMonth($event)">
+                    <ibm-dropdown-list [items]="months"></ibm-dropdown-list>
+                </ibm-dropdown>
+            </div>
+            <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                <ibm-dropdown [placeholder]="year" (selected)="onSelectedYear($event)">
+                    <ibm-dropdown-list [items]="years"></ibm-dropdown-list>
+                </ibm-dropdown>
+            </div>
+        </div>
+
+        <br><br>
+        <!-- Start of Body -->
+        <div class="body-text" ibmRow>
+            <div ibmCol [columnNumbers]="{'lg': 16, 'md': 8, 'sm': 4}" class="scrollable">
+                <table ibmTable [sortable]="false">
+                    <thead ibmTableHead>
+                        <tr>
+                            <th class="row-header" ibmTableHeadCell *ngFor="let column of model.header" [column]="column">
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody ibmTableBody *ngIf="dataExist">
+                        <tr *ngFor="let row of model.data; let i = index" ibmTableRow [row]="row">
+                            <ng-container *ngFor="let item of row">
+                                <td class="row-text" ibmTableData [item]="item">
+                                </td>
+                            </ng-container>
+                        </tr>
+                    </tbody>
+                    <tbody *ngIf="!dataExist">
+                        <tr>
+                            <td class="no-data" colspan="3">
+                                <div>No history yet.</div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

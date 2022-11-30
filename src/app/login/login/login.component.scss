@@ -1,0 +1,177 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+.starter-home {
+    .title {
+        @include type-style("productive-heading-04");
+        color: white;
+    }
+    .subtitle {
+        margin-top: carbon--mini-units(2);
+        @include type-style("productive-heading-02");
+        color: grey;
+    }
+    .checkboxText {
+        margin-left: carbon--mini--units(2);
+    }
+    .body-text {
+        color: white;
+        margin-top: carbon--mini-units(2);
+        margin-bottom: carbon--mini-units(4);
+    }
+    .list {
+        max-width: carbon--mini-units(63);
+        padding-left: carbon--mini-units(6);
+        column-count: 2;
+        @media only screen and (max-width: 1055px) {
+            margin-top: carbon--mini-units(2);
+        }
+    }
+    .starter-tab-description {
+        margin-bottom: carbon--mini-units(2);
+    }
+}
+
+.wrapper {
+    background-image: url(../../../assets/images/back9.svg);
+    background-position: center;
+    background-size: cover;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 7rem;
+    padding-bottom: 5rem;
+    @media only screen and (max-width: 768px) {
+        padding-top: 5rem;
+    }
+    @media only screen and (min-height: 300px) and (max-height: 620px) {
+        min-height: 120vh;
+    }
+    @media only screen and (max-width: 428px) {
+        padding-top: 3rem;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-top: 3rem;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-top: 3rem;
+    }
+}
+
+.wrapper-2 {
+    // background-color: #001D6C;
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+}
+
+.bx--btn {
+    max-width: 100%;
+    font-weight: 600;
+    min-height: 2rem;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.bx--btn--primary {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.bx--btn--secondary {
+    width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+}
+
+.logo {
+    position: absolute;
+    bottom: 0px;
+    right: 460px;
+    float: right;
+    margin-bottom: 40px;
+    @media only screen and (max-width: 768px) {
+        right: 130px;
+    }
+    @media only screen and (max-width: 428px) {
+        right: 20px;
+    }
+    @media only screen and (max-width: 375px) {
+        bottom: 50px;
+    }
+}
+
+.img-size {
+    width: 50%;
+    @media only screen and (max-width: 428px) {
+        width: 40%;
+    }
+}
+
+.bx--text-input {
+    background-color: #343A3F;
+    color: white;
+}
+
+.bx--text-input:focus {
+    outline: 0px
+}
+
+.title {
+    font-size: 37px;
+    color: white;
+    margin-bottom: 25px;
+}
+
+.text-input {
+    background-color: #343A3F;
+    color: white;
+    padding-top: 10px;
+}
+
+.label-text {
+    color: white;
+    margin-left: 15px;
+}
+
+.jti-logo {
+    display: flex;
+    float: right;
+}
+
+.bx--row.div-logo {
+    display: inherit;
+    padding-right: 20px;
+    // margin-top: 350px;
+    @media only screen and (max-width: 768px) {
+        // margin-top: 300px;
+    }
+    @media only screen and (max-width: 428px) {
+        // margin-top: 300px;
+    }
+    @media only screen and (max-width: 375px) {
+        // margin-top: 350px;
+    }
+}
+
+.bottom-div {
+    width: 100%;
+    height: 100%;
+    padding-top: 40%;
+    @media only screen and (max-width: 428px) {
+        padding-top: 60%;
+    }
+    @media only screen and (max-width: 411px) {
+        padding-top: 60%;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-top: 80%;
+    }
+    @media only screen and (max-width: 360px) {
+        padding-top: 50%;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-top: 80%;
+    }
+}

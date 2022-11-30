@@ -1,0 +1,54 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <div class="d-inline-flex pt-3 pb-3 px-2" [routerLink]="['/event-see-more']">
+            <img src="../../../../../assets/images/ic_back.svg" height="15" width="15" style="cursor: pointer;">
+        </div>
+
+        <div *ngIf="contentDetail">
+            <div class="row title">
+                {{contentDetail?.title}}
+            </div>
+
+            <div class="row m-0 mt-2 d-flex justify-content-center">
+                <div class="img-wrap">
+                    <img src="{{contentDetail?.image}}" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                </div>
+            </div>
+
+
+            <div class="row m-0 px-3 mt-3">
+                <div class="text" [innerHTML]="contentDetail?.description"></div>
+                <!-- <pre class="text">
+                <div [innerHTML]="contentDetail?.description"></div>
+            </pre> -->
+            </div>
+
+            <br>
+
+            <div class="row">
+                <div class="col">
+                    <img src="../../../../../assets/images/calendar.svg" height="30" width="30" style="float: left; margin-top: 10px;">
+                    <span class="greyed-out">
+                    {{contentDetail?.date}}
+                <div class="time">
+                    {{contentDetail?.startTime}} - {{contentDetail?.endTime}}
+                </div>
+                </span>
+                </div>
+                <div class="col" style="text-align: right;">
+                    <img src="../../../../../assets/images/location.svg" height="30" width="30" style="float: right; margin-top: 10px;">
+                    <span class="greyed-out-right">{{contentDetail?.eventLocation}}</span>
+                </div>
+            </div>
+
+            <div *ngIf="contentDetail?.registerable" style="text-align: center; margin-top: 20px;">
+                <button class="dialog-button button-primary" (click)="registerEvent(contentDetail.id);" style="width: 200px; font-size:14px;">
+                Register
+                </button>
+            </div>
+            <div *ngIf="contentDetail?.eventLink !== ''" class="col-12" style="text-align: center;">
+                <button (click)="joinEvent(contentDetail?.eventLink)" ibmButton="primary">Join Event</button>
+            </div>
+        </div>
+    </div>
+</div>

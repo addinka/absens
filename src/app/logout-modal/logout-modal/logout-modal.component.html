@@ -1,0 +1,20 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body">
+            <h3 style="text-align: left;">
+                Logout
+            </h3>
+            <br><br>
+            <p class="text">Do you want to logout?</p>
+
+            <div class="btn-row" ibmRow>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal()">Cancel</button>
+                </div>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--primary" (click)="closeModal(); onClickLogout();">Yes</button>
+                </div>
+            </div>
+        </section> 
+    </div>
+</ibm-modal>

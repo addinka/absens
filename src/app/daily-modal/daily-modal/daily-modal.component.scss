@@ -1,0 +1,182 @@
+.bx--btn {
+    justify-content: center;
+}
+
+.btn-row{
+    display: flex;
+    @media only screen and (max-width: 428px) {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 18px;
+        padding-left: 18px;
+    }
+
+}
+
+.date-row{
+    display: flex;
+    padding-left: 15px;
+    @media only screen and (max-width: 428px) {
+       
+    }
+    @media only screen and (max-width: 375px) {
+       
+    }
+    @media only screen and (max-width: 320px) {
+       
+    }
+
+}
+
+.submit-row{
+    display: flex;
+    float: right;
+    margin-top: 2rem;
+    padding-right: 10px;
+    margin-bottom: 5%; 
+    @media only screen and (max-width: 428px) {
+        padding-right: 15px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-right: 10px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-right: 10px;
+    } 
+}
+
+.bx--col{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+   
+    @media only screen and (max-width: 428px) {
+        height: 250px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 414px) {
+        height: 250px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 200px;
+        height: 250px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 200px;
+        height: 210px;
+        width: 290px;
+    }
+}
+
+.title{
+    font-size: 22px;
+    text-align: left;
+    @media only screen and (max-width: 428px) {
+        font-size: 21px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 18px;
+    }
+}
+
+.work-btn{
+    border: 1.5px solid;
+    border-color: black;
+    border-radius: 10px;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    min-height: 4rem;
+    line-height: 20px;
+    padding-left: 10px;
+    padding-right: 10px;
+    cursor: pointer;
+    @media only screen and (max-width: 768px) {
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 428px) {
+        font-size: 10px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 5px;
+        padding-right: 5px;
+        font-size: 8px;
+        line-height: 13px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 10px;
+        padding-right: 10px;
+        font-size: 8px;
+    }
+}
+
+.work-btn:hover{
+    background-color: #e0e0e0;
+}
+
+.bx--col.work-btn{
+    margin-left: 2rem;
+    margin-right: 2rem;
+    @media only screen and (max-width: 428px) {
+        margin-left: 0.5rem;
+        margin-right: 0,5rem;
+    }
+    @media only screen and (max-width: 414px) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    @media only screen and (max-width: 414px) {
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+    }
+}
+
+:host ::ng-deep .bx--date-picker.bx--date-picker--single .bx--date-picker__input {
+    width: 12rem;
+    @media only screen and (max-width: 1440px) {
+        width: 12rem;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 17rem;
+    }
+    @media only screen and (max-width: 768px) {
+        width: 12rem;
+    }
+    @media only screen and (max-width: 428px) {
+        width: 9.5rem;
+        font-size: 10px;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 6rem;
+        font-size: 10px;
+        padding-left: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 14.5rem;
+        font-size: 10px;
+        padding-left: 5px;
+    }
+}
+
+.modal-body{
+    scroll-behavior: auto; 
+    margin: 2rem;
+}

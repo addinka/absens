@@ -1,0 +1,178 @@
+.bx--btn {
+    max-width: 100%;
+    justify-content: center;
+    padding: 0;
+}
+
+.bx--btn--primary {
+    width: 50%;
+}
+
+.btn-row{
+    display: flex;
+    @media only screen and (max-width: 428px) {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 22px;
+        padding-right: 22px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 18px;
+        padding-left: 18px;
+    }
+
+}
+
+.bx--row.date-row{
+    display: flex;
+    padding-left: 15px;
+    @media only screen and (max-width: 428px) {
+       
+    }
+    @media only screen and (max-width: 375px) {
+       
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 0px;
+       
+    }
+
+}
+
+// .submit-row{
+//     display: flex;
+//     float: right;
+//     margin-top: 2rem;
+//     padding-right: 10px;
+//     margin-bottom: 5%; 
+//     @media only screen and (max-width: 428px) {
+//         padding-right: 15px;
+//     }
+//     @media only screen and (max-width: 375px) {
+//         padding-right: 10px;
+//     }
+//     @media only screen and (max-width: 320px) {
+//         padding-right: 10px;
+//     } 
+// }
+
+.bx--col{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bx--col.btn-div{
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    
+    @media only screen and (max-width: 671px) {
+        height: 260px;
+        width: 400px;
+        margin-top: 200px;
+    }
+
+    @media only screen and (max-width: 428px) {
+        height: 260px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 414px) {
+        height: 250px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 200px;
+        height: 250px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 150px;
+        height: 310px;
+        width: 290px;
+    }
+}
+
+.title{
+    font-size: 22px;
+    text-align: left;
+    @media only screen and (max-width: 428px) {
+        font-size: 21px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 18px;
+    }
+}
+
+:host ::ng-deep .bx--date-picker.bx--date-picker--single .bx--date-picker__input {
+    width: 12rem;
+    @media only screen and (max-width: 1440px) {
+        width: 12rem;
+    }
+    @media only screen and (max-width: 1024px) {
+        width: 17rem;
+    }
+    @media only screen and (max-width: 768px) {
+        width: 12rem;
+    }
+    @media only screen and (max-width: 428px) {
+        width: 9.5rem;
+        font-size: 10px;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 6rem;
+        font-size: 10px;
+        padding-left: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 14.5rem;
+        font-size: 10px;
+        padding-left: 5px;
+    }
+}
+
+.modal-body{
+    scroll-behavior: auto; 
+    margin: 2rem;
+    @media only screen and (max-width: 375px) {
+        margin: 1rem;
+    }
+}
+
+::ng-deep .cdk-overlay-container{
+    z-index:9999;
+}
+
+::ng-deep .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 1.25em;
+    width: 80%;
+    @media only screen and (max-width: 768px) {
+        width: 160px;
+    }
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+        width: 135px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 100%;
+    }
+}
+
+.bx--col.date-div{
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    @media only screen and (max-width: 320px) {
+        width: 100%;
+        justify-content: center;
+    }
+}
+    

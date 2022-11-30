@@ -1,0 +1,10 @@
+# App Manifest
+applications:
+    - name: n2ms-new
+      buildpacks: 
+       - https://github.com/cloudfoundry/staticfile-buildpack
+      path: ./dist
+      command: "$HOME/boot.sh"
+      routes:
+        - route: n2ms-new.au-syd.mybluemix.net
+      memory: 1G

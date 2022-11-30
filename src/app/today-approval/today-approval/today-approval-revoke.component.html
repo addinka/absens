@@ -1,0 +1,228 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Review Details</p>
+                </div>
+            </div>
+
+            <div *ngIf="status !== 'cancelled' && status !== 'requested' && type !== 'travel'">
+                <p class="label-text">Reason of {{reasonText}}</p>
+                <input ibmText disabled [value]="reason">
+                <br><br>
+            </div>
+
+            <div *ngIf="status !== 'cancelled' && status !== 'requested' && status !== 'approved' && status !== 'checked-out' && status !== 'checked-in' && type === 'travel'">
+                <p class="label-text">Reason of {{reasonText}}</p>
+                <input ibmText disabled [value]="reason">
+                <br><br>
+            </div>
+
+            <div>
+                <p class="label-text">Status</p>
+                <input ibmText disabled [value]="status" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled [value]="name" [ngClass]="{
+                    'no-risk': riskRating === (undefined || null),
+                    'risk-1': riskRating === 1,
+                    'risk-2': riskRating === 2,
+                    'risk-3': riskRating === 3}">
+                <br>
+            </div>
+
+            <!-- Start of Travel -->
+            <div *ngIf="type === 'travel'" ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled [value]="requestDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Origin</p>
+                        <input ibmText disabled [value]="origin" style="width: 100%" [(ngModel)]="origin" [ngClass]="{
+                            'risk-1': originRisk === 'low',
+                            'risk-2': originRisk === 'medium',
+                            'risk-3': originRisk === 'high'}">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Start Date</p>
+                        <input ibmText disabled value="StartDate" [(ngModel)]="startDisplayDate">
+                    </div>
+
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Review Date</p>
+                        <input ibmText disabled [value]="reviewDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Destination</p>
+                        <input ibmText disabled [value]="destination" style="width: 100%" [ngClass]="{
+                            'risk-1': destinationRisk === 'low',
+                            'risk-2': destinationRisk === 'medium',
+                            'risk-3': destinationRisk === 'high'}">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">End Date</p>
+                        <input ibmText disabled value="endDate" [(ngModel)]="endDisplayDate">
+                    </div>
+                </div>
+            </div>
+            <!-- End of Travel -->
+
+            <!-- Start of Item -->
+            <div *ngIf="type !== 'travel'" ibmRow>
+                <div ibmCol class="left-col">
+
+                    <div>
+                        <br>
+                        <p class="label-text">Requested Item</p>
+                        <input ibmText disabled [value]="requestedItem" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled [value]="requestDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Point</p>
+                        <input ibmText disabled [value]="pickupPoint" style="width: 100%">
+                        <br>
+                    </div>
+
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Quantity</p>
+                        <input ibmText disabled [value]="quantity" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Review Date</p>
+                        <input ibmText disabled [value]="reviewDate" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Time</p>
+                        <input ibmText disabled [value]="pickupTime" style="width: 100%">
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div *ngIf="type !== 'travel'">
+                <br>
+                <p class="label-text">Remarks</p>
+                <TextArea ibmTextArea disabled style="width: 100%">{{ remarks }}</TextArea>
+                <br>
+            </div>
+
+            <!-- End of Item -->
+
+            <div *ngIf="type === 'travel'">
+                <br>
+                <p class="label-text">Destination Floor</p>
+                <input ibmText disabled [value]="destinationFloor" style="width: 100%">
+                <br>
+            </div>
+
+            <div *ngIf="type === 'travel'">
+                <br>
+                <p class="label-text">Transportation</p>
+                <input ibmText disabled [value]="transportation" style="width: 100%" [ngClass]="{
+                    'risk-1': transportation === 'Private Car' || 
+                    transportation === 'Private Motorcycle',
+                    'risk-2': transportation === 'Taxi/GrabCar/GoCar' ||
+                    transportation === 'Airplane' ||
+                    transportation === 'Ship / Ferry' ||
+                    transportation === 'Rental Car',
+                    'risk-3': transportation === 'Public Transports' || 
+                    transportation === 'GrabBike/GoRide'}">
+                <br>
+            </div>
+
+            <div *ngIf="type === 'travel'">
+                <br>
+                <p class="label-text">Period</p>
+                <input ibmText disabled [value]="period" style="width: 100%">
+                <br>
+            </div>
+
+            <div *ngIf="type === 'travel'">
+                <br>
+                <p class="label-text">Purpose</p>
+                <input ibmText disabled [value]="purpose" style="width: 100%">
+                <br>
+            </div>
+
+            <br><br>
+
+            <div>
+                <br>
+                <p class="label-text">Request Location</p>
+                <TextArea ibmTextArea class="location" ngDefaultControl disabled placeholder="Location" [(ngModel)]="location">
+                </TextArea>
+                <br>
+            </div>
+
+            <div *ngIf="!isArchived && requestStatus ==='Approved'">
+                <br>
+                <TextArea ibmTextArea class="reason" ngDefaultControl placeholder="Reason for revoke" [(ngModel)]="rejection">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+
+            <div ibmRow class="custom-row" *ngIf="!isArchived && requestStatus ==='Approved'">
+                <div ibmCol class="btn-col">
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal()">Cancel</button>
+                </div>
+                <div ibmCol class="btn-col">
+                    <button class="bx--btn bx--btn--danger" (click)="revokeRequest()">Revoke</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

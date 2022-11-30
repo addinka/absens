@@ -1,0 +1,322 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <div>
+            <div>
+                <h5>To be able for us to calculate YOUR Risk Profile, we need you to provide the following information:</h5>
+            </div>
+
+            <br>
+
+            <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+                <ol>
+                    <li>
+                        <h5 style="text-align: center;">This Tool is based on Machine Learning that we have developed using Datasheet provided by Nexoid.
+                        </h5>
+                    </li>
+                    <br>
+                    <li>
+                        <h5 style="text-align: center;">The purpose is to give awareness to the individual on the risk and exposure to the CoVid for them so that they could take precautions actions to improve their safety.
+                        </h5>
+                    </li>
+                    <br>
+                    <li>
+                        <h5 style="text-align: center;">The usage of this assessment tool is solely under their own responsibilities.
+                        </h5>
+                    </li>
+                </ol>
+            </div>
+
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">1. How many people have you been in contact for the past week? (0 - 100)</h5><br><br>
+            </span>
+
+            <!-- <div class="padding-in">
+                <ibm-slider [(ngModel)]="questionOne">
+                    <span minLabel>0</span>
+                    <span class="max-lab" maxLabel>>100</span>
+                    <input class="input-responsive">
+                </ibm-slider>
+            </div> -->
+
+            <div class="padding-in">
+                <span><h5>0
+                    <mat-slider thumbLabel [(ngModel)]="questionOne" [displayWith]="formatLabel" tickInterval="1" min="0" max="100"></mat-slider>
+                    100</h5>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">2. How many people are living at your house?(0 - 20)</h5><br><br>
+            </span>
+
+            <!-- <div class="padding-in">
+                <ibm-slider [(ngModel)]="questionTwo" max=20>
+                    <span minLabel>0</span>
+                    <span class="max-lab-1" maxLabel>>20</span>
+                    <input class="input-responsive">
+                </ibm-slider>
+            </div> -->
+
+            <div class="padding-in">
+                <span><h5>0
+                    <mat-slider thumbLabel [(ngModel)]="questionTwo" [displayWith]="formatLabel" tickInterval="1" min="0" max="20"></mat-slider>
+                    20</h5>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5>On a scale of 1 (not at all) to 5 (very often)</h5><br><br>
+            </span>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">3. How much social distancing have you practiced?</h5><br><br>
+            </span>
+
+            <!-- <div class="padding-in">
+                <ibm-slider [(ngModel)]="questionThree" min=0 shiftMultiplier=5 max=5 (valueChange)="valueChange($event)">
+                    <span minLabel>1</span>
+                    <span class="max-lab-2" maxLabel>5</span>
+                    <input class="input-responsive">
+                </ibm-slider>
+            </div> -->
+
+            <div class="padding-in">
+                <span><h5>1
+                    <mat-slider thumbLabel [(ngModel)]="questionThree" [displayWith]="formatLabel" tickInterval="1" min="1" max="5"></mat-slider>
+                    5</h5>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">4. How often do you wash your hands with soap?</h5><br><br>
+            </span>
+
+            <!-- <div class="padding-in">
+                <ibm-slider [(ngModel)]="questionFour" shiftMultiplier=5 max=5 (valueChange)="valueChange($event)">
+                    <span minLabel>1</span>
+                    <span class="max-lab-2" maxLabel>5</span>
+                    <input class="input-responsive">
+                </ibm-slider>
+            </div> -->
+
+            <div class="padding-in">
+                <span><h5>1
+                    <mat-slider thumbLabel [(ngModel)]="questionFour" [displayWith]="formatLabel" tickInterval="1" min="1" max="5"></mat-slider>
+                    5</h5>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">5. How often do you wear mask while travelling?</h5><br><br>
+            </span>
+
+            <!-- <div class="padding-in">
+                <ibm-slider [(ngModel)]="questionFive" shiftMultiplier=5 max=5 (valueChange)="valueChange($event)">
+                    <span minLabel>1</span>
+                    <span class="max-lab-2" maxLabel>5</span>
+                    <input class="input-responsive">
+                </ibm-slider>
+            </div> -->
+
+            <div class="padding-in">
+                <span><h5>1
+                    <mat-slider thumbLabel [(ngModel)]="questionFive" [displayWith]="formatLabel" tickInterval="1" min="1" max="5"></mat-slider>
+                    5</h5>
+                </span>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">6. Do you exhibit any Covid-19 symptoms? (Dry cough, Fever)</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionSix">
+                    <ibm-radio value="1" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="0" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">7. Have you been in any contact with someone who might have / have Covid-19?</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionSeven">
+                    <ibm-radio value="1" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="0" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">8. What is your gender? (Male / Female)</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionEight">
+                    <ibm-radio value="1" checked="false">
+                        Male
+                    </ibm-radio>
+                    <ibm-radio value="0" checked="false">
+                        Female
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">9. What is your age range? (0-10, 20-30, 30-40, etc)</h5><br><br>
+            </span>
+            <div class="form-field">
+                <ibm-dropdown [(ngModel)]="questionNine" placeholder="Select your age range">
+                    <ibm-dropdown-list [items]="ageRange"></ibm-dropdown-list>
+                </ibm-dropdown>
+            </div>
+            <br><br>
+            <!-- <input ibmText [(ngModel)]="questionNine" placeholder="Age (years)">
+            <br><br><br> -->
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">10. How much do you weigh?</h5><br><br>
+            </span>
+            <input ibmText [(ngModel)]="questionTen" placeholder="Weight (kg)">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">11. How tall are you?</h5><br><br>
+            </span>
+            <input ibmText [(ngModel)]="questionEleven" placeholder="Height (cm)">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">12. Do you have any history of the diseases below ? (tick if applicable)</h5><br><br>
+            </span>
+            <br><br>
+            <div ibmRow class="custom-row-1">
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxOne" ngDefaultControl (change)="onChecked($event, 1)">
+                            <div class="checkboxText">Asthma</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxTwo" ngDefaultControl (change)="onChecked($event, 2)">
+                            <div class="checkboxText">Hypertension</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div ibmRow class="custom-row-1">
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxThree" ngDefaultControl (change)="onChecked($event, 3)">
+                            <div class="checkboxText">Kidney Disease</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxFour" ngDefaultControl (change)="onChecked($event, 4)">
+                            <div class="checkboxText">Diabetes</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div ibmRow class="custom-row-1">
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxFive" ngDefaultControl (change)="onChecked($event, 5)">
+                            <div class="checkboxText">Heart Disease</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxSix" ngDefaultControl (change)="onChecked($event, 6)">
+                            <div class="checkboxText">HIV</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div ibmRow class="custom-row-1">
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxSeven" ngDefaultControl (change)="onChecked($event, 7)">
+                            <div class="checkboxText">Liver Disease</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxEight" ngDefaultControl (change)="onChecked($event, 8)">
+                            <div class="checkboxText">Compromised Immune</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+            </div>
+            <div ibmRow class="custom-row-1">
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxNine" ngDefaultControl (change)="onChecked($event, 9)">
+                            <div class="checkboxText">Lung Disease</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+                <div ibmCol>
+                    <div class="bx--tooltip__label">
+                        <ibm-checkbox [(ngModel)]="checkboxTen" ngDefaultControl (change)="onChecked($event, 10)">
+                            <div class="checkboxText">Other Chronic Illness</div>
+                        </ibm-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br><br>
+        <div ibmRow class="custom-row">
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="secondary" (click)="cancelModal()">Back</button>
+            </div>
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="primary" (click)="submitModal()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

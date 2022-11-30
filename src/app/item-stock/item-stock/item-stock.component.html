@@ -1,0 +1,65 @@
+<div class="wrapper" ibmGrid>
+    <p class="request-title">Item Stocks</p>
+
+    <div ibmRow style="margin-top: 5%;">
+        <div ibmCol class="chart-col-left">
+            <p class="chart-title">Mask</p>
+            <ibm-simple-bar-chart [data]="maskData" [options]="options" style="font-size: 10px;"></ibm-simple-bar-chart>
+        </div>
+        <div ibmCol class="chart-col-right">
+            <p class="chart-title">Hand Sanitizer</p>
+            <ibm-simple-bar-chart [data]="sanitizerData" [options]="options" style="font-size: 10px;"></ibm-simple-bar-chart>
+        </div>
+    </div>
+
+    <!-- <p class="update-title">Update Stock</p> -->
+    <div ibmRow class="form">
+        <div style="width: 100%;">
+            <br><br>
+            <h5>Location</h5>
+            <br>
+
+            <ibm-combo-box [invalid]="invalidLocation" invalidText="Please input your location." placeholder="Choose Location" [(ngModel)]="location" [items]="filteredLocation" (selected)="onSelectedLocation($event)" (keyup)="onSearchLocation($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div style="width: 100%;">
+            <br><br>
+            <h5>Item</h5>
+            <br>
+
+            <ibm-combo-box [invalid]="invalidItem" invalidText="Please input your item." placeholder="Choose Item" [items]="filteredItem" (selected)="onSelectedItem($event)" (keyup)="onSearchItem($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div style="width: 100%;">
+            <br><br>
+            <h5>Stock Change</h5>
+            <br>
+            <div class="bx--number__input-wrapper">
+                <ibm-number [(ngModel)]="quantity" ngDefaultControl></ibm-number>
+            </div>
+        </div>
+
+        <div style="width: 100%;">
+            <br><br>
+            <h5>Remarks</h5>
+            <br>
+            <div>
+                <TextArea [(ngModel)]="remarks" ibmTextArea ngDefaultControl placeholder="Adding Masks Stock (7/3/2020)" style="width: 100%"></TextArea>
+            </div>
+        </div>
+    </div>
+
+    <div ibmRow class="btn-row">
+        <div ibmCol class="btn-col">
+            <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+        </div>
+        <div ibmCol class="btn-col">
+            <button ibmButton="primary" id="buttonSubmit" (click)="updateItemStock()">&nbsp;&nbsp;&nbsp;&nbsp;Update</button>
+        </div>
+    </div>
+
+</div>

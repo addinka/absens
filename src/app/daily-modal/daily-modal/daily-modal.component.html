@@ -1,0 +1,18 @@
+<ibm-modal class="cancel-mdl" size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <p class="title">
+                How would you like to work today?
+            </p>
+            <br><br>
+            <div class="btn-row" ibmRow>
+                <div class="work-btn" ibmCol (click)="closeModal(); setStatus('office')">
+                    I'm Working From <br>Office / Client
+                </div>
+                <div class="work-btn" ibmCol (click)="closeModal(); setStatus('home')">
+                    I'm Working From <br>Home
+                </div>
+            </div>
+        </section>
+    </div>
+</ibm-modal>

@@ -1,0 +1,20 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <h3 style>
+                Family Member Registration
+            </h3>
+            <br><br>
+            <p class="text">Do you want to register another family member?</p>
+
+            <div class="btn-row" ibmRow>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal(); navigate();">No</button>
+                </div>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--primary" (click)="closeModal();">Yes</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</ibm-modal>

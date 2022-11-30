@@ -1,0 +1,33 @@
+<div class="wrapper" ibmGrid>
+    <ibm-modal size="sm" (overlaySelected)="closeModal()">
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <div ibmRow>
+                <h3 style="text-align: left; text-transform: capitalize;">
+                    {{ textbox }}
+                </h3>
+            </div>
+            <div ibmRow style="margin-top: 5%">
+                <p *ngIf="textbox === 'approval'" style="text-align: left;">Approve all selected requests?</p>
+                <p *ngIf="textbox === 'rejection'" style="text-align: left;">What is the reason for {{ textbox }}?</p>
+            </div>
+
+            <div *ngIf="textbox !== 'approval'" ibmRow style="margin-top: 5%">
+                <TextArea ibmTextArea ngDefaultControl placeholder="Reason for {{textbox}}" [(ngModel)]="reason" style="width: 100%"></TextArea>
+                <br>
+            </div>
+
+            <div class="btn-row" ibmRow>
+                <div ibmCol>
+                    <button class="bx--btn bx--btn--secondary" (click)="closeModal()">Cancel</button>
+                </div>
+                <div ibmCol *ngIf="setStatus !== 'Approve'">
+                    <button class="bx--btn bx--btn--danger" (click)="rejectRequest()">{{ button }}</button>
+                </div>
+                <div ibmCol *ngIf="setStatus === 'Approve'">
+                    <button class="bx--btn bx--btn--primary" (click)="rejectRequest()">{{ button }}</button>
+                </div>
+            </div>
+        </section>
+
+    </ibm-modal>
+</div>

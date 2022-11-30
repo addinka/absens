@@ -1,0 +1,294 @@
+// To change the theme uncomment the below import and which ever carbon theme you want to use
+// @import '~carbon-components/scss/globals/scss/vendor/@carbon/elements/scss/themes/theme-maps';
+// $carbon--theme: $carbon--theme--g100;
+// $carbon--theme: $carbon--theme--g90;
+// $carbon--theme: $carbon--theme--g10;
+@import "~carbon-components/scss/globals/scss/styles";
+@import 'variables';
+@font-face {
+    font-family: IBM-Plex-Sans-Regular;
+    src: url(assets/fonts/ibm.plex.sans.regular.ttf);
+}
+
+@font-face {
+    font-family: IBM-Plex-Sans-Bold;
+    src: url(assets/fonts/ibm.plex.sans.bold.ttf);
+}
+
+@font-face {
+    font-family: IBM-Plex-Sans-Italic;
+    src: url(assets/fonts/ibm.plex.sans.italic.ttf);
+}
+
+@font-face {
+    font-family: IBM-Plex-Sans-Medium;
+    src: url(assets/fonts/ibm.plex.sans.medium.ttf);
+}
+
+@font-face {
+    font-family: IBM-Plex-Sans-Semi-Bold;
+    src: url(assets/fonts/ibm.plex.sans.semi.bold.ttf);
+}
+
+
+/* $feature-flags: (
+  grid-columns-16: true
+); */
+
+.bx--header {
+    max-width: 576px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 58px;
+}
+
+.bx--header__action {
+    height: 58px;
+}
+
+.bx--content {
+    padding: 0px;
+}
+
+.bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+}
+
+.bx--data-table--sort td {
+    font-size: 12px;
+    text-align: center;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.bx--data-table .bx--table-header-label {
+    text-align: left;
+    @media only screen and (max-width: 320px) {
+        font-size: 11px;
+    }
+}
+
+a.bx--header__name {
+    font-size: 20px;
+}
+
+text.pie-label {
+    text-anchor: start;
+    font-size: 12px;
+}
+
+.bx--data-table th,
+.bx--data-table td {
+    vertical-align: middle;
+}
+
+.bx--pagination__left,
+.bx--pagination__right {
+    font-size: 10px;
+    @media only screen and (max-width: 375px) {
+        font-size: 8px;
+        line-height: 10px;
+    }
+}
+
+.bx--pagination .bx--select-input {
+    font-size: 10px;
+    @media only screen and (max-width: 375px) {
+        font-size: 8px;
+    }
+}
+
+.navbar-menu {
+    max-width: 576px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 64px;
+    background-color: black;
+}
+
+.bx--tooltip {
+    display: block;
+    background-color: black;
+    margin-top: 10rem;
+}
+
+.bx--tooltip--shown {
+    display: block;
+    background-color: black;
+}
+
+.risk-3.bx--text-input {
+    color: red !important;
+}
+
+.risk-2.bx--text-input {
+    color: orange !important;
+}
+
+.risk-1.bx--text-input {
+    color: green !important;
+}
+
+.no-risk.bx--text-input {
+    color: black !important;
+}
+
+.btn-primary {
+    font-size: 13px;
+    justify-content: center;
+}
+
+
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+
+
+/* Fix Input Zoom on devices older than iPhone 5: */
+
+@media screen and (device-aspect-ratio: 2/3) {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"] {
+        font-size: 16px;
+    }
+}
+
+
+/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+
+@media screen and (device-aspect-ratio: 40/71) {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"] {
+        font-size: 16px;
+    }
+}
+
+
+/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+
+@media screen and (device-aspect-ratio: 375/667) {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"] {
+        font-size: 16px;
+    }
+}
+
+
+/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+
+@media screen and (device-aspect-ratio: 9/16) {
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"] {
+        font-size: 16px;
+    }
+}
+
+@supports (-webkit-touch-callout: none) {
+    /* CSS specific to iOS devices */
+    .bx--text-input {
+        font-size: 16px;
+    }
+    .bx--text-area {
+        font-size: 16px;
+    }
+    .bx--time-picker__input-field {
+        font-size: 16px;
+    }
+    .bx--list-box__menu-item__option {
+        font-size: 16px;
+    }
+    input.mat-input-element {
+        font-size: 16px;
+    }
+    .input#quantity {
+        font-size: 16px;
+    }
+}
+
+.cdk-overlay-container {
+    z-index: 1000;
+}
+
+.bx--list-box__menu {
+    max-height: 10rem;
+}
+
+.cal-month-view .cal-day-cell {
+    max-height: 90px;
+    min-height: 75px;
+}
+
+.cal-month-view .cal-header .cal-cell {
+    font-size: 11px;
+    text-transform: uppercase;
+}
+
+.cal-month-view .cal-cell-top {
+    min-height: 50px;
+    max-height: 50px;
+    flex: 1;
+}
+
+.cal-month-view .cal-day-cell.cal-today .cal-day-number {
+    font-size: 18px;
+}
+
+.dialog-button {
+    color: #FFFFFF;
+    height: 40px;
+    font-family: $font-semi-bold;
+    font-size: 17px;
+    text-align: center;
+    width: 100%;
+    @media screen and (max-width: 768px) {
+        font-size: 15px;
+    }
+    @media screen and (max-width: 425px) {
+        font-size: 15px;
+    }
+}
+
+// html, body { height: 100%; }
+// body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

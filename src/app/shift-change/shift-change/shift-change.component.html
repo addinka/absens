@@ -1,0 +1,103 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <div *ngIf="events !== '-'">
+                <h3 style="text-align: center;">
+                    Choose Date
+                </h3>
+                <br><br>
+                <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+                </mwl-demo-utils-calendar-header>
+                <br>
+
+                <ng-template #customCellTemplate let-day="day" let-locale="locale">
+                    <div class="cal-cell-top" (click)="onClick(day.events)">
+                        <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span>
+                        <span class="cal-day-number">
+                            {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+                        </span>
+                    </div>
+                    <small style="margin: 5px;" (click)="onClick(day.events)">
+                        {{ day.events[0]?.title }} {{ day.events[1]?.title }} {{ day.events[2]?.title }}
+                    </small>
+                </ng-template>
+
+                <div [ngSwitch]="view">
+                    <mwl-calendar-month-view *ngSwitchCase="'month'" [viewDate]="viewDate" [events]="events" [cellTemplate]="customCellTemplate" (beforeViewRender)="beforeMonthViewRender($event)">
+                    </mwl-calendar-month-view>
+                    <mwl-calendar-week-view *ngSwitchCase="'week'" [viewDate]="viewDate" [events]="events">
+                    </mwl-calendar-week-view>
+                    <mwl-calendar-day-view *ngSwitchCase="'day'" [viewDate]="viewDate" [events]="events">
+                    </mwl-calendar-day-view>
+                </div>
+
+                <ng-container *ngFor="let event of currentEvent; let i = index">
+                    <br><br>
+                    <div ibmRow>
+                        <div style="padding-left: 5%">
+                            <h5>{{ event?.title }}</h5>
+                        </div>
+                        <div *ngIf="currentEvent" ibmCol [columnNumbers]="6" style="padding-left: 10%">
+                            <h5>{{ currentDate }}</h5>
+                        </div>
+                        <div *ngIf="event" style="display: flex; justify-content: flex-end; padding-right: 5%;">
+                            <h5><a style="font-size: 16px;;" href="javascript:;" (click)="exchange(event)">EXCHANGE</a></h5>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+
+            <br><br>
+
+            <div *ngIf="events !== '-'" ibmRow style="justify-content: center">
+                <p class="text" style="justify-content: center">Your shift schedule</p>
+            </div>
+
+            <div *ngIf="events === '-'" ibmRow style="justify-content: center">
+                <p class="text" style="justify-content: center">{{ exchangerName }} shift schedule</p>
+            </div>
+
+            <div ibmRow style="justify-content: center">
+                <h5>{{ exchangerEvent?.title }} - {{ exchangerDate }}</h5>
+            </div>
+
+            <br><br>
+            <mat-divider>
+                <p>Will be exchanged with</p>
+            </mat-divider>
+            <br><br>
+
+            <div *ngIf="events !== '-'" ibmRow style="justify-content: center">
+                <p class="text" style="justify-content: center">{{ switchName }}'s shift schedule</p>
+            </div>
+
+            <div ibmRow *ngIf="events === '-'" style="justify-content: center">
+                <p class="text" style="justify-content: center">Will be assigned to {{ switchName }}</p>
+            </div>
+
+            <div *ngIf="events !== '-'" ibmRow style="justify-content: center">
+                <h5>{{ chosenEvent?.title }} - {{ currentDate }}</h5>
+            </div>
+
+            <div class="form-field">
+                <br><br>
+                <p style="justify-content: center; text-align:center;">Remarks</p>
+                <br>
+                <div>
+                    <TextArea [(ngModel)]="remarks" ibmTextArea ngDefaultControl placeholder="e.g: I have a doctor appointment on this day" style="width: 100%"></TextArea>
+                </div>
+            </div>
+
+            <div style="justify-content: center;" class="btn-row" ibmRow>
+                <div *ngIf="events !== '-'" ibmCol>
+                    <button style="justify-content: center" class="bx--btn bx--btn--primary" (click)="submitRequest();">Send Shift Switch
+                        Request</button>
+                </div>
+
+                <div *ngIf="events === '-'" ibmCol>
+                    <button style="justify-content: center;" class="bx--btn bx--btn--primary" (click)="assignShift();">Assign Shift</button>
+                </div>
+            </div>
+        </section>
+    </div>
+</ibm-modal>

@@ -1,0 +1,100 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()" style="max-height: 100%;">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Review Action</p>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled value="Requester Name" [(ngModel)]="requesterName">
+                <br>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled value="22-04-2004 08:43 AM" [(ngModel)]="displayDate">
+                        <br>
+                    </div>
+                </div>
+                <div ibmCol class="right">
+                    <div>
+                    </div>
+                </div>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Requested Item</p>
+                        <input ibmText disabled value="Requested Item" [(ngModel)]="requestedItem">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Point</p>
+                        <input ibmText disabled value="Pickup Point" [(ngModel)]="pickupPoint">
+                    </div>
+
+                </div>
+
+                <div ibmCol class="right-col">
+
+                    <div>
+                        <br>
+                        <p class="label-text">Quantity</p>
+                        <input ibmText disabled [(ngModel)]="quantity" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Time</p>
+                        <input ibmText disabled value="Pickup Time" [(ngModel)]="pickupTime">
+                        <br>
+                    </div>
+
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Remarks</p>
+                <TextArea ibmTextArea disabled style="width: 100%">{{ remarks }}</TextArea>
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <TextArea ibmTextArea class="reason" ngDefaultControl placeholder="Reason for rejection/approval" [(ngModel)]="rejection">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+            <div ibmRow class="custom-row">
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--danger" (click)="rejectRequest()">Reject</button>
+                </div>
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--primary" (click)="approveRequest()">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

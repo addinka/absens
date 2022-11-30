@@ -1,0 +1,249 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+.wrapper {
+    background-color: #001D6C;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.wrapper-2 {
+    background-color: white;
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+}
+
+.bx--modal.is-visible .bx--modal-container {
+    width: 50px;
+    overflow: scroll;
+}
+
+.bx--btn {
+    padding: calc(0.875rem - 3px) 5% calc(0.875rem - 3px) 5%;
+    width: 65%;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+        width: 75%;
+    }
+}
+
+.bx--btn--primary {
+    @media only screen and (max-width: 1024px) {
+        margin-left: 6%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 5%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 4%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 10%;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-left: 8%;
+    }
+}
+
+.bx--btn--danger {
+    @media only screen and (max-width: 4096px) {
+        margin-left: 35%;
+    }
+    @media only screen and (max-width: 1024px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 25%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 15%;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-left: 13%;
+    }
+}
+
+.bx--text-input:disabled {
+    color: black;
+}
+
+.bx--text-input {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #F6F8FB;
+    font-size: 16px;
+    color: black;
+    text-transform: capitalize;
+    @media only screen and (max-width: 768px) {
+        font-size: 14px;
+        height: 27px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+        height: 27px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 10px;
+        height: 25px;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 10px;
+    }
+}
+
+.bx--text-input[type="text"] {
+    -webkit-appearance: searchfield;
+    -webkit-appearance: textfield;
+    -moz-appearance: searchfield;
+    -moz-appearance: textfield;
+}
+
+.bx--text-area.reason {
+    font-size: 0.875rem;
+    @media only screen and (max-width: 428px) {
+        font-size: 13px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 10px;
+        padding: 5px;
+    }
+}
+
+.request-title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    padding-left: 5%;
+    @media only screen and (max-width: 428px) {
+        font-size: 22px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 22px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 20px;
+    }
+}
+
+p.label-text {
+    font-family: $font-bold;
+    font-size: 16px;
+    color: #161616;
+    margin-bottom: 10px;
+    @media only screen and (max-width: 768px) {
+        font-size: 14px;
+        margin-bottom: 5px;
+    }
+    @media only screen and (max-width: 428px) {
+        font-size: 13px;
+        margin-bottom: 5px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 13px;
+        margin-bottom: 3px;
+    }
+}
+
+.bx--grid.modal-request {
+    width: 100%;
+    background-color: white;
+    @media only screen and (max-width: 428px) {
+        width: 85%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 85%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 80%;
+    }
+}
+
+.bx--col.left-col {
+    @media only screen and (max-width: 428px) {
+        padding-left: 15px;
+        padding-right: 5px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 15px;
+        padding-right: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 15px;
+        padding-right: 5px;
+    }
+}
+
+.bx--col.right-col {
+    @media only screen and (max-width: 428px) {
+        padding-left: 5px;
+        padding-right: 15px;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 5px;
+        padding-right: 15px;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 5px;
+        padding-right: 15px;
+    }
+}
+
+.bx--col.title-div {
+    padding-left: 0px;
+}
+
+.bx--col.btn-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bx--col.close-div {
+    padding-top: 5%;
+    @media only screen and (max-width: 428px) {
+        padding-top: 8%;
+    }
+}
+
+.custom-row {
+    margin-bottom: 5%;
+}
+
+.first {
+    padding-right: 1.15rem;
+    font-size: 13px;
+    font-weight: 1000;
+}
+
+.second {
+    padding-right: 0.9rem;
+    font-weight: 1000;
+    font-size: 13px;
+}
+
+.second-col {
+    margin-top: -8.7px;
+}
+
+.approver-name {
+    font-size: 13px;
+}

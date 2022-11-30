@@ -1,0 +1,21 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "importHelpers": true,
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "target": "es2015",
+    "lib": [
+      "es2016",
+      "ES2017.Object",
+      "dom"
+    ],
+    "module": "esnext",
+    "baseUrl": "./",
+    "types": ["googlemaps"], 
+  }
+}

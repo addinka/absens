@@ -1,0 +1,110 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Account Settings</p>
+
+        <div class="form-field">
+            <br><br>
+            <h5>Employee Name</h5>
+            <br>
+            <input disabled="true" ibmText [(ngModel)]="nameValue" placeholder="e.g: John Doe">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>Phone Number
+            </h5>
+            <br>
+            <input ibmText [invalid]="invalidPhone" invalidText="Please input your phone-number" (keyup)="onPhoneInput($event)" [(ngModel)]="phoneValue" placeholder="e.g: +62 812 3456 78">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>NIK (Optional)
+            </h5>
+            <br>
+            <input ibmText (keyup)="onNIKInput($event)" [(ngModel)]="nikValue" placeholder="e.g: 3174092612940005">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>Manager's Email
+            </h5>
+            <br>
+            <input ibmText [invalid]="invalidEmail" invalidText="Please input your manager e-mail" (keyup)="onEmailInput($event)" [(ngModel)]="emailValue" placeholder="e.g: james.breen@ibm.com">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>Home Address (Optional)</h5>
+            <br>
+            <input ibmText [(ngModel)]="addressValue" placeholder="e.g: Jl. Janur Elok VII QF 6/11">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>District (Kecamatan)
+            </h5>
+            <br>
+            <ibm-combo-box [invalid]="invalidDistrict" invalidText="Please select a valid District" placeholder="e.g: Kebayoran Baru" [(ngModel)]="districtValue" [items]="filteredDistricts" (selected)="onSelectedDistricts($event)" (keyup)="districtUpdate.next($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>Zip Code (Kode Pos)</h5>
+            <br>
+            <input ibmText [(ngModel)]="zipValue" placeholder="e.g: 14045">
+        </div>
+        <div class="form-field">
+            <br><br>
+            <h5>Default Work Location (Optional)</h5>
+            <br>
+            <ibm-dropdown [(ngModel)]="workValue" [placeholder]="workValue">
+                <ibm-dropdown-list [items]="work"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+
+        <div class="display-pic d-flex justify-content-left pt-4">
+            <div>
+                <input id="file" hidden type="file" accept="image/*, application/pdf" (change)="onFileSelected($event)">
+                <div class="form-field">
+                    <h5>Vaccination Certificate</h5>
+                    <button class="button-select mt-3" (click)="onSelectFile()">
+                        UPLOAD
+                    </button>
+                </div>
+                <br><br>
+                <a href="javascript:void(0)" *ngIf="vaccinationCertificate !== undefined" class="attachment-row" (click)="onGetAttachment()">{{vaccinationCertificate.name}}</a>
+            </div>
+        </div>
+
+        <br><br>
+
+        <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+            <h5 style="text-align: center">All personal information collected through this form is done exclusively with your consent, no other information outside of this form will be collected automatically.
+                <br><br> The informations collected are only going to be used for the purposes defined at the time of the collection or any other purposes that can help our system to assist you on utilizing our application in accordance with the applicable
+                law and regulations.
+            </h5>
+        </div>
+
+        <br><br>
+
+        <div ibmRow class="btn-row" *ngIf="isNew === 'N'">
+            <div ibmCol class="btn-col">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol class="btn-col">
+                <button ibmButton="primary" (click)="updateEmployee()">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+
+        <div ibmRow class="btn-row" *ngIf="isNew !== 'N'">
+            <div ibmCol class="btn-col" style="justify-content: center; display: flex;">
+                <button ibmButton="primary" class="one-submit" (click)="updateEmployee()">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #template let-tooltip="tooltip">
+    <p>This is some tooltip text. This box shows the maximum amount of text that should appear inside. If more room is needed please use a modal instead.</p>
+    <div class="bx--tooltip__footer">
+        <a href="/" class="bx--link">Learn More</a>
+        <button class="bx--btn bx--btn--primary" (click)="tooltip.doClose()">Close</button>
+    </div>
+</ng-template>

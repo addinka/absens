@@ -1,0 +1,37 @@
+.wrapper {
+    
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 10rem;
+    /* Padding */
+}
+
+.bx--btn {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+}
+
+.bx--row.btn-row{
+    display: flex;
+    padding-top: 5%;
+}
+
+.bx--col{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+   
+    @media only screen and (max-width: 428px) {
+        padding-top: 30%;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-top: 30%;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-top: 30%;
+    }
+}

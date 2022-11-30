@@ -1,0 +1,38 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title" style="text-align: center;">Upload Shift Excel Approval</p>
+
+        <div *ngIf="!managerShiftUploadList" style="text-align: center;">
+            No Shift Excel Upload Request Found
+        </div>
+
+        <div *ngFor="let item of managerShiftUploadList?.docs; let i = index">
+            <div class="box">
+                <span class="excel-file">
+                    {{i + 1}}. Excel Upload Request
+                </span>
+
+                <span class="date">
+                    {{item.timestamp}}
+                </span>
+
+                <br><br>
+
+                <div class="request-name">
+                    Requested by {{item.requesterDetails[0].name}}
+                </div>
+
+                <br><br>
+
+                <div ibmCol class="btn-col">
+                    <button ibmButton="danger" (click)="rejectUpload(item._id, i)">&nbsp;&nbsp;&nbsp;&nbsp;Reject</button>
+                    <button ibmButton="primary" (click)="approveUpload(item._id, i)" style="margin-bottom: 8px;">&nbsp;&nbsp;&nbsp;&nbsp;Approve</button>
+                    <!-- <button ibmButton="tertiary" disabled>&nbsp;&nbsp;&nbsp;&nbsp;Approved</button> -->
+                    <span (click)="onGetExcel(item._id)" class="download-button" style="float: right; margin-top: 10px;">
+                        <ibm-icon-download size="32"></ibm-icon-download>
+                    </span>
+                </div>
+            </div>
+            <br><br>
+        </div>
+    </div>

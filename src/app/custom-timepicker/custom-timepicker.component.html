@@ -1,0 +1,19 @@
+<div ibmRow class="time-row">
+    <div ibmCol class="time-col">
+        <div class="time-format">
+            <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHour($event)">
+                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+    </div>
+    <div ibmCol class="time-sprt">
+        :
+    </div>
+    <div ibmCol class="time-col">
+        <div class="time-format">
+            <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinute($event)">
+                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+    </div>
+</div>

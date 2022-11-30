@@ -1,0 +1,56 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title" style="text-align: center;">Vaccine Certificates ({{totalEmployee}})</p>
+
+        <ng-container *ngFor="let item of managerList?.usersList; let i = index">
+            <ibm-tile>
+                <div class="vaccine-text">
+                    {{item.name | titlecase}}
+                </div>
+
+                <span *ngIf="item.isVaccinated === 'PENDING'" class="verify-text">
+                    <a (click)="verifyVaccinationCertificate(item._id)">
+                        Verify
+                    </a>
+                </span>
+
+                <span *ngIf="item.isVaccinated === 'Y'" class="verified-text">
+                    Verified
+                </span>
+
+                <span *ngIf="item.isVaccinated === ''" class="none-text">
+                    None
+                </span>
+
+                <a href="javascript:void(0)" *ngIf="item.isVaccinated !== ''" style="cursor: pointer;" (click)="downloadCertificate(item._id)" class="vaccine-subtext">
+                        Download Vaccine Certificate
+                        <br>
+    
+                        <span *ngIf="item.vaccineDetails[0].name !== ''">
+                            {{item.vaccineDetails[0].name | titlecase}} -
+                        </span>
+    
+                        <span *ngIf="item.vaccineDetails[0].vaccNo === ''">
+                            Unidentified / Foreign Vaccine Certificate
+                        </span>
+    
+                        <span *ngIf="item.vaccineDetails[0].vaccNo === 'vaksin pertama'">
+                            First Vaccine
+                        </span>
+                        <span *ngIf="item.vaccineDetails[0].vaccNo === 'vaksin kedua'">
+                            Second Vaccine
+                        </span>
+                        <span *ngIf="item.vaccineDetails[0].vaccNo === 'vaksin ketiga'">
+                            Third Vaccine / Booster
+                        </span>
+    
+                        <span *ngIf="item.vaccineDetails[0].vaccDate !== ''">
+                            - {{item.vaccineDetails[0].vaccDate | titlecase}}
+                        </span>
+                </a>
+
+            </ibm-tile>
+            <br>
+        </ng-container>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+.bx--grid.modal-request {
+    width: 100%;
+    background-color: white;
+    @media only screen and (max-width: 768px) {}
+    @media only screen and (max-width: 428px) {
+        width: 85%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 85%;
+        padding-top: 20px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 80%;
+    }
+}
+
+.bx--col.close-div {
+    padding-top: 5%;
+    @media only screen and (max-width: 375px) {
+        padding-top: 0%;
+    }
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    @media only screen and (max-width: 428px) {
+        height: 475px;
+        width: 380px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    @media only screen and (max-width: 414px) {
+        height: 475px;
+        width: 380px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+    @media only screen and (max-width: 375px) {
+        height: 300px;
+        width: 330px;
+        margin-top: 30%;
+        margin-bottom: 30px;
+    }
+    @media only screen and (max-width: 320px) {
+        height: 350px;
+        width: 280px;
+        margin-top: 30px;
+        margin-bottom: 30px;
+    }
+}
+
+.modal-body {
+    scroll-behavior: auto;
+    margin: 2rem;
+}
+
+.responsive {
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,178 @@
+<div class="wrapper" ibmGrid *ngIf="isTutorial === false">
+    <div class="wrapper-2">
+        <h4 style="margin-bottom: 5%; font-weight: bold;">Ask Neena</h4>
+
+        <ng-container *ngFor="let item of pastMessage; let i = index">
+            <div ibmRow class="chat-row" style="display:flex; justify-content: flex-end;">
+                <div style="display:flex; justify-content: flex-end;">
+                    <div ibmCol *ngIf="item.type === 'user'" class="bubble bubble-right">
+                        <h5 style="font-size:12px">
+                            You:
+                        </h5>
+                        <h5 style="font-weight: 400;">
+                            {{item.text}}
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div ibmRow class="chat-row">
+                <div style="display:flex; justify-content: flex-start;">
+                    <div style="display:flex; justify-content: flex-start;">
+                        <div ibmCol *ngIf="item.type === 'neena'" class="bubble bubble-left">
+                            <h5 style="font-size:12px">Neena:</h5>
+                            <h5 style="font-weight: 400;"><span [innerHTML]="item.text"></span></h5>
+                            <ng-container *ngIf="item.imageSrc !== ''">
+                                <div class="center">
+                                    <img [src]="item.imageSrc" width="120" height="150" (click)="openModal(item.imageSrc)" style="cursor: pointer;">
+                                    <h5 style="font-size:12px">Click on the image to enlarge</h5>
+                                </div>
+                            </ng-container>
+                            <ng-container *ngIf="item.isMap === 'true'">
+                                <agm-map  [latitude]= "latArr[i]" [longitude]= "lonArr[i]" [zoom]= "zoom" >
+                                    <agm-marker [latitude]= "latArr[i]" [longitude]= "lonArr[i]"></agm-marker>
+                                    <ng-container *ngFor="let item of item.markers; let i = index">
+                                        <agm-circle [latitude]="item.lat" [longitude]="item.lon"
+                                            [radius]= "1000"
+                                            [fillColor]= "item.color">
+                                        </agm-circle>
+                                    </ng-container>
+                                </agm-map>
+                            </ng-container>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </ng-container>
+
+        <div ibmRow class="chat-row">
+            <div style="display:flex; justify-content: flex-start;">
+                <div ibmCol class="bubble bubble-left" *ngIf="currMessage.text !== ''">
+                    <h5 style="font-size:12px">Neena:</h5>
+                    <h5 style="font-weight: 400;"><span [innerHTML]="currMessage.text"></span></h5>
+                    <ng-container *ngFor="let item of multipleOptions; let i = index">
+                        <div class="multiple-div">
+                            <button ibmButton="tertiary" (click)="passValue(item)">{{item.label}}</button>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="imageSrc !== ''">
+                        <div class="center">
+                            <img [src]="imageSrc" width="120" height="150" (click)="openModal(imageSrc)" style="cursor: pointer;">
+                            <h5 style="font-size:12px">Click on the image to enlarge</h5>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="currMessage.isMap === 'true'">
+                        <agm-map  [latitude]= "lat" [longitude]= "lon" [zoom]= "zoom">
+                            <agm-marker [latitude]= "lat" [longitude]= "lon"></agm-marker>
+                            <ng-container *ngFor="let item of currMessage.markers; let i = index">
+                                <agm-circle [latitude]="item.lat" [longitude]="item.lon"
+                                    [radius]= "1000"
+                                    [fillColor]= "item.color">
+                                </agm-circle>
+                            </ng-container>
+                        </agm-map>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <input ibmText [(ngModel)]="currUserInput" placeholder="Type your message here ..." (keyup.enter)="userInput()">
+        </div>
+
+        <br>
+
+        <div ibmRow>
+            <div ibmCol>
+                <button *ngIf="showFeedback" ibmButton="secondary" (click)="openFeedback()">Provide Feedback</button>
+            </div>
+            <div ibmCol style="display: flex; justify-content: flex-end;">
+                <button id="buttonSubmit" ibmButton (click)="userInput() ">&nbsp;&nbsp;&nbsp;Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="wrapper" ibmGrid *ngIf="isTutorial === true" (window:resize)="onResize($event)">
+    <div class="wrapper-2">
+        <h5>{{currTitle}}</h5>
+        <br>
+        <div ibmRow class="chat-row">
+            <div style="display:flex; justify-content: flex-start; width: 100%;">
+                <div ibmCol class="bubble bubble-left" *ngIf="currMessage.text !== []">
+                    <h5 style="font-size:12px">Neena:</h5>
+                    <h5 style="font-weight: 400;">
+                        <ng-container *ngFor="let item of currMessage.text; let i = index">
+                            <ng-container *ngIf="item.type === 'string'">
+                                {{item.content}}
+                            </ng-container>
+                            <ng-container *ngIf="item.type === 'image'">
+                                <img [src]="item.content" height="30">
+                            </ng-container>
+                        </ng-container>
+                    </h5>
+                    <ng-container *ngFor="let options of multipleOptions; let j = index">
+                        <div ibmRow class="multiple-div">
+                            <button ibmButton="tertiary" (click)="passValue(options)">{{options.label}}</button>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="currMessage.imageSrc !== ''">
+                        <div class="center">
+                            <img [src]="currMessage.imageSrc" [width]="currMessage.imageWidth*mobileScaler" [height]="currMessage.imageHeight*mobileScaler" (click)="openModal(currMessage.imageSrc)" style="cursor: pointer;">
+                            <h5 style="font-size:12px">Click on the display to enlarge</h5>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div ibmRow style="margin-top: 5%; justify-content: flex-end;" *ngIf="buttonAppearance">
+            <div ibmCol class="div-back-next" *ngIf="currRecurIndex !== 0">
+                <button id="buttonFinish" ibmButton="secondary" (click)="backTutorial()" ibmButton>&nbsp;&nbsp;&nbsp;Back</button>
+            </div>
+            <div ibmCol class="div-back-next" *ngIf="currRecurIndex < (this.currResponsesLength - 1)"  style="display: flex; justify-content: flex-end;">
+                <button id="buttonFinish" ibmButton (click)="nextTutorial()">&nbsp;&nbsp;&nbsp;Next</button>
+            </div>
+            <div ibmCol class="div-back-next" *ngIf="currRecurIndex >= (this.currResponsesLength - 1)"  style="display: flex; justify-content: flex-end;">
+                <button id="buttonFinish" (click)="finishTutorial()"ibmButton>&nbsp;&nbsp;&nbsp;Finish</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--PAST MESSAGE FOR TUTORIAL 
+    
+    <ng-container *ngFor="let item of pastMessage; let i = index">
+            <div *ngIf="item.type === 'neena'" ibmRow class="chat-row" style="display:flex; justify-content: flex-start;">
+                <div style="display:flex; justify-content: flex-start;">
+                    <div ibmCol class="bubble bubble-left">
+                        <h5 style="font-size:12px">
+                            Neena:
+                        </h5>
+                        <h5 style="font-weight: 400;">
+                            {{item.text}}
+                        </h5>
+                        <ng-container *ngIf="item.imageSrc !== ''">
+                            <div class="center">
+                                <img [src]="item.imageSrc" width="120" height="150" (click)="openModal(item.imageSrc)" style="cursor: pointer;">
+                                <h5 style="font-size:12px">Click on the image to enlarge</h5>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="item.type === 'user'" ibmRow class="chat-row" style="display:flex; justify-content: flex-end;">
+                <div style="display:flex; justify-content: flex-end;">
+                    <div ibmCol class="bubble bubble-right">
+                        <h5 style="font-size:12px">
+                            User:
+                        </h5>
+                        <h5 style="font-weight: 400;">
+                            {{item.text}}
+                        </h5>
+
+                    </div>
+                </div>
+            </div>
+        </ng-container> -->

@@ -1,0 +1,112 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+
+.bx--btn {
+    justify-content: center;
+    @media only screen and (min-width: 320px) {
+        min-width: 8rem;
+    }
+    @media only screen and (min-width: 375px) {
+        min-width: 9.5rem;
+    }
+    @media only screen and (min-width: 428px) {
+        min-width: 11rem;
+    }
+    @media only screen and (min-width: 768px) {
+       min-width: 14.5rem;
+    }
+    @media only screen and (min-width: 1024px) {
+        min-width: 19.2rem;
+    }
+    @media only screen and (min-width: 1440px) {
+        min-width: 16.6rem;
+    }
+    @media only screen and (min-width: 2560px) {
+        min-width: 29rem;
+    }
+}
+
+.btn-row{
+    display: flex;
+    @media only screen and (max-width: 428px) {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+}
+
+.text{
+    text-align: left;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.bx--col{
+    padding-left: 0;
+    padding-right: 0;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    @media only screen and (max-width: 768px) {
+        height: 180px;
+        width: 350px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 428px) {
+        height: 180px;
+        width: 350px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 200px;
+        height: 180px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 200px;
+        height: 180px;
+        width: 290px;
+    }
+}
+
+.texttt {
+    text-align: center;
+}
+
+.check-btn {
+    background-color:#42BE65;
+    min-width: 100%;
+    font-family: $font-bold;
+    text-align: center;
+    padding: 0;
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 428px) {
+        width: 100%;
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 100%;
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 100%;
+        font-size: 14px;
+    }
+}
+
+.bx--grid{
+    padding-bottom: 2rem;
+}
+
+.bx--col.button-div{
+    margin-top: 2rem;
+    padding-left: 0;
+    padding-right: 0;
+    display: flex;
+    justify-content: center;
+}

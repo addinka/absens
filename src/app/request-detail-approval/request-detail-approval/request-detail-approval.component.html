@@ -1,0 +1,107 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()" style="max-height: 100%;">
+    <div ibmGrid style="width: 100%">
+        <div>
+            <br><br>
+            <h2 style="float:right" (click)="closeModal()">X</h2>
+            <h2>Request Detail</h2>
+
+            <!-- <div>
+                <br><br>
+                <h5>Reason of Rejection</h5><br>
+                <input ibmText disabled
+                    placeholder="It's dangerous here"
+                style="width: 100%">
+                <br>
+            </div> -->
+            <br><br>
+            <div ibmRow>
+                <div ibmCol [columnNumbers]="4"></div>
+                <div ibmCol [columnNumbers]="8">
+                    <button ibmButton="primary" style="width: 200px;" class="no-padding" (click)="openLetter()">
+                            Get Letter of Duty
+                        <img [src]="documentIcon" style="float: right">
+                        <!-- <svg class="bx--btn__icon" width="16" height="16" viewBox="16 8 16 16" xmlns="http://www.w3.org/2000/svg">
+                            <path style="fill:#FFFFFF;" d="M21.205,5.007c-0.429-0.444-1.143-0.444-1.587,0c-0.429,0.429-0.429,1.143,0,1.571l8.047,8.047H1.111
+                                C0.492,14.626,0,15.118,0,15.737c0,0.619,0.492,1.127,1.111,1.127h26.554l-8.047,8.032c-0.429,0.444-0.429,1.159,0,1.587
+                                c0.444,0.444,1.159,0.444,1.587,0l9.952-9.952c0.444-0.429,0.444-1.143,0-1.571L21.205,5.007z"/>
+                        </svg> -->
+                    </button>
+                </div>
+            </div>
+            <div *ngIf=letterPressed>
+                <br><br>
+                <h5>Letter of Duty</h5>
+                <div>
+                    <br><br>
+                    <input ibmText style="width: 100%;padding-left: 10px;padding-right: 10px;">
+
+                    <br>
+                </div>
+
+                <div ibmRow>
+                    <div ibmCol [columnNumbers]="10">
+                        <br><br>
+                        <h5>Send To</h5><br>
+                        <input ibmText placeholder="22-04-2004 08:43 AM" style="width: 100%">
+                    </div>
+                    <div ibmCol [columnNumbers]="2">
+                        <br><br><br><br>
+                        <button ibmButton="primary" (click)="openLetter()">Send <img [src]="sendIcon" style="float: right" width="16" height="16"></button>
+                    </div>
+                    <br>
+                </div>
+            </div>
+
+            <div>
+                <br><br>
+                <h5>Status</h5><br>
+                <input ibmText disabled placeholder="Approved" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br><br>
+                <h5>Request Date</h5><br>
+                <input ibmText disabled placeholder="22-04-2004 08:43 AM" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <h5>Origin</h5><br>
+                <input ibmText disabled placeholder="Jakarta" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <h5>Destination</h5><br>
+                <input ibmText disabled placeholder="Blitar" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <h5>Period</h5><br>
+                <input ibmText disabled placeholder="Half Day AM (08:00 - 12:00)" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <h5>Purpose</h5><br>
+                <input ibmText disabled placeholder="Need to present PoC to client" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <h5>Transportation</h5><br>
+                <input ibmText disabled placeholder="Public Transport" style="width: 100%">
+                <br>
+            </div>
+
+            <br><br>
+        </div>
+    </div>
+</ibm-modal>

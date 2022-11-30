@@ -1,0 +1,232 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+
+.request-title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    @media only screen and (max-width: 375px) {
+        font-size: 28px;
+    }
+}
+
+.h5.request-label {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.request-label-red {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    color: red;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.request-label-yellow {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    color: orange;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.request-label-green {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    text-transform: capitalize;
+    color: green;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.wrapper {
+    background-color: #001D6C;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.wrapper-2 {
+    background-color: white;
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+}
+
+.bx--col {
+    padding-left: 0px;
+}
+
+.bx--btn{
+    padding: calc(0.875rem - 3px) 10% calc(0.875rem - 3px) 5%;
+    width: 65%;
+    justify-content: center;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+        width: 75%;
+    }
+}
+
+.bx--btn--primary {
+    @media only screen and (max-width: 4096px) {
+        margin-left: 0%;
+    }
+    @media only screen and (max-width: 1024px) {
+        margin-left: 6%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 5%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 4%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 10%;
+    }
+    @media only screen and (max-width: 360px) {}
+    @media only screen and (max-width: 320px) {
+        margin-left: 0%;
+    }
+    @media only screen and (max-width: 305px) {
+        margin-left: 20%;
+        width: 70px;
+        padding-left: 5px;
+        font-size: 12px;
+    }
+}
+
+.bx--btn--secondary {
+    @media only screen and (max-width: 4096px) {
+        margin-left: 35%;
+    }
+    @media only screen and (max-width: 1024px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 14%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 15%;
+    }
+    @media only screen and (max-width: 360px) {}
+    @media only screen and (max-width: 320px) {
+        margin-left: 20%;
+    }
+    @media only screen and (max-width: 305px) {
+        margin-left: 20%;
+        width: 70px;
+        padding-left: 5px;
+        font-size: 12px;
+    }
+}
+
+.bx--col.btn-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.bx--row.btn-row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 5%;
+}
+
+// .custom-row {
+//     display: flex;
+//     flex-wrap: nowrap;
+//     padding-right: 0px;
+//     padding-left: 0px;
+//     @media only screen and (max-width: 375px) {
+//         padding-left: 3%;
+//     }
+//     @media only screen and (max-width: 320px) {
+//         flex-wrap: wrap;
+//     }
+// }
+div #dialog-1.bx--tooltip.bx--tooltip--shown {
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.bx--list__item {
+    color: white;
+    padding-left: 1rem;
+}
+
+.bx--list--unordered>.bx--list__item::before {
+    left: 0rem;
+    color: white;
+}
+
+.bx--row.date-row{
+    display: flex;
+    padding-left: 15px;
+    @media only screen and (max-width: 428px) {
+       
+    }
+    @media only screen and (max-width: 375px) {
+       
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 8px;
+        padding-right: 8px;
+    }
+
+}
+
+.bx--col.date-div{
+    display: flex;
+    padding-left: 0;
+    padding-right: 0;
+    @media only screen and (max-width: 320px) {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+:host ::ng-deep .mat-form-field-flex{
+    background: #f4f4f4;
+    padding-right: 5%;
+    padding-top: 3%;
+    padding-left: 16px;
+}
+
+:host ::ng-deep .mat-form-field{
+    width: 93%;
+    @media only screen and (max-width: 428px) {
+        width: 95%;
+    }
+}
+
+.mat-datepicker-toggle {
+    color: black;
+}
+
+input.mat-input-element {
+    font-family: $font-regular;
+}

@@ -1,0 +1,911 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import "@carbon/charts/styles.css";
+@import '../../../variables';
+.some-activity {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.boundingbox {
+    fill: rgb(255, 255, 255);
+    fill-opacity: 0;
+    stroke-width: 3;
+    stroke: rgb(0, 0, 0);
+    stroke-opacity: 1;
+}
+
+.ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.activefont {
+    font-size: 10px;
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+}
+
+.inactivefont {
+    font-size: 10px;
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    font-weight: normal;
+    color: rgb(194, 194, 194);
+}
+
+.buttonaction {
+    width: 60px;
+    height: 20px;
+    border-radius: 10px;
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 7.3px;
+    line-height: 10px;
+    color: white;
+    @media only screen and (max-width: 428px) {
+        font-size: 7.3px;
+    }
+}
+
+.warnaoren {
+    background-color: #F98544;
+}
+
+.warnaijo {
+    background-color: #42BE65;
+}
+
+.warnaabu {
+    background-color: #bababa;
+}
+
+.no-risk {
+    color: black;
+}
+
+.risk-1 {
+    color: #24a148;
+}
+
+.risk-2 {
+    color: #ff832b;
+}
+
+.risk-3 {
+    color: #da1e28;
+}
+
+.z5 {
+    position: absolute;
+    z-index: 5;
+}
+
+.z6 {
+    position: absolute;
+    z-index: 6;
+}
+
+.z7 {
+    position: absolute;
+    z-index: 6;
+}
+
+.col-chart {
+    width: 100%;
+    @media only screen and (min-width: 320px) {
+        height: 215px;
+        margin-bottom: 4rem;
+        justify-content: center;
+        display: flex;
+    }
+    @media only screen and (min-width: 375px) {
+        height: 215px;
+        margin-bottom: 4rem;
+        justify-content: center;
+        display: flex;
+    }
+    @media only screen and (min-width: 428px) {
+        height: 215px;
+        margin-bottom: 4rem;
+        justify-content: center;
+        display: flex;
+    }
+    @media only screen and (min-width: 768px) {
+        height: 200px;
+    }
+}
+
+.border-button {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CDCDCD;
+    padding-top: 10px;
+    padding-bottom: 30px;
+    cursor: pointer;
+    margin-right: 0rem;
+    margin-left: 0rem;
+    @media only screen and (max-width: 375px) {}
+}
+
+.border-button:hover {
+    background-color: #e0e0e0;
+}
+
+.menu-icon {
+    height: 30px;
+    @media only screen and (max-width: 428px) {
+        height: 40px;
+        margin-left: 2rem;
+    }
+    @media only screen and (max-width: 375px) {
+        height: 40px;
+        margin-left: 2rem;
+    }
+    @media only screen and (max-width: 320px) {
+        height: 40px;
+        margin-left: 1.5rem;
+    }
+}
+
+h1.title {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 18px;
+    color: #454545;
+}
+
+h2.statistics {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    color: #454545;
+    margin-bottom: 20px;
+    @media only screen and (max-width: 428px) {
+        margin-bottom: 0;
+        margin-top: 20px;
+    }
+    @media only screen and (max-width: 375px) {}
+    @media only screen and (max-width: 320px) {}
+}
+
+.activity-text {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    margin-bottom: 20px;
+    @media only screen and (max-width: 428px) {}
+    @media only screen and (max-width: 375px) {}
+    @media only screen and (max-width: 320px) {}
+}
+
+h3.view {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    color: #454545;
+}
+
+span.subtitle {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: normal;
+    font-size: 10px;
+    line-height: 18px;
+    color: #454545;
+}
+
+span.subtitle-bold {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 18px;
+    color: #454545;
+    text-transform: capitalize;
+}
+
+.subtitle-risk {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 18px;
+    text-transform: capitalize;
+}
+
+span.white {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 10px;
+    line-height: 10px;
+    color: white;
+}
+
+.wrapper {
+    background-color: white;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    box-shadow: 6px 6px 16px -1px rgba(148, 142, 148, 1);
+}
+
+.wrapper-2 {
+    background-color: white;
+    border-radius: 2px;
+    /* Rounded borders */
+    /* Padding */
+}
+
+.scrollable {
+    overflow: auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+::ng-deep .text.pie-label {
+    font-size: 12px;
+    text-anchor: start;
+}
+
+.bx--btn {
+    min-height: 3rem;
+    padding: calc(0.875rem - 3px) 5% calc(0.875rem - 3px) 5%;
+    font-size: 12px;
+    width: 100%;
+    justify-content: center;
+    @media only screen and (max-width: 428px) {
+        font-size: 10px;
+        line-height: 10px;
+        min-height: 2rem;
+    }
+    @media only screen and (max-width: 414px) {
+        font-size: 10px;
+        line-height: 10px;
+        min-height: 2rem;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 10px;
+        line-height: 10px;
+        min-height: 2rem;
+    }
+    @media only screen and (max-width: 360px) {
+        font-size: 10px;
+        line-height: 10px;
+        min-height: 2rem;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 8px;
+        line-height: 8px;
+        min-height: 2rem;
+    }
+}
+
+.bx--btn--tertiary {
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #0f62fe;
+    color: #0f62fe;
+    background-color: white;
+    width: 200px;
+}
+
+.bx--btn.button-right {
+    float: right;
+}
+
+.bx--col.button-right {
+    @media only screen and (max-width: 428px) {
+        padding-right: 0;
+        padding-left: 8px;
+    }
+}
+
+.bx--btn.button-left {
+    float: left;
+}
+
+.bx--col.button-left {
+    @media only screen and (max-width: 428px) {
+        padding-left: 0;
+    }
+}
+
+.bx--btn.button-center {
+    padding-left: 5%;
+}
+
+.bx--col.button-center {
+    @media only screen and (max-width: 428px) {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+}
+
+.border-button-emp {
+    border-style: solid;
+    border-width: 1px;
+    border-color: #CDCDCD;
+    padding-top: 10px;
+    cursor: pointer;
+    margin-right: 0rem;
+    margin-left: 0rem;
+    width: 200px;
+    min-height: 6rem;
+    @media only screen and (max-width: 428px) {
+        width: 150px;
+        min-height: 5rem;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 140px;
+        min-height: 4rem;
+    }
+}
+
+.border-button-emp:hover {
+    background-color: #e0e0e0;
+}
+
+.button-title {
+    margin-left: 10px;
+}
+
+.button-icon {
+    float: right;
+    margin-right: 10px;
+    margin-top: 30px;
+    @media only screen and (max-width: 428px) {
+        margin-top: 20px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 7px;
+    }
+}
+
+.button-icon-wa {
+    float: right;
+    margin-right: 10px;
+    margin-top: 10px;
+    @media only screen and (max-width: 428px) {
+        margin-top: 5px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 5px;
+    }
+}
+
+.button-chatbot {
+    float: right;
+    margin-right: 10px;
+    margin-top: 30px;
+    @media only screen and (max-width: 428px) {
+        margin-top: 8px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: -8px;
+    }
+}
+
+.button-div {
+    padding-left: 17%;
+    @media only screen and (max-width: 428px) {
+        padding-left: 19%;
+    }
+    @media only screen and (max-width: 414px) {
+        padding-left: 19%;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 16%;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 12%;
+    }
+}
+
+.bx--col.menu-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+h3.btn-title {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 18px;
+    color: #454545;
+    @media only screen and (max-width: 428px) {
+        font-size: 11px;
+        line-height: 15px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 11px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 10px;
+    }
+}
+
+.no-activity {
+    border: 1.5px solid;
+    border-color: black;
+    width: 80%;
+    height: 50px;
+    align-items: center;
+    display: flex;
+    padding-left: 3%;
+    margin-bottom: 5%;
+    @media only screen and (max-width: 768px) {
+        width: 78%;
+    }
+    @media only screen and (max-width: 428px) {
+        width: 81%;
+        margin-right: 2%;
+    }
+    @media only screen and (max-width: 414px) {
+        width: 83%;
+        margin-right: 0%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 91%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 100%;
+    }
+}
+
+.no-act {
+    font-size: 11px;
+    font-family: $font-bold;
+}
+
+.row-header {
+    font-family: $font-bold;
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #454545;
+    @media only screen and (max-width: 428px) {
+        font-size: 13px;
+        padding: 0 8px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 12px;
+    }
+}
+
+.first-col {
+    @media only screen and (max-width: 428px) {
+        padding: 0 8px 0 8px;
+    }
+}
+
+.row-text {
+    font-size: 13px;
+    font-family: $font-regular;
+    // text-transform: capitalize;
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+        padding: 0 8px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 11px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 11px;
+    }
+}
+
+.body-text {
+    @media only screen and (max-width: 428px) {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+.body-text-2 {
+    @media only screen and (max-width: 428px) {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+}
+
+.bx--col.scrollable {
+    @media only screen and (max-width: 428px) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+}
+
+.button-center {
+    padding-left: 0;
+}
+
+:host ::ng-deep .bx--data-table .bx--table-header-label {
+    text-align: left;
+    @media only screen and (max-width: 428px) {
+        min-width: 5rem;
+    }
+    @media only screen and (max-width: 375px) {
+        min-width: 4rem;
+    }
+    @media only screen and (max-width: 320px) {
+        min-width: 5rem;
+    }
+}
+
+.bx--data-table th:first-of-type:not(.bx--table-expand) {
+    @media only screen and (max-width: 428px) {
+        padding-left: 8px;
+    }
+}
+
+.bx--data-table td:first-of-type {
+    @media only screen and (max-width: 428px) {
+        padding-left: 8px;
+        padding-bottom: 5px;
+        padding-top: 5px;
+    }
+}
+
+.bx--data-table td {
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+:host ::ng-deep .mat-tab-group.mat-primary .mat-ink-bar {
+    background-color: #0f62fe;
+}
+
+:host ::ng-deep .mat-tab-label .mat-tab-label-content {
+    font-family: $font-regular;
+    font-size: 14px;
+    font-weight: 1000;
+    @media only screen and (max-width: 375px) {
+        font-size: 13px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 12px;
+    }
+}
+
+:host ::ng-deep .mat-tab-label {
+    @media only screen and (max-width: 320px) {
+        padding: 0 12px
+    }
+}
+
+:host ::ng-deep .mat-tab-body-content {
+    height: 100%;
+    overflow: hidden;
+}
+
+.bx--row.item-row {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2%;
+    margin-top: 2%;
+    margin-right: 0px;
+    margin-left: -12px;
+}
+
+.bx--content-switcher-btn:not(:first-of-type)::before {
+    width: 0;
+}
+
+:host ::ng-deep .bx--tile {
+    background-color: ghostwhite;
+}
+
+.custom-button {
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.125rem;
+    letter-spacing: 0.16px;
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+    background-color: #f4f4f4;
+    display: inline-flex;
+    align-items: center;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+    text-decoration: none;
+    border: none;
+    color: #393939;
+    transition: all 70ms cubic-bezier(0.2, 0, 0.38, 0.9);
+    position: relative;
+    cursor: pointer;
+}
+
+.shift-box {
+    border-style: solid;
+    width: 100%;
+    display: flex;
+    margin-top: 5%;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.shift-content-box {
+    border-style: solid;
+    width: 100%;
+    display: flex;
+    margin-right: 0;
+    margin-left: 0;
+}
+
+.employee-text {
+    margin-left: 5%;
+    font-size: medium;
+    font-weight: 500;
+}
+
+.pending-shift {
+    background-color: transparent;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #0f62fe;
+    color: #0f62fe;
+    background-color: white;
+    width: 600px;
+}
+
+.vaccine-text {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 800;
+    font-size: 14px;
+    line-height: 24px;
+    /* identical to box height, or 171% */
+    color: #161616;
+}
+
+.vaccine-subtext {
+    font-family: 'IBM Plex Sans';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height, or 117% */
+    color: #6F6F6F;
+}
+
+.carousel-item {
+    max-width: 500px;
+    // max-height: 270px;
+    @media only screen and (max-width: 427px) {
+        max-width: 400px;
+        // max-height: 230px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 340px;
+        // max-height: 200px;
+    }
+    @media only screen and (max-width: 320px) {
+        max-width: 290px;
+        // max-height: 170px;
+    }
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.carousel-title {
+    font-family: $font-bold;
+    text-shadow: 2px 2px #000000;
+}
+
+.carousel-date {
+    font-family: $font-regular;
+    font-size: 10px
+}
+
+.dialog-button {
+    font-size: 12px;
+    height: 30px;
+    width: 100%;
+    @media only screen and (max-width: 375px) {
+        min-width: 50px;
+        font-size: 10px;
+        height: 25px;
+    }
+}
+
+.button-register {
+    background: #E69835;
+}
+
+.button-primary {
+    background: #2c2e83;
+}
+
+.img-upload {
+    max-width: 500px;
+    // max-height: 270px;
+    @media only screen and (max-width: 427px) {
+        max-width: 400px;
+        // max-height: 230px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 340px;
+        // max-height: 200px;
+    }
+    @media only screen and (max-width: 320px) {
+        max-width: 290px;
+        // max-height: 170px;
+    }
+}
+
+.img-upload img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+}
+
+.button-select {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-buttons {
+    font-family: $font-regular;
+    font-style: normal;
+    font-weight: bold;
+    line-height: 18px;
+    font-size: 12px;
+    text-align: center;
+    color: $color-corn-flower-blue;
+    border: 2px solid $color-corn-flower-blue;
+    border-radius: 5px;
+    /* margin-bottom: 15px; */
+    /* width: 100%; */
+    background: $color-white;
+    @media screen and (max-width: 425px) {
+        font-size: 11px;
+        border: 1px solid $color-corn-flower-blue;
+        width: 100%;
+    }
+}
+
+.angular-editor-toolbar .angular-editor-toolbar-set .angular-editor-button {
+    color: black;
+}
+
+.angular-editor .angular-editor-wrapper .angular-editor-textarea {
+    background-color: #f1f1f5 !important;
+    font-family: $font-regular;
+    border-radius: 5px;
+}
+
+.ae-font .ae-picker-options .ae-picker-item {
+    color: black;
+}
+
+.ae-font .ae-picker-label {
+    color: black;
+}
+
+.angular-editor-toolbar {
+    background-color: #f1f1f5 !important;
+    border-radius: 5px;
+}
+
+.form-control-search {
+    border: none;
+    background: $color-ghost-white;
+}
+
+.form-control-search:focus {
+    background: $color-ghost-white;
+    box-shadow: none;
+    border-color: transparant;
+    outline-style: none;
+}
+
+.form-control::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: rgb(185, 185, 185);
+    opacity: 1;
+    /* Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: rgb(185, 185, 185);
+}
+
+.form-control::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: $color-dim-gray;
+}
+
+.bx--row.time-row {
+    margin-left: 0;
+}
+
+.bx--col.time-col {
+    max-width: 100px;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 75px;
+    }
+}
+
+.bx--col.time-sprt {
+    max-width: 10px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 0;
+    font-weight: bold;
+    font-size: 16px;
+    @media only screen and (max-width: 428px) {
+        max-width: 20px;
+        padding-left: 8px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 10px;
+        padding-left: 3px;
+    }
+}
+
+::ng-deep .bx--list-box__menu {
+    max-height: 10rem;
+}
+
+:host ::ng-deep .time-drop div.bx--list-box__field {
+    @media only screen and (max-width: 428px) {
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+::ng-deep .time-drop div.bx--list-box__menu-item__option {
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+    }
+}
+
+.time-format {
+    width: 100px;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 75px;
+    }
+}

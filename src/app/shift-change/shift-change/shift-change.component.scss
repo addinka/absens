@@ -1,0 +1,46 @@
+.bx--btn {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    padding: calc(0.875rem - 3px) 0px calc(0.875rem - 3px) 12px;
+}
+
+.bx--row.btn-row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 5%;
+}
+
+.text {
+    text-align: left;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 13px;
+    }
+}
+
+.bx--col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    @media only screen and (max-width: 428px) {
+        height: 240px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 200px;
+        height: 230px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 200px;
+        height: 230px;
+        width: 290px;
+    }
+}

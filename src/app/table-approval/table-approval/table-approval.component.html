@@ -1,0 +1,546 @@
+<div class="wrapper">
+    <ibm-modal size="sm" (overlaySelected)="closeModal()">
+        <button class="close-button" ibmButton="danger" style="align-content: center;" (click)="closeModal();">
+            X
+        </button>
+        <section class="modal-body" style="scroll-behavior: auto;">
+            <div class="body-text" ibmRow *ngIf="tableType === 'Today' && type === 'Approved'">
+                <div ibmCol class="button-left">
+                    <!-- <button ibmButton="secondary" (click)="checkboxFunction('all')">Select All ( {{ dataNumber }} )</button> -->
+                </div>
+                <div ibmCol class="button-right" [columnNumbers]="6">
+                    <div>
+                        <button ibmButton="danger" class="button-right" (click)="revokeModal()">Revoke Selected</button>
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="tableType === 'Today' && type === 'Pending'" class="body-text" ibmRow>
+                <div ibmCol>
+                    <button ibmButton="danger" (click)="openModalMultipleAction('reject')">Reject Selected</button>
+                </div>
+                <div ibmCol [columnNumbers]="6">
+                    <button ibmButton="primary" class="button-right" (click)="openModalMultipleAction('approve')">Approve Selected</button>
+                </div>
+            </div>
+
+            <br><br>
+
+            <ibm-accordion>
+                <ibm-accordion-item title="{{title}} Approval">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="scrollable">
+                            <div *ngIf="tableType === 'Today' && type === 'Pending'" style="margin-bottom: 16px; width: 100%;">
+                                <ibm-dropdown placeholder="All" (selected)="onSelectedFloor($event)">
+                                    <ibm-dropdown-list [items]="floors"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                            <div *ngIf="tableType === 'Today' && type === 'Pending'">
+                                <button #todayButton (click)="contentSwitch('today')" class="content-switcher-button-1" style="margin-right: 16px;">Today</button>
+                                <button #tomorrowButton (click)="contentSwitch('tomorrow')" class="content-switcher-button-2">Tomorrow</button>
+                                <button *ngIf="selectedFloor !== '0' && selectedFloor !== '18'" class="content-switcher-text-2" style="float: right; width: 70px !important;">{{floorFilled}}/{{floorMax}}</button>
+                                <button *ngIf="selectedFloor !== '0' && selectedFloor !== '18'" class="content-switcher-text-1" style="float: right; width: 50px !important;">SEAT</button>
+                            </div>
+                            <table ibmTable [sortable]="false" [skeleton]="skeleton">
+                                <thead ibmTableHead>
+                                    <tr>
+                                        <th *ngIf="tableType === 'Today' && type === 'Pending' && dataExist">
+                                            <input type="checkbox" style="width:20px; height: 20px" (click)="checkboxFunction('all')" [(ngModel)]="isCheckAll">
+                                        </th>
+                                        <th *ngIf="tableType === 'Today' && type === 'Approved' && dataExist">
+                                            <input type="checkbox" style="width :20px; height: 20px" (click)="checkboxFunction('all')" [(ngModel)]="isCheckAll">
+                                        </th>
+                                        <th class="row-header" ibmTableHeadCell *ngFor="let column of model.header" [column]="column">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ibmTableBody>
+                                    <ng-container *ngIf=dataExist>
+                                        <tr *ngFor="let row of model.data; let i = index" ibmTableRow [row]="row">
+                                            <td *ngIf="dataExist && tableType === 'Today' && type === 'Pending'">
+                                                <input type="checkbox" [(ngModel)]="checkboxes[i]" style="width :20px; height: 20px" (click)="checkboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Pending' && (userType === 'manager' || userType === 'sc')">
+                                                <ng-container *ngFor="let item of row; let j = index">
+                                                    <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedPending[i]._id)" [ngClass]="{
+                                                        'no-risk': savedPending[i].riskRating === (undefined || null),
+                                                        'risk-1': savedPending[i].riskRating === 1,
+                                                        'risk-2': savedPending[i].riskRating === 2,
+                                                        'risk-3': savedPending[i].riskRating === 3}">
+                                                    </td>
+                                                    <td *ngIf="j === 1 && savedPending[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedPending[i]._id)" [ngClass]="{
+                                                    'no-risk': savedPending[i].originRisk.length === 0,
+                                                    'risk-1': savedPending[i].originRisk[0].kategori === 'low',
+                                                    'risk-2': savedPending[i].originRisk[0].kategori === 'medium',
+                                                    'risk-3': savedPending[i].originRisk[0].kategori === 'high'}">
+                                                        <td *ngIf="j === 1 && savedPending[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedPending[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 2" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedPending[i]._id)" [ngClass]="{
+                                                    'no-risk': savedPending[i].transportation === (undefined || null),
+                                                    'risk-1': savedPending[i].transportation === 'Private Car' || 
+                                                        savedPending[i].transportation === 'Private Motorcycle',
+                                                    'risk-2': savedPending[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedPending[i].transportation === 'Airplane' ||
+                                                        savedPending[i].transportation === 'Ship / Ferry' ||
+                                                        savedPending[i].transportation === 'Rental Car',
+                                                    'risk-3': savedPending[i].transportation === 'Public Transports' || savedPending[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="type === 'Pending' && userType === 'hsc'">
+                                                <ng-container *ngFor="let item of row; let j = index">
+                                                    <td class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedPending[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+                                            <td *ngIf="dataExist && tableType === 'Today' && type === 'Approved'">
+                                                <input type="checkbox" [(ngModel)]="checkboxes[i]" style="width :20px; height: 20px" (click)="checkboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Approved'">
+                                                <ng-container *ngIf="type === 'Approved' && tableType === 'Today' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                            'no-risk': savedResponse[i].riskRating === (undefined || null),
+                                                            'risk-1': savedResponse[i].riskRating === 1,
+                                                            'risk-2': savedResponse[i].riskRating === 2,
+                                                            'risk-3': savedResponse[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedResponse[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                        'risk-1': savedResponse[i].originRisk.length === 0,
+                                                        'risk-1': savedResponse[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedResponse[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedResponse[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedResponse[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedResponse[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 2" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                        'no-risk': savedResponse[i].transportation === (undefined || null),
+                                                        'risk-1': savedResponse[i].transportation === 'Private Car' || 
+                                                            savedResponse[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedResponse[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedResponse[i].transportation === 'Airplane' ||
+                                                        savedResponse[i].transportation === 'Ship / Ferry' ||
+                                                        savedResponse[i].transportation === 'Rental Car',
+                                                        'risk-3': savedResponse[i].transportation === 'Public Transports' || savedResponse[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Approved' && tableType === 'Archived' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 1" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                            'no-risk': savedResponse[i].riskRating === (undefined || null),
+                                                            'risk-1': savedResponse[i].riskRating === 1,
+                                                            'risk-2': savedResponse[i].riskRating === 2,
+                                                            'risk-3': savedResponse[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedResponse[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                        'no-risk': savedResponse[i].originRisk.length === 0,
+                                                        'risk-1': savedResponse[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedResponse[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedResponse[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedResponse[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedResponse[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 3" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedResponse[i]._id)" [ngClass]="{
+                                                        'no-risk': savedResponse[i].transportation === (undefined || null),
+                                                        'risk-1': savedResponse[i].transportation === 'Private Car' || 
+                                                            savedResponse[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedResponse[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedResponse[i].transportation === 'Airplane' ||
+                                                        savedResponse[i].transportation === 'Ship / Ferry' ||
+                                                        savedResponse[i].transportation === 'Rental Car',
+                                                        'risk-3': savedResponse[i].transportation === 'Public Transports' || savedResponse[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Approved' && userType === 'hsc'">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td class="row-text" ibmTableData [item]="item" (click)="openModal(requestType, savedResponse[i]._id)">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="type === 'Revoked'">
+                                                <ng-container *ngIf="type === 'Revoked' && tableType === 'Today' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                            'no-risk': savedRevoked[i].riskRating === (undefined || null),
+                                                            'risk-1': savedRevoked[i].riskRating === 1,
+                                                            'risk-2': savedRevoked[i].riskRating === 2,
+                                                            'risk-3': savedRevoked[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedRevoked[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRevoked[i].originRisk.length === 0,
+                                                        'risk-1': savedRevoked[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedRevoked[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedRevoked[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedRevoked[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedRevoked[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 2" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRevoked[i].transportation === (undefined || null),
+                                                        'risk-1': savedRevoked[i].transportation === 'Private Car' || 
+                                                            savedRevoked[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedRevoked[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedRevoked[i].transportation === 'Airplane' ||
+                                                        savedRevoked[i].transportation === 'Ship / Ferry' ||
+                                                        savedRevoked[i].transportation === 'Rental Car',
+                                                        'risk-3': savedRevoked[i].transportation === 'Public Transports' || savedRevoked[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Revoked' && tableType === 'Archived' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 1" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                            'no-risk': savedRevoked[i].riskRating === (undefined || null),
+                                                            'risk-1': savedRevoked[i].riskRating === 1,
+                                                            'risk-2': savedRevoked[i].riskRating === 2,
+                                                            'risk-3': savedRevoked[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedRevoked[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRevoked[i].originRisk.length === 0,
+                                                        'risk-1': savedRevoked[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedRevoked[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedRevoked[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedRevoked[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedRevoked[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 3" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRevoked[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRevoked[i].transportation === (undefined || null),
+                                                        'risk-1': savedRevoked[i].transportation === 'Private Car' || 
+                                                            savedRevoked[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedRevoked[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedRevoked[i].transportation === 'Airplane' ||
+                                                        savedRevoked[i].transportation === 'Ship / Ferry' ||
+                                                        savedRevoked[i].transportation === 'Rental Car',
+                                                        'risk-3': savedRevoked[i].transportation === 'Public Transports' || savedRevoked[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Revoked' && userType === 'hsc'">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td class="row-text" ibmTableData [item]="item" (click)="openModal(requestType, savedRevoked[i]._id)">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                            <ng-container *ngIf="type === 'Rejected'">
+                                                <ng-container *ngIf="type === 'Rejected' && tableType === 'Today' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                            'no-risk': savedRejected[i].riskRating === (undefined || null),
+                                                            'risk-1': savedRejected[i].riskRating === 1,
+                                                            'risk-2': savedRejected[i].riskRating === 2,
+                                                            'risk-3': savedRejected[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedRejected[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRejected[i].originRisk.length === 0,
+                                                        'risk-1': savedRejected[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedRejected[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedRejected[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 1 && savedRejected[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModalBasedOnUserType(savedRejected[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 2" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRejected[i].transportation === (undefined || null),
+                                                        'risk-1': savedRejected[i].transportation === 'Private Car' || 
+                                                        savedRejected[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedRejected[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedRejected[i].transportation === 'Airplane' ||
+                                                        savedRejected[i].transportation === 'Ship / Ferry' ||
+                                                        savedRejected[i].transportation === 'Rental Car',
+                                                        'risk-3': savedRejected[i].transportation === 'Public Transports' || savedRejected[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Rejected' && tableType === 'Archived' && (userType === 'manager' || userType === 'sc')">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td *ngIf="j === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 1" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                            'no-risk': savedRejected[i].riskRating === (undefined || null),
+                                                            'risk-1': savedRejected[i].riskRating === 1,
+                                                            'risk-2': savedRejected[i].riskRating === 2,
+                                                            'risk-3': savedRejected[i].riskRating === 3}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedRejected[i].originRisk.length !== 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRejected[i].originRisk.length === (undefined || null),
+                                                        'risk-1': savedRejected[i].originRisk[0].kategori === 'low',
+                                                        'risk-2': savedRejected[i].originRisk[0].kategori === 'medium',
+                                                        'risk-3': savedRejected[i].originRisk[0].kategori === 'high'}">
+                                                        </td>
+                                                        <td *ngIf="j === 2 && savedRejected[i].originRisk.length === 0" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)">
+                                                        </td>
+                                                        <td *ngIf="j === 3" class="row-text" ibmTableData [item]="item" (click)="openModal('travel', savedRejected[i]._id)" [ngClass]="{
+                                                        'no-risk': savedRejected[i].transportation === (undefined || null),
+                                                        'risk-1': savedRejected[i].transportation === 'Private Car' || 
+                                                        savedRejected[i].transportation === 'Private Motorcycle',
+                                                        'risk-2': savedRejected[i].transportation === 'Taxi/GrabCar/GoCar' ||
+                                                        savedRejected[i].transportation === 'Airplane' ||
+                                                        savedRejected[i].transportation === 'Ship / Ferry' ||
+                                                        savedRejected[i].transportation === 'Rental Car',
+                                                        'risk-3': savedRejected[i].transportation === 'Public Transports' || savedRejected[i].transportation === 'GrabBike/GoRide'}">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                                <ng-container *ngIf="type === 'Rejected' && userType === 'hsc'">
+                                                    <ng-container *ngFor="let item of row; let j = index">
+                                                        <td class="row-text" ibmTableData [item]="item" (click)="openModal(requestType, savedRejected[i]._id)">
+                                                        </td>
+                                                    </ng-container>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="paginationModel.totalDataLength" [pageIndex]="paginationModel.currentPage" [pageSize]="10" hidePageSize=true (page)="pageUpdate.next($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </ibm-accordion-item>
+
+                <!-- Overtime Approval -->
+                <ibm-accordion-item *ngIf="type !== 'Revoked' && userType === 'manager'" title="Overtime Approval">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="scrollable">
+                            <table ibmTable [sortable]="false" [skeleton]="skeleton">
+                                <thead ibmTableHead>
+                                    <tr>
+                                        <th *ngIf="tableType === 'Today' && type === 'Pending' && dataExistOvertime">
+                                            <input type="checkbox" style="width:20px; height: 20px" (click)="overtimeCheckboxFunction('all')" [(ngModel)]="isCheckAllOvertime">
+                                        </th>
+                                        <th class="row-header" ibmTableHeadCell *ngFor="let column of modelOvertime.header" [column]="column">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ibmTableBody>
+                                    <ng-container *ngIf=dataExistOvertime>
+                                        <tr *ngFor="let row of modelOvertime.data; let i = index" ibmTableRow [row]="row">
+                                            <td *ngIf="dataExistOvertime && tableType === 'Today' && type === 'Pending' && savedPendingOvertime[i].approverID === userID">
+                                                <input type="checkbox" [(ngModel)]="overtimeCheckboxes[i]" style="width :20px; height: 20px" (click)="overtimeCheckboxFunction(i)">
+                                            </td>
+                                            <td style="background-color: #a6c8ff" *ngIf="dataExistOvertime && tableType === 'Today' && type === 'Pending' && savedPendingOvertime[i].approverID !== userID">
+                                                <input type="checkbox" [(ngModel)]="overtimeCheckboxes[i]" style="width :20px; height: 20px" (click)="overtimeCheckboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Pending' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last Overtime Date: {{savedPendingOvertime[i].lastRequest[0].requestDate}}&#013;Last Overtime Planned Hours: {{savedPendingOvertime[i].lastRequest[0].actualStart}}&#013;Last Overtime Actual Hours: {{savedPendingOvertime[i].lastRequest[0].plannedStart}}"
+                                                        *ngIf="savedPendingOvertime[i].approverID === userID" class="row-text" ibmTableData [item]="item" (click)="openModal('overtime', savedPendingOvertime[i]._id)">
+                                                    </td>
+                                                    <td data-title="Last Overtime Date: {{savedPendingOvertime[i].lastRequest[0].requestDate}}&#013;Last Overtime Planned Hours: {{savedPendingOvertime[i].lastRequest[0].actualStart}}&#013;Last Overtime Actual Hours: {{savedPendingOvertime[i].lastRequest[0].plannedStart}}"
+                                                        *ngIf="savedPendingOvertime[i].approverID !== userID" style="background-color: #a6c8ff" class="row-text" ibmTableData [item]="item" (click)="openModal('overtime', savedPendingOvertime[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Approved' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last Overtime Date: {{savedApprovedOvertime[i].lastRequest[0].requestDate}}&#013;Last Overtime Planned Hours: {{savedApprovedOvertime[i].lastRequest[0].actualStart}}&#013;Last Overtime Actual Hours: {{savedApprovedOvertime[i].lastRequest[0].plannedStart}}"
+                                                        class="row-text" ibmTableData [item]="item" (click)="openModal('overtime', savedApprovedOvertime[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Rejected' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last Overtime Date: {{savedRejectedOvertime[i].lastRequest[0].requestDate}}&#013;Last Overtime Planned Hours: {{savedRejectedOvertime[i].lastRequest[0].actualStart}}&#013;Last Overtime Actual Hours: {{savedRejectedOvertime[i].lastRequest[0].plannedStart}}"
+                                                        class="row-text" ibmTableData [item]="item" (click)="openModal('overtime', savedRejectedOvertime[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="overtimePaginationModel.totalDataLength" [pageIndex]="overtimePaginationModel.currentPage" [pageSize]="10" hidePageSize=true (page)="pageUpdateOvertime.next($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </ibm-accordion-item>
+
+                <!-- Assignment Approval -->
+                <ibm-accordion-item *ngIf="type !== 'Revoked' && userType === 'manager'" title="Work Assignment Approval">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="scrollable">
+                            <table ibmTable [sortable]="false" [skeleton]="skeleton">
+                                <thead ibmTableHead>
+                                    <tr>
+                                        <th *ngIf="tableType === 'Today' && type === 'Pending' && dataExistAssignment">
+                                            <input type="checkbox" style="width:20px; height: 20px" (click)="assignmentCheckboxFunction('all')" [(ngModel)]="isCheckAllAssignment">
+                                        </th>
+                                        <th class="row-header" ibmTableHeadCell *ngFor="let column of modelAssignment.header" [column]="column">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ibmTableBody>
+                                    <ng-container *ngIf=dataExistAssignment>
+                                        <tr *ngFor="let row of modelAssignment.data; let i = index" ibmTableRow [row]="row">
+                                            <td *ngIf="dataExistAssignment && tableType === 'Today' && type === 'Pending' && savedPendingAssignment[i].approverID === userID">
+                                                <input type="checkbox" [(ngModel)]="assignmentCheckboxes[i]" style="width :20px; height: 20px" (click)="assignmentCheckboxFunction(i)">
+                                            </td>
+                                            <td style="background-color: #a6c8ff" *ngIf="dataExistAssignment && tableType === 'Today' && type === 'Pending' && savedPendingAssignment[i].approverID !== userID">
+                                                <input type="checkbox" [(ngModel)]="assignmentCheckboxes[i]" style="width :20px; height: 20px" (click)="assignmentCheckboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Pending' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last WA Date: {{savedPendingAssignment[i].lastRequest[0].requestDate}}&#013;Last WA Planned Hours: {{savedPendingAssignment[i].lastRequest[0].actualStart}}&#013;Last WA Actual Hours: {{savedPendingAssignment[i].lastRequest[0].plannedStart}}"
+                                                        *ngIf="savedPendingAssignment[i].approverID === userID" class="row-text" ibmTableData [item]="item" (click)="openModal('assignment', savedPendingAssignment[i]._id)">
+                                                    </td>
+                                                    <td data-title="Last WA Date: {{savedPendingAssignment[i].lastRequest[0].requestDate}}&#013;Last WA Planned Hours: {{savedPendingAssignment[i].lastRequest[0].actualStart}}&#013;Last WA Actual Hours: {{savedPendingAssignment[i].lastRequest[0].plannedStart}}"
+                                                        *ngIf="savedPendingAssignment[i].approverID !== userID" style="background-color: #a6c8ff" class="row-text" ibmTableData [item]="item" (click)="openModal('assignment', savedPendingAssignment[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Approved' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last WA Date: {{savedApprovedAssignment[i].lastRequest[0].requestDate}}&#013;Last WA Planned Hours: {{savedApprovedAssignment[i].lastRequest[0].actualStart}}&#013;Last WA Actual Hours: {{savedApprovedAssignment[i].lastRequest[0].plannedStart}}"
+                                                        class="row-text" ibmTableData [item]="item" (click)="openModal('assignment', savedApprovedAssignment[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Rejected' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td data-title="Last WA Date: {{savedRejected[i].lastRequest[0].requestDate}}&#013;Last WA Planned Hours: {{savedRejected[i].lastRequest[0].actualStart}}&#013;Last WA Actual Hours: {{savedRejected[i].lastRequest[0].plannedStart}}" class="row-text" ibmTableData
+                                                        [item]="item" (click)="openModal('assignment', savedRejectedAssignment[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="assignmentPaginationModel.totalDataLength" [pageIndex]="assignmentPaginationModel.currentPage" [pageSize]="10" hidePageSize=true (page)="pageUpdateAssignment.next($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </ibm-accordion-item>
+
+                <!-- Shift Approval -->
+                <ibm-accordion-item *ngIf="type !== 'Revoked' && userType === 'manager'" title="Shift Approval">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="scrollable">
+                            <table ibmTable [sortable]="false" [skeleton]="skeleton">
+                                <thead ibmTableHead>
+                                    <tr>
+                                        <th *ngIf="tableType === 'Today' && type === 'Pending' && dataExistShift">
+                                            <input type="checkbox" style="width:20px; height: 20px" (click)="shiftCheckboxFunction('all')" [(ngModel)]="isCheckAllShift">
+                                        </th>
+                                        <th class="row-header" ibmTableHeadCell *ngFor="let column of modelShift.header" [column]="column">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ibmTableBody>
+                                    <ng-container *ngIf=dataExistShift>
+                                        <tr *ngFor="let row of modelShift.data; let i = index" ibmTableRow [row]="row">
+                                            <td *ngIf="dataExistShift && tableType === 'Today' && type === 'Pending' && savedPendingShift[i].approverID === userID">
+                                                <input type="checkbox" [(ngModel)]="shiftCheckboxes[i]" style="width :20px; height: 20px" (click)="shiftCheckboxFunction(i)">
+                                            </td>
+                                            <td style="background-color: #a6c8ff" *ngIf="dataExistShift && tableType === 'Today' && type === 'Pending' && savedPendingShift[i].approverID !== userID">
+                                                <input type="checkbox" [(ngModel)]="shiftCheckboxes[i]" style="width :20px; height: 20px" (click)="shiftCheckboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Pending' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td *ngIf="savedPendingShift[i].approverID === userID" class="row-text" ibmTableData [item]="item" (click)="openModal('shift', savedPendingShift[i]._id)">
+                                                    </td>
+                                                    <td *ngIf="savedPendingShift[i].approverID !== userID" style="background-color: #a6c8ff" class="row-text" ibmTableData [item]="item" (click)="openModal('shift', savedPendingShift[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Approved' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td class="row-text" ibmTableData [item]="item" (click)="openModal('shift', savedApprovedShift[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Rejected' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td class="row-text" ibmTableData [item]="item" (click)="openModal('shift', savedRejectedShift[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="shiftPaginationModel.totalDataLength" [pageIndex]="shiftPaginationModel.currentPage" [pageSize]="10" hidePageSize=true (page)="pageUpdateShift.next($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </ibm-accordion-item>
+
+                <!-- Leave Approval -->
+                <ibm-accordion-item *ngIf="type !== 'Revoked' && userType === 'manager'" title="Leave Approval">
+                    <div class="body-text" ibmRow>
+                        <div ibmCol class="scrollable">
+                            <table ibmTable [sortable]="false" [skeleton]="skeleton">
+                                <thead ibmTableHead>
+                                    <tr>
+                                        <th *ngIf="tableType === 'Today' && type === 'Pending' && dataExistLeave">
+                                            <input type="checkbox" style="width:20px; height: 20px" (click)="leaveCheckboxFunction('all')" [(ngModel)]="isCheckAllLeave">
+                                        </th>
+                                        <th class="row-header" ibmTableHeadCell *ngFor="let column of modelLeave.header" [column]="column">
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody ibmTableBody>
+                                    <ng-container *ngIf=dataExistLeave>
+                                        <tr *ngFor="let row of modelLeave.data; let i = index" ibmTableRow [row]="row">
+                                            <td *ngIf="dataExistLeave && tableType === 'Today' && type === 'Pending' && savedPendingLeave[i].approverID === userID">
+                                                <input type="checkbox" [(ngModel)]="leaveCheckboxes[i]" style="width :20px; height: 20px" (click)="leaveCheckboxFunction(i)">
+                                            </td>
+                                            <td style="background-color: #a6c8ff" *ngIf="dataExistLeave && tableType === 'Today' && type === 'Pending' && savedPendingLeave[i].approverID !== userID">
+                                                <input type="checkbox" [(ngModel)]="leaveCheckboxes[i]" style="width :20px; height: 20px" (click)="leaveCheckboxFunction(i)">
+                                            </td>
+                                            <ng-container *ngIf="type === 'Pending' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td *ngIf="savedPendingLeave[i].approverID === userID" class="row-text" ibmTableData [item]="item" (click)="openModal('leave', savedPendingLeave[i]._id)">
+                                                    </td>
+                                                    <td *ngIf="savedPendingLeave[i].approverID !== userID" style="background-color: #a6c8ff" class="row-text" ibmTableData [item]="item" (click)="openModal('leave', savedPendingLeave[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Approved' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td class="row-text" ibmTableData [item]="item" (click)="openModal('leave', savedApprovedLeave[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+
+                                            <ng-container *ngIf="type === 'Rejected' && userType === 'manager'">
+                                                <ng-container *ngFor="let item of row">
+                                                    <td class="row-text" ibmTableData [item]="item" (click)="openModal('leave', savedRejectedLeave[i]._id)">
+                                                    </td>
+                                                </ng-container>
+                                            </ng-container>
+                                        </tr>
+                                    </ng-container>
+                                </tbody>
+                            </table>
+                            <mat-paginator [length]="leavePaginationModel.totalDataLength" [pageIndex]="leavePaginationModel.currentPage" [pageSize]="10" hidePageSize=true (page)="pageUpdateLeave.next($event)">
+                            </mat-paginator>
+                        </div>
+                    </div>
+                </ibm-accordion-item>
+            </ibm-accordion>
+
+            <br><br>
+            <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+                <h5>
+                    Entries with
+                    <span style="color: #a6c8ff;">Light Blue</span> color indicated all the requests that are still waiting for First Approver Approval.
+                </h5>
+            </div>
+
+        </section>
+    </ibm-modal>
+</div>

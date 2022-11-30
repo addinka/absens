@@ -1,0 +1,79 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Add Leave</p>
+        <div>
+            <br>
+            <h5 class="request-label">Leave Type</h5>
+            <br>
+            <ibm-dropdown [(ngModel)]="leaveTypeValue" placeholder="Select leave type" (selected)="leaveTypeChange($event)">
+                <ibm-dropdown-list [items]="leaveType"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Duration (Days)</h5>
+            <br>
+            <ibm-label [invalid]="durationInvalid" invalidText="Please fill in your leave duration (>0 Days)">
+                <input ibmText type="number" placeholder="Leave Duration" [(ngModel)]="durationValue" (keyup)="durationChange($event)">
+            </ibm-label>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Date</h5>
+            <br>
+            <div class="date-row" [formGroup]="submitForm" ibmRow>
+                <div ibmCol class="date-div">
+                    <!-- <ibm-date-picker [(ngModel)]="startDate" label="Start Date" placeholder="mm/dd/yyyy" dateFormat="m/d/Y">
+                    </ibm-date-picker> -->
+                    <mat-form-field>
+                        <mat-label>Start date</mat-label>
+                        <input matInput formControlName="startDate" [matDatepicker]="startDate" (dateChange)="selectDate('start', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="endDate">
+            <br><br>
+            <h5 class="request-label">End Date</h5>
+            <br>
+            <div class="box">
+                <span class="excel-file">
+                    {{endDate}}
+                </span>
+
+                <br><br>
+
+                <div class="request-name">
+                    Note: {{reason}}
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Purpose</h5>
+            <br>
+            <ibm-label [invalid]="purposeInvalid" invalidText="Please fill in your visit purpose">
+                <textarea ibmTextArea placeholder="Please Describe Your Purpose" [(ngModel)]="purposeValue" (keyup)="purposeChange($event)" theme="dark" rows="3" cols="30" aria-label="textarea">
+            </textarea>
+            </ibm-label>
+        </div>
+
+        <br>
+
+        <div ibmRow class="btn-row">
+            <div ibmCol class="btn-col">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol class="btn-col">
+                <button ibmButton="primary" id="buttonSubmit" (click)="submitLeaveRequest() ">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

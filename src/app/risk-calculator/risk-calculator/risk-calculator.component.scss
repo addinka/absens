@@ -1,0 +1,397 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+.starter-home {
+    .title {
+        @include type-style("productive-heading-05");
+    }
+    .subtitle {
+        margin-top: carbon--mini-units(2);
+        @include type-style("productive-heading-02");
+        color: grey;
+    }
+    .checkboxText {
+        margin-left: carbon--mini--units(2);
+    }
+    .body-text {
+        background-color: white;
+        margin-top: carbon--mini-units(2);
+        margin-bottom: carbon--mini-units(4);
+    }
+    .list {
+        max-width: carbon--mini-units(63);
+        padding-left: carbon--mini-units(6);
+        column-count: 2;
+        @media only screen and (max-width: 1055px) {
+            margin-top: carbon--mini-units(2);
+        }
+    }
+    .starter-tab-description {
+        margin-bottom: carbon--mini-units(2);
+    }
+}
+
+.request-title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    @media only screen and (max-width: 375px) {
+        font-size: 28px;
+    }
+}
+
+.h5.request-label {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.375rem;
+    letter-spacing: 0;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+}
+
+.wrapper {
+    background-color: #001D6C;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.wrapper-2 {
+    background-color: white;
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+}
+
+.bx--col {
+    padding-left: 0px;
+}
+
+.custom-row {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 17%;
+    padding-right: 3%;
+    @media only screen and (max-width: 320px) {
+        flex-wrap: wrap;
+    }
+}
+
+.custom-row-1 {
+    display: flex;
+    flex-wrap: nowrap;
+    padding-left: 5%;
+    @media only screen and (max-width: 320px) {
+        flex-wrap: wrap;
+    }
+}
+
+.flip-vertical {
+    transform: scaleX(-1);
+    transform: scaleY(-1);
+}
+
+div #dialog-1.bx--tooltip.bx--tooltip--shown {
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.bx--list__item {
+    color: white;
+    padding-left: 1rem;
+}
+
+.bx--list--unordered>.bx--list__item::before {
+    left: 0rem;
+    color: white;
+}
+
+.bx--btn {
+    min-height: 2rem;
+    font-size: 16px;
+    padding-left: 5px;
+    padding-right: 5px;
+    justify-content: center;
+    text-align: center;
+    min-width: 9rem;
+    @media only screen and (max-width: 428px) {
+        font-size: 10px;
+        min-width: 7rem;
+    }
+    @media only screen and (max-width: 414px) {
+        font-size: 10px;
+        min-width: 6.7rem;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+        min-width: 6rem;
+        line-height: 13px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 10px;
+        min-width: 4.6rem;
+        line-height: 12px;
+    }
+}
+
+h1.title {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 24px;
+    line-height: 24px;
+    color: black;
+}
+
+span.subtitle {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    color: black;
+}
+
+span.subtitle-bold {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    color: black;
+    text-transform: capitalize;
+}
+
+.subtitle-risk {
+    font-family: "IBM Plex Sans", "Helvetica Neue", Arial, sans-serif;
+    //@include type-style("productive-heading-05");
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 1rem;
+    line-height: 1.375rem;
+    text-transform: capitalize;
+}
+
+.no-risk {
+    color: black;
+}
+
+.risk-1 {
+    color: #24a148;
+}
+
+.risk-2 {
+    color: #ff832b;
+}
+
+.risk-3 {
+    color: #da1e28;
+}
+
+.warning-col {
+    align-items: center;
+    align-content: center;
+    display: flex;
+}
+
+.warning-text {
+    color: #da1e28;
+    font-size: 14px;
+    font-weight: bold;
+    padding-left: 11px;
+    line-height: 15px;
+    @media only screen and (max-width: 428px) {
+        font-size: 13px;
+        line-height: 15px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 11.5px;
+        line-height: 13px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 10.5px;
+        line-height: 10px;
+    }
+}
+
+.img-warning {
+    height: 30px;
+    padding-bottom: 5px;
+}
+
+.bx--row.temp-row {
+    padding-left: 7%;
+}
+
+.bx--row.spc-row {
+    padding-left: 3%;
+    margin-bottom: 2rem;
+    margin-top: 0.5rem;
+    @media only screen and (max-width: 428px) {
+        padding-left: 5%;
+    }
+    @media only screen and (max-width: 414px) {
+        padding-left: 5%;
+    }
+    @media only screen and (max-width: 375px) {
+        padding-left: 5%;
+    }
+    @media only screen and (max-width: 320px) {
+        padding-left: 5%;
+    }
+}
+
+fieldset.bx--fieldset-special {
+    margin-bottom: 0;
+}
+
+.bx--col.input-temp-col {
+    max-width: 23%;
+    @media only screen and (max-width: 428px) {
+        max-width: 27%;
+    }
+    @media only screen and (max-width: 414px) {
+        max-width: 28%;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 30%;
+    }
+    @media only screen and (max-width: 320px) {
+        max-width: 36%;
+    }
+}
+
+.bx--col.radio-input {
+    max-width: 27%;
+    @media only screen and (max-width: 428px) {
+        max-width: 33%;
+    }
+    @media only screen and (max-width: 414px) {
+        max-width: 34%;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 36%;
+    }
+    @media only screen and (max-width: 320px) {
+        max-width: 42%;
+    }
+}
+
+.checkboxText {
+    margin-left: 3px;
+    @media only screen and (max-width: 375px) {
+        font-size: 11px;
+    }
+}
+
+:host ::ng-deep .bx--slider__track {
+    height: 6px;
+    background: #0e61fe;
+    @media only screen and (max-width: 375px) {
+        width: 90%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 65%;
+    }
+}
+
+:host ::ng-deep .bx--slider__range-label {
+    font-weight: 600;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+:host ::ng-deep .padding-in {
+    align-items: unset;
+    padding-left: 4%;
+    @media only screen and (max-width: 375px) {
+        align-items: flex-start;
+    }
+}
+
+:host ::ng-deep .bx--slider-text-input,
+.bx-slider-text-input {
+    @media only screen and (max-width: 375px) {
+        width: 3rem;
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+.max-lab {
+    @media only screen and (max-width: 428px) {
+        margin-right: -9px;
+        margin-left: -10px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-right: -9px;
+        margin-left: -23px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-right: -50px;
+        margin-left: -80px;
+    }
+}
+
+.max-lab-1 {
+    @media only screen and (max-width: 428px) {
+        margin-right: -5px;
+        margin-left: -10px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-right: -5px;
+        margin-left: -23px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-right: -50px;
+        margin-left: -80px;
+    }
+}
+
+.max-lab-2 {
+    @media only screen and (max-width: 375px) {
+        margin-right: 5px;
+        margin-left: -20px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-right: -50px;
+        margin-left: -75px;
+    }
+}
+
+.input-responsive {
+    @media only screen and (max-width: 320px) {
+        margin-left: -60px;
+    }
+}
+
+.bx--fieldset {
+    padding-left: 4%;
+}
+
+mat-slider {
+    width: 250px;
+    @media only screen and (max-width: 320px) {
+        width: 195px;
+    }
+}
+
+:host ::ng-deep .mat-accent .mat-slider-thumb {
+    background-color: #001D6C;
+}
+
+:host ::ng-deep .mat-accent .mat-slider-thumb-label {
+    background-color: #001D6C;
+}
+
+:host ::ng-deep .mat-accent .mat-slider-track-fill {
+    background-color: #001D6C;
+}

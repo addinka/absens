@@ -1,0 +1,35 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()" style="max-height: 100%;">
+    <div ibmGrid  style="width: 100%">
+        <div>
+            <br><br>
+            <h2 style="float:right" (click)="closeModal()">X</h2>
+            <h2>Letter of Duty</h2>
+
+            <br><br>
+
+            <div>
+                <br><br>
+                <h5>Status</h5><br>
+                <input ibmText disabled
+                    placeholder="Approved"
+                style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br><br>
+                <h5>Request Date</h5><br>
+                <input ibmText disabled
+                    placeholder="22-04-2004 08:43 AM"
+                style="width: 100%">
+                <br>
+            </div>
+    
+            <br><br>
+        </div>
+    </div>
+
+    <ng-template #letter let-tooltip="tooltip">
+        HOLAHOHAOHAOHOAHLHALHLAHALHALHALHALHALH
+    </ng-template>
+</ibm-modal>

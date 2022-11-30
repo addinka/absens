@@ -1,0 +1,309 @@
+<div class="wrapper" ibmGrid *ngIf="isShow">
+    <div class="wrapper-2">
+        <div class="body-text" ibmRow>
+            <div ibmCol [columnNumbers]="{'lg': 12, 'md': 12, 'sm': 12}" style="margin-bottom: 1rem;">
+                <h1 class="title" style="font-weight: normal;">Hi, {{userName}}</h1>
+                <span class="subtitle">At </span><span class="subtitle-bold">{{currTime}}</span><span class="subtitle"> In </span><span class="subtitle-bold">{{zone}}</span><span class="subtitle">, the Temperature is </span><span class="subtitle-bold">{{temperature}}°C</span>
+                <span class="subtitle">, the Humidity is </span>
+                <span class="subtitle-bold">{{humidity}}%</span><span class="subtitle"> and Epidemic Risk is </span>
+                <span class="subtitle-risk" [ngClass]="{'risk-3': risk === 'high', 'risk-2': risk === 'medium', 'risk-1' : risk === 'low'}">{{risk}}</span>
+            </div>
+        </div>
+        <h5>This is your daily self assessment on COVID-19 Risk to complete</h5>
+        <br>
+
+        <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+            <h5 style="color: #da1e28; text-align: center;">For our health and safety at the workplace, you must be HONEST in answering questions below.</h5>
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">1. Within the last 14 days, have you ever left the house or visited public places (markets, health facilities, crowds of people, etc.)?</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionOne">
+                    <ibm-radio value="Y" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="N" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">2. Within the last 14 days, have you ever used public transportation?</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionTwo">
+                    <ibm-radio value="Y" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="N" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">3. Within the last 14 days, do you participate in activities that involve many people?</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionThree">
+                    <ibm-radio value="Y" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="N" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+
+        <div>
+            <h5 style="font-weight: normal;">4. Your Temperature at the time you fill in this self declaration (°C)</h5>
+            <br>
+            <div ibmRow class="temp-row">
+                <div ibmCol class="input-temp-col">
+                    <input style="width:90px; height:45px; padding:10px; border-color:ghostwhite" [(ngModel)]="temperatureValue" type="number" id="quantity" name="quantity" min="0" max="100" step="0.1">
+                </div>
+                <div ibmCol *ngIf="temperatureValue > 37.3" class="warning-col">
+                    <img src="../../../assets/images/error.svg" class="img-warning">
+                    <p class="warning-text">Temperature higher than 37.3 means you have a fever, you will not be able to submit any Travel Request.</p>
+                </div>
+            </div>
+            <!-- <div *ngIf="temperatureValue > 37.3" class="warning-temp">
+                <img src="../../../assets/images/error.svg" height="20">You might be having a fever.
+            </div> -->
+
+        </div>
+
+        <div>
+            <br>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">5. Within the last 14 days, have you ever traveled outside the city / international, worked, or have stayed in a community (residential community, work community / IBM location, or religious clusters) with an ongoing COVID-19 transmission? (affected area / red zone)</h5><br><br>
+            </span>
+            <div ibmRow class="spc-row">
+                <div ibmCol class="radio-input">
+                    <fieldset class="bx--fieldset-special">
+                        <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionFive">
+                            <ibm-radio value="Y" checked="false">
+                                Yes
+                            </ibm-radio>
+                            <ibm-radio value="N" checked="true">
+                                No
+                            </ibm-radio>
+                        </ibm-radio-group>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">6. Within the last 14 days, have you been in close contact with any person determined as Person Under Monitoring (ODP), Patients Under Surveillance (PDP), or confirmed to have COVID-19 (shake hands, talking, in a same room or same house) or who is under quarantine because of a suspected case of COVID-19?</h5><br><br>
+            </span>
+            <div ibmRow class="spc-row">
+                <div ibmCol class="radio-input">
+                    <fieldset class="bx--fieldset-special">
+                        <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionSix">
+                            <ibm-radio value="Y" checked="false">
+                                Yes
+                            </ibm-radio>
+                            <ibm-radio value="N" checked="true">
+                                No
+                            </ibm-radio>
+                        </ibm-radio-group>
+                    </fieldset>
+                </div>
+                <div ibmCol *ngIf="questionSix === 'Y'" class="warning-col">
+                    <img src="../../../assets/images/error.svg" class="img-warning">
+                    <p class="warning-text">By choosing ‘Yes’, you will not be able to submit any Travel Request.</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">7. Have you ever experienced a cough or cold / fever / tiredness / difficulty breathing / sore throat / diarrhea / aches and pains / shortness of breath / new loss of taste or smell in the last 14 days?</h5><br><br>
+            </span>
+            <div ibmRow class="spc-row">
+                <div ibmCol class="radio-input">
+                    <fieldset class="bx--fieldset-special">
+                        <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionSeven">
+                            <ibm-radio value="Y" checked="false">
+                                Yes
+                            </ibm-radio>
+                            <ibm-radio value="N" checked="true">
+                                No
+                            </ibm-radio>
+                        </ibm-radio-group>
+                    </fieldset>
+                </div>
+                <div ibmCol *ngIf="questionSeven === 'Y'" class="warning-col">
+                    <img src="../../../assets/images/error.svg" class="img-warning">
+                    <p class="warning-text">By choosing ‘Yes’, you will not be able to submit any Travel Request.</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">8. Within the last 14 days, have you been asked to go in self-quarantine (e.g. stay home notice, isolation order) or being issued medical certificates for respiratory symptoms by your doctor or local health authority?</h5><br><br>
+            </span>
+            <div ibmRow class="spc-row">
+                <div ibmCol class="radio-input">
+                    <fieldset class="bx--fieldset-special">
+                        <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionEight">
+                            <ibm-radio value="Y" checked="false">
+                                Yes
+                            </ibm-radio>
+                            <ibm-radio value="N" checked="true">
+                                No
+                            </ibm-radio>
+                        </ibm-radio-group>
+                    </fieldset>
+                </div>
+                <div ibmCol *ngIf="questionEight === 'Y'" class="warning-col">
+                    <img src="../../../assets/images/error.svg" class="img-warning">
+                    <p class="warning-text">By choosing ‘Yes’, you will not be able to submit any Travel Request.</p>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                <h5 style="font-weight: normal;">9. Do you have any comorbidities and/or conditions which may cause fatality if get exposed to COVID-19 (e.g. high blood pressure, heart disease, diabetics, lung disease, cancer, pregnant, more than 60 (sixty) years old)?</h5><br><br>
+            </span>
+            <div ibmRow class="spc-row">
+                <div ibmCol class="radio-input">
+                    <fieldset class="bx--fieldset-special">
+                        <ibm-radio-group aria-label="radiogroup" [(ngModel)]="questionNine">
+                            <ibm-radio value="Y" checked="false">
+                                Yes
+                            </ibm-radio>
+                            <ibm-radio value="N" checked="true">
+                                No
+                            </ibm-radio>
+                        </ibm-radio-group>
+                    </fieldset>
+                </div>
+                <div ibmCol *ngIf="questionNine === 'Y'" class="warning-col">
+                    <img src="../../../assets/images/error.svg" class="img-warning">
+                    <p class="warning-text">By choosing ‘Yes’, you will not be able to submit any Travel Request.</p>
+                </div>
+            </div>
+        </div>
+
+        <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+            <h5 style="text-align: center;">I agree to the terms and consent to the collection and use of my information above for the purpose of COVID-19 prevention, control, and contact tracing in the workplace as well as to comply with the requirements under the prevailing laws and
+                regulations.
+            </h5>
+        </div>
+
+        <br>
+        <br>
+
+        <!-- <div>
+            <span class="bx--tooltip__label">
+                <h5>Do you have any exposure to COVID-19?</h5><br><br>
+                <div [ibmTooltip]="exposure" trigger="click" placement="left">
+                    <div role="button">
+                        <ibm-icon-information-filled size="16"></ibm-icon-information-filled>
+                    </div>
+                </div>
+            </span>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup" [(ngModel)]="exposureValue">
+                    <ibm-radio value="Y" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="N" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div>
+        
+        <div>
+            <div class="bx--tooltip__label">
+                <h5>Do you have any of the following symptoms?</h5><br><br>
+                <span [ibmTooltip]="symptoms" trigger="click" placement="left">
+                    <div role="button">
+                        <ibm-icon-information-filled size="16"></ibm-icon-information-filled>
+                    </div>
+                </span>
+            </div>
+            <fieldset class="bx--fieldset">
+                <ibm-radio-group aria-label="radiogroup-1" [(ngModel)]="symptomsValue">
+                    <ibm-radio value="Y" checked="false">
+                        Yes
+                    </ibm-radio>
+                    <ibm-radio value="N" checked="true">
+                        No
+                    </ibm-radio>
+                </ibm-radio-group>
+            </fieldset>
+        </div> -->
+
+        <div ibmRow class="custom-row">
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="primary" (click)="readyToWork()">I'm ready to work</button>
+            </div>
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="secondary" (click)="notFeelingWell()">I'm taking sick leave today</button>
+            </div>
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="danger" (click)="takingLeave()">I'm taking day off / on leave</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #exposure let-tooltip="tooltip" style="background: black;">
+    <h5>DO YOU HAVE EXPOSURE?</h5>
+    <br><br>
+    <ul ibmList>
+        <li ibmListItem>Traveled a location experiencing Cluster of Cases OR Community Transmission OR Pending Transmission classification of COVID-19 within the last 14 days.</li>
+        <li ibmListItem>Working or staying in a community* with Cluster of Cases OR Community Transmission of COVID-19.</li>
+        <li ibmListItem>In close contact with a person confirmed to have COVID-19 or with a person under quarantine because of a suspected case of COVID-19 infection.</li>
+    </ul>
+    <br><br> *A community can be a residential community, work community (IBM location), or religious clusters (congregation)
+    <div class="bx--tooltip__footer ">
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports " target="_blank " class="bx--link ">Learn More</a>
+        <button class="bx--btn bx--btn--primary " (click)="tooltip.doClose() ">Close&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+</ng-template>
+
+<ng-template #symptoms let-tooltip="tooltip">
+    <h5>DO YOU HAVE ANY OF THE FOLLOWING SYMPTOMS?</h5>
+    <!-- <ul ibmList>
+        <li ibmListItem>Fever (≥ 37.5C/99.5F)</li>
+        <li ibmListItem>Sore Throat</li>
+        <li ibmListItem>Cough Or Cold</li>
+        <li ibmListItem>Diarrhea</li>
+        <li ibmListItem>Tiredness</li>
+        <li ibmListItem>Aches & Pains</li>
+        <li ibmListItem>Difficulty Breathing</li>
+        <li ibmListItem>Shortness of Breath</li>
+        <li ibmListItem>New Loss of Taste or Smell</li>
+    </ul> -->
+    <br><br>• Cough Or Cold
+    <br><br>• Sore Throat
+    <br><br>• Diarrhea
+    <br><br>• Fever (≥ 37.5C/99.5F)
+    <br><br>• Tiredness
+    <br><br>• Aches & Pains
+    <br><br>• Difficulty Breathing
+    <br><br>• Shortness of Breath
+    <br><br>• New Loss of Taste or Smell
+    <div class="bx--tooltip__footer ">
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/q-a-coronaviruses#:~:text=symptoms " target="_blank " class="bx--link ">Learn More</a>
+        <button class="bx--btn bx--btn--primary " (click)="tooltip.doClose() ">Close&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+</ng-template>

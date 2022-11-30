@@ -1,0 +1,159 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <div style="justify-content: center;" class="body-text" ibmRow>
+            <p *ngIf="type === 'overtime'" class="request-title">Overtime History</p>
+            <p *ngIf="type === 'work-assignment'" class="request-title">Work Assignment History</p>
+        </div>
+
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="{{label1}}">
+                <br><br>
+                <div style="justify-content: center;" class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-dropdown [placeholder]="monthName" (selected)="onSelectedMonth($event)">
+                            <ibm-dropdown-list [items]="months"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                    <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-dropdown [placeholder]="year" (selected)="onSelectedYear($event)">
+                            <ibm-dropdown-list [items]="years"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+
+                <br><br>
+                <!-- Start of Body -->
+                <div class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 16, 'md': 8, 'sm': 4}" class="scrollable">
+                        <table ibmTable [sortable]="false">
+                            <thead ibmTableHead>
+                                <tr>
+                                    <th class="row-header" ibmTableHeadCell *ngFor="let column of model.header" [column]="column">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody ibmTableBody *ngIf="dataExist">
+                                <tr *ngFor="let row of model.data; let i = index" ibmTableRow [row]="row">
+                                    <ng-container *ngFor="let item of row">
+                                        <td class="row-text" ibmTableData [item]="item" (click)="openModal('Overtime', responseData[i])">
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!dataExist">
+                                <tr>
+                                    <td class="no-data" colspan="3">
+                                        <div>No history yet.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Start of Pagination -->
+                        <mat-paginator [length]="paginationModel.totalDataLength" [pageSize]="10" hidePageSize=true [pageIndex]="paginationModel.currentPage" (page)="changePage($event)">
+                        </mat-paginator>
+                        <!-- End of Pagination -->
+                    </div>
+                </div>
+
+                <div class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 6, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-tile>
+                            <h5 class="ot-text">
+                                TOTAL HOURS
+                            </h5>
+                            <h1 class="ot-text-2">
+                                {{totalHours}}
+                            </h1>
+                        </ibm-tile>
+                    </div>
+                    <div ibmCol [columnNumbers]="{'lg': 6, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-tile>
+                            <h5 *ngIf="type === 'overtime'" class="ot-text">
+                                OVERTIME POINTS
+                            </h5>
+                            <h5 *ngIf="type === 'work-assignment'" class="ot-text">
+                                WA POINTS
+                            </h5>
+                            <h1 class="ot-text-2">
+                                {{totalPoints}}
+                            </h1>
+                        </ibm-tile>
+                    </div>
+                </div>
+                <!-- End of Body -->
+            </mat-tab>
+            <mat-tab label="{{label2}}"><br><br>
+                <div style="justify-content: center;" class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-dropdown [placeholder]="monthName" (selected)="onSelectedMonthConverted($event)">
+                            <ibm-dropdown-list [items]="months"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                    <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-dropdown [placeholder]="year" (selected)="onSelectedYearConverted($event)">
+                            <ibm-dropdown-list [items]="years"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+
+                <br><br>
+                <!-- Start of Body -->
+                <div class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 16, 'md': 8, 'sm': 4}" class="scrollable">
+                        <table ibmTable [sortable]="false">
+                            <thead ibmTableHead>
+                                <tr>
+                                    <th class="row-header" ibmTableHeadCell *ngFor="let column of convertedModel.header" [column]="column">
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody ibmTableBody *ngIf="dataExist">
+                                <tr *ngFor="let row of convertedModel.data; let i = index" ibmTableRow [row]="row">
+                                    <ng-container *ngFor="let item of row">
+                                        <td style="background-color: floralwhite;" *ngIf="i < convertedData.length" class="row-text" ibmTableData [item]="item" (click)="openModal('Overtime', convertedData[i])">
+                                        </td>
+                                    </ng-container>
+                                </tr>
+                            </tbody>
+                            <tbody *ngIf="!dataExist">
+                                <tr>
+                                    <td class="no-data" colspan="3">
+                                        <div>No history yet.</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <!-- Start of Pagination -->
+                        <mat-paginator [length]="convertedPaginationModel.totalDataLength" [pageSize]="10" hidePageSize=true [pageIndex]="convertedPaginationModel.currentPage" (page)="changePageConverted($event)">
+                        </mat-paginator>
+                        <!-- End of Pagination -->
+                    </div>
+                </div>
+
+                <div class="body-text" ibmRow>
+                    <div ibmCol [columnNumbers]="{'lg': 6, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-tile style="background-color: floralwhite;">
+                            <h5 class="ot-text">
+                                TOTAL HOURS
+                            </h5>
+                            <h1 class="ot-text-2">
+                                {{convertedTotalHours}}
+                            </h1>
+                        </ibm-tile>
+                    </div>
+                    <div ibmCol [columnNumbers]="{'lg': 6, 'md': 4, 'sm': 2}" class="scrollable">
+                        <ibm-tile style="background-color: floralwhite;">
+                            <h5 class="ot-text">
+                                DAYOFF POINTS
+                            </h5>
+                            <h1 class="ot-text-2">
+                                {{convertedTotalPoints}}
+                            </h1>
+                        </ibm-tile>
+                    </div>
+                </div>
+                <!-- End of Body -->
+            </mat-tab>
+        </mat-tab-group>
+    </div>
+</div>

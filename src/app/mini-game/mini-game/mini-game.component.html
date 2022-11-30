@@ -1,0 +1,156 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Guess the Picture</p>
+        <br><br>
+        <div #pregameScreen>
+            <h2>Let's play Guess the Picture!</h2><br>
+            <br>
+            <h4>How to play: </h4><br>
+            <br>
+            <h4>The objective of this game is to guess what word(s) the picture you are presented with is trying to convey. </h4><br>
+            <br>
+            <br>
+            <h4 style="font-weight: bold">Simply click letter(s) on your screen that you think might be inside the word(s). </h4><br>
+            <br>
+            <br>
+            <img class="center" [src]="howToPlaySrc" height="300" width="100%">
+            <br>
+            <br>
+            <h4>Correct guesses will add up to your score on the top left corner. </h4><br>
+            <br>
+            <br>
+            <h4>Be wary though! You only have 40 seconds to solve each puzzle. </h4><br>
+            <br>
+            <br>
+            <h4>There is a bonus if you can solve it fast, but wrong guesses will also incur a score penalty. </h4><br>
+            <br>
+            <br>
+            <button class="center clickable" style="width: 130px !important;" (click)="startGame()">Let's Begin!</button>
+        </div>
+        <div #postgameScreen style="display: none;">
+            <h1 class="text-center">{{score > 0 && isSolved ? 'Victory' : 'Defeat'}}</h1>
+            <br>
+            <h1 class="text-center">{{score}}</h1>
+            <img class="center" [src]="score > 0 ? winSrc : loseSrc" height="42" width="42">
+            
+            <button [ngClass]="{'invisible': gameFinished}" class="center clickable" style="width: 130px !important; margin-bottom: 10px;" (click)="getNewPuzzle(currentPuzzleIndex+1)">Next Image</button>
+            <button class="center clickable" style="width: 130px !important; margin-bottom: 30px;" (click)="refreshLeaderboard(currentPuzzleIndex)">Refresh</button>
+            <mat-tab-group mat-align-tabs="center">
+                <mat-tab class="clickable" label="Puzzle #{{currentPuzzleIndex}}">
+                    <ng-container *ngFor="let element of currentPuzzleRankings; let i = index">
+                        <div class="card" [ngClass]="{'my-class': element._id === myScoreId}" style="margin-bottom: 5px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    {{i+1}}
+                                </div>
+                                <div class="col-7">
+                                    {{element.employeeName}}<br>
+                                    <!-- {{element.minigameName}} -->
+                                </div>
+                                <div class="col-3">
+                                    {{element.score}}
+                                </div>
+                            </div>
+                        </div> 
+                    </ng-container>
+                </mat-tab>
+                <mat-tab class="clickable" label="Total">
+                    <ng-container *ngFor="let element of totalRankings; let i = index">
+                        <div class="card" [ngClass]="{'my-class': element.employeeID === myEmpId}" style="margin-bottom: 5px;">
+                            <div class="row">
+                                <div class="col-2">
+                                    {{i+1}}
+                                </div>
+                                <div class="col-7">
+                                    {{element.employeeName}}<br>
+                                    <!-- {{element.minigameName}} -->
+                                </div>
+                                <div class="col-3">
+                                    {{element.score}}
+                                </div>
+                            </div>
+                        </div> 
+                    </ng-container>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+        <div #gameScreen style="display: none;">
+            <div class="row">
+                <div style="position: relative;">
+                    <img style="position: absolute;
+                    top: -5px;;
+                    left: 38px;" src="../../../assets/icons/score_background.svg" height="52" width="80">
+                    <img style="position: absolute;
+                    top: 0;
+                    left: 17px;" src="../../../assets/icons/score_crystal.svg" height="42" width="42">
+                    <p style="position: absolute;
+                    top: 8px;
+                    left: 80px; color: white;">{{score}}</p>
+                    <mat-progress-spinner 
+                    style="position: absolute;
+                    top: -5px;
+                    left: 435px;"
+                        diameter="50"
+                        mode="determinate"
+                        value="{{remaining * 2.5 }}">
+                    </mat-progress-spinner>
+                    <p style="position: absolute;
+                    top: 8px;
+                    left: 450px; color: white;">{{remaining | number: '1.0-0'}}</p>
+                    
+    
+                    <!-- <button *ngIf="!lifelineUsed" style="width: 130px !important;" (click)="useLifeline()"> Gimme One</button> -->
+                </div>
+            </div>
+            <div class="row" style="margin-top: 80px;">
+                    <img class="center" style="border-radius: 8px;" [src]="puzzleImageSrc" height="250" width="400">
+            </div>
+            
+            <br><br>
+            <div class="row center text-center">
+                <ng-container *ngFor="let element of puzzleString; let i = index">
+                    <input #letter [attr.locked]="false" *ngIf="element != ' '" 
+                    type="text" placeholder=" " readonly required maxlength="1" 
+                    [pattern]="'^[' + element + element.toLowerCase() + ']{1}$'" 
+                    class="letter">
+                    <br *ngIf="element == ' '"><br *ngIf="element == ' '">
+                </ng-container>
+            </div>
+            
+    
+            <br><br>
+            <div class ="row" style="margin-left: 11px;">
+                <button class="clickable" #keyboard (click)="tryInput(81)">Q</button>
+                <button class="clickable" #keyboard (click)="tryInput(87)">W</button>
+                <button class="clickable" #keyboard (click)="tryInput(69)">E</button>
+                <button class="clickable" #keyboard (click)="tryInput(82)">R</button>
+                <button class="clickable" #keyboard (click)="tryInput(84)">T</button>
+                <button class="clickable" #keyboard (click)="tryInput(89)">Y</button>
+                <button class="clickable" #keyboard (click)="tryInput(85)">U</button>
+                <button class="clickable" #keyboard (click)="tryInput(73)">I</button>
+                <button class="clickable" #keyboard (click)="tryInput(79)">O</button>
+                <button class="clickable" #keyboard (click)="tryInput(80)">P</button>
+            </div>
+            <div class ="row" style="margin-left: 32px;">
+                <button class="clickable" #keyboard (click)="tryInput(65)">A</button>
+                <button class="clickable" #keyboard (click)="tryInput(83)">S</button>
+                <button class="clickable" #keyboard (click)="tryInput(68)">D</button>
+                <button class="clickable" #keyboard (click)="tryInput(70)">F</button>
+                <button class="clickable" #keyboard (click)="tryInput(71)">G</button>
+                <button class="clickable" #keyboard (click)="tryInput(72)">H</button>
+                <button class="clickable" #keyboard (click)="tryInput(74)">J</button>
+                <button class="clickable" #keyboard (click)="tryInput(75)">K</button>
+                <button class="clickable" #keyboard (click)="tryInput(76)">L</button>
+            </div>
+            <div class ="row" style="margin-left: 76px;">
+                <button class="clickable" #keyboard (click)="tryInput(90)">Z</button>
+                <button class="clickable" #keyboard (click)="tryInput(88)">X</button>
+                <button class="clickable" #keyboard (click)="tryInput(67)">C</button>
+                <button class="clickable" #keyboard (click)="tryInput(86)">V</button>
+                <button class="clickable" #keyboard (click)="tryInput(66)">B</button>
+                <button class="clickable" #keyboard (click)="tryInput(78)">N</button>
+                <button class="clickable" #keyboard (click)="tryInput(77)">M</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,123 @@
+@import '../../variables';
+.menu-title {
+    font-family: $font-bold;
+    font-size: 22px;
+    color: white;
+}
+
+:host ::ng-deep button.mat-menu-trigger {
+    margin: 0;
+    border: 0;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    outline: none;
+}
+
+.menu {
+    display: flex;
+    width: 100%;
+    @media only screen and (max-width: 428px) {}
+    @media only screen and (max-width: 375px) {}
+    @media only screen and (max-width: 320px) {}
+}
+
+.navbar-menu{
+    padding-right: 0;
+}
+
+// :host ::ng-deep .mat-menu-content:not(:empty) {
+//     padding: 12px;
+// }
+
+::ng-deep .mat-menu-item {
+    height: 40px;
+    font-size: 12px;
+    font-family: $font-regular;
+}
+
+.date-title {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    font-size: 20px;
+    font-family: $font-bold;
+    padding-left: 5%;
+}
+
+.dismiss-div {
+    color: black;
+}
+
+button.mat-menu-item.btn-dismiss {
+    color: black;
+    padding: 0;
+    display: flex;
+    justify-content: flex-end;
+    outline: 0;
+}
+
+button.mat-menu-item.btn-dismiss :focus {
+    outline: 0;
+}
+
+.button-div {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.button-div-2 {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    // justify-content: flex-end;
+    // padding-left: 72%;
+    // @media only screen and (max-width: 428px) {
+    //     padding-left: 60%;
+    // }
+    // @media only screen and (max-width: 375px) {
+    //     padding-left: 53%;
+    // }
+    // @media only screen and (max-width: 320px) {
+    //     padding-left: 40%;
+    // }
+}
+
+.button-menu {
+    min-height: 56px;
+    min-width: 40px;
+}
+
+.notif-text {
+    font-size: 11px;
+    line-height: 16px;
+}
+
+.flag-img {
+    width: 20px;
+    height: 17px;
+    padding-top: 2%;
+    margin-right: 3%;
+}
+
+.trash-img {
+    width: 20px;
+}
+
+.notif {
+    padding: 2% 1% 2% 1%
+}
+
+.button-div {
+    display: flex;
+}
+
+button.mat-menu-item{
+    outline: 0;
+}
+
+::ng-deep .mat-menu-content{
+    max-height: 500px;
+}

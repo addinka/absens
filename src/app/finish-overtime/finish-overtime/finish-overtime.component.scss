@@ -1,0 +1,317 @@
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+.bx--grid.modal-request {
+    width: 100%;
+    background-color: white;
+    @media only screen and (max-width: 768px) {}
+    @media only screen and (max-width: 428px) {
+        width: 85%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 85%;
+        padding-top: 20px;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 80%;
+    }
+}
+
+.bx--list__item {
+    color: #393939;
+    padding-left: 0;
+}
+
+p.request-title {
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    text-align: center;
+    margin-top: 5%;
+    @media only screen and (max-width: 768px) {
+        font-size: 24px;
+    }
+    @media only screen and (max-width: 428px) {
+        font-size: 20px;
+        margin-top: 8%;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 19px;
+        margin-top: 4%;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 16px;
+        line-height: 20px;
+    }
+}
+
+.checkboxText {
+    margin-left: 10px;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 12px;
+    }
+}
+
+.bx--row.reminder {
+    margin-top: 25px;
+    scroll-behavior: auto;
+    margin-left: 6%;
+    @media only screen and (max-width: 428px) {
+        margin-left: 9%;
+        margin-right: 4px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 10%;
+        margin-right: 3px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 10%;
+        margin-right: 3px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-left: 10%;
+    }
+}
+
+.bx--row.check-box {
+    @media only screen and (max-width: 428px) {
+        padding-right: 1px;
+    }
+}
+
+.bx--row.time {
+    margin-top: 5%;
+    // margin-left: 6%;
+    @media only screen and (max-width: 428px) {
+        margin-left: 10px;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 85%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 80%;
+    }
+}
+
+.bx--row.button-check {
+    margin-top: 5%;
+    margin-bottom: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.bx--row.reason {
+    margin-top: 5%;
+}
+
+.check-text {
+    margin-bottom: 10px;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 12px;
+    }
+}
+
+.bx--time-picker__input-field {
+    margin-top: 10px;
+    width: 50%;
+    @media only screen and (max-width: 428px) {
+        width: 50%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 65%;
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 12px;
+        width: 100%;
+    }
+}
+
+.check-btn {
+    min-width: 100%;
+    max-width: 100%;
+    font-family: $font-bold;
+    justify-content: center;
+    padding: 0;
+    @media only screen and (max-width: 768px) {
+        // width: 400px;
+    }
+    @media only screen and (max-width: 428px) {
+        // width: 330px;
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 375px) {
+        // width: 290px;
+        font-size: 12px;
+    }
+    @media only screen and (max-width: 320px) {
+        // width: 240px;
+        font-size: 10px;
+    }
+    &-check-in {
+        background-color: #42BE65;
+    }
+    &-check-out {
+        background-color: #F98544;
+    }
+}
+
+.bx--btn.check-btn:disabled {
+    cursor: not-allowed;
+    color: #8d8d8d;
+    background: #c6c6c6;
+    border-color: #c6c6c6;
+    box-shadow: none;
+}
+
+// .bx--btn{
+//     max-width: 30rem;
+//     padding-left: 22%;
+//     text-align: center;
+//     @media only screen and (max-width: 1440px) {
+//         padding-left: 30%;
+//     }
+//     @media only screen and (max-width: 1024px) and (min-width: 769px) {
+//         max-width: 35rem;
+//         width: 550px;
+//         padding-left: 35%;
+//     }
+//     @media only screen and (max-width: 768px) {
+//         padding-left: 26%;
+//     }
+//     @media only screen and (max-width: 428px) {
+//         padding-left: 22%;
+//     }
+//     @media only screen and (max-width: 375px) {
+//         padding-left: 22%;
+//     }
+//     @media only screen and (max-width: 320px) {
+//         padding-left: 20%;
+//     }
+// }
+.bx--btn.button-check {
+    margin-top: 10px;
+}
+
+.bx--list__item {
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.bx--col.close-div {
+    padding-top: 5%;
+    @media only screen and (max-width: 375px) {
+        padding-top: 0%;
+    }
+}
+
+.bx--text-input {
+    @media only screen and (max-width: 428px) {
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.bx--row.time-row {
+    margin-left: 0;
+    margin-top: 10px;
+}
+
+.bx--col.time-col {
+    max-width: 100px;
+    padding-left: 0;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 80px;
+    }
+}
+
+.bx--col.time-sprt {
+    max-width: 10px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 0;
+    font-weight: bold;
+    font-size: 16px;
+    @media only screen and (max-width: 428px) {
+        max-width: 20px;
+        padding-left: 8px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 10px;
+        padding-left: 2px;
+    }
+}
+
+::ng-deep .bx--list-box__menu {
+    max-height: 10rem;
+}
+
+:host ::ng-deep .time-drop div.bx--list-box__field {
+    @media only screen and (max-width: 428px) {
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+::ng-deep .time-drop div.bx--list-box__menu-item__option {
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+    }
+}
+
+:host ::ng-deep .bx--list-box__label {
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+    }
+}
+
+.time-format {
+    width: 100px;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 75px;
+    }
+}
+
+.mat-datepicker-toggle {
+    color: black;
+}
+
+input.mat-input-element {
+    font-family: $font-regular;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+    background: #f4f4f4;
+    padding-right: 5%;
+    padding-left: 16px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+    @media only screen and (max-width: 428px) {
+        width: 100%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 130px;
+    }
+}
+
+::ng-deep .cdk-overlay-container {
+    z-index: 9999;
+}

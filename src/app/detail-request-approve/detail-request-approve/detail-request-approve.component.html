@@ -1,0 +1,156 @@
+<div class="wrapper" ibmGrid>
+    <div *ngIf="isValidId" class="wrapper-2">
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Review Action</p>
+                </div>
+            </div>
+
+            <br><br>
+            <div *ngIf="isVaccinated === 'Y'" ibmCol style="padding-left: 0px;">
+                <button ibmButton="primary" style="margin-left: 0px;" class="no-padding" (click)="openVaccinationCertificate()">
+                        Employee Vaccination Certificate
+                </button>
+                <br><br>
+            </div>
+
+
+            <div>
+                <p class="label-text">Status</p>
+                <input ibmText disabled [value]="status" [(ngModel)]="status" style="text-transform: capitalize;">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled value="Requester Name" [(ngModel)]="requesterName" [ngClass]="{
+                    'no-risk': riskRating === (undefined || null),
+                    'risk-1': riskRating === 1,
+                    'risk-2': riskRating === 2,
+                    'risk-3': riskRating === 3}">
+                <br>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+
+                </div>
+                <div ibmCol class="right">
+                    <div>
+                    </div>
+                </div>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled value="22-04-2004 08:43 AM" [(ngModel)]="displayDate">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Origin</p>
+                        <input ibmText disabled [ngClass]="{
+                            'risk-1': originRisk === 'low',
+                            'risk-2': originRisk === 'medium',
+                            'risk-3': originRisk === 'high'}" value="Origin" [(ngModel)]="origin">
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Start Date</p>
+                        <input ibmText disabled value="StartDate" [(ngModel)]="startDisplayDate">
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Transportation</p>
+                        <input ibmText disabled [ngClass]="{
+                            'risk-1': transportation === 'Private Car' || 
+                            transportation === 'Private Motorcycle',
+                            'risk-2': transportation === 'Taxi/GrabCar/GoCar' ||
+                            transportation === 'Airplane' ||
+                            transportation === 'Ship / Ferry' ||
+                            transportation === 'Rental Car',
+                            'risk-3': transportation === 'Public Transports' || 
+                            transportation === 'GrabBike/GoRide'}" value="Transportation" [(ngModel)]="transportation">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Destination</p>
+                        <input ibmText disabled [ngClass]="{
+                            'risk-1': destinationRisk === 'low',
+                            'risk-2': destinationRisk === 'medium',
+                            'risk-3': destinationRisk === 'high'}" value="Destination" [(ngModel)]="destination">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">End Date</p>
+                        <input ibmText disabled value="endDate" [(ngModel)]="endDisplayDate">
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Destination Floor</p>
+                <input ibmText disabled [value]="destinationFloor" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Period</p>
+                <input ibmText disabled value="Period" [(ngModel)]="period">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Purpose</p>
+                <input ibmText disabled value="Purpose" [(ngModel)]="purpose">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Request Location</p>
+                <TextArea ibmTextArea class="location" ngDefaultControl disabled placeholder="Location" [(ngModel)]="location">
+                </TextArea>
+                <br>
+            </div>
+
+            <div *ngIf="status !== 'cancelled'">
+                <br>
+                <TextArea ibmTextArea class="reason" ngDefaultControl placeholder="Reason for rejection" [(ngModel)]="rejection">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+            <div ibmRow class="custom-row" *ngIf="status !== 'cancelled'">
+                <div class="btn-col" ibmCol>
+                    <button id="buttonReject" class="bx--btn bx--btn--danger" (click)="rejectRequest()">Reject</button>
+                </div>
+                <div class="btn-col" ibmCol>
+                    <button id="buttonSubmit" class="bx--btn bx--btn--primary" (click)="approveRequest()">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isValidId" class="wrapper-2">
+        Id is invalid or no longer exists
+    </div>
+</div>

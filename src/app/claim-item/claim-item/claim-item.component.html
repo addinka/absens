@@ -1,0 +1,16 @@
+<ibm-modal class="cancel-mdl" size="sm" (overlaySelected)="closeModal()">
+    <div ibmGrid >
+        <div ibmRow class="texttt" style="margin-top: 35px;">
+            <p>Please show this to your Health & Safety Coordinator to redeem your requested item.</p>
+            
+        </div>
+        
+        <div class="btn-row" ibmRow>
+            <div ibmCol class="button-div" [columnNumbers]="12">
+                <button ibmButton class="check-btn" (click)="claimingItem()">CLICK HERE TO CLAIM</button>
+            </div>
+        </div>
+        
+    </div>
+   
+</ibm-modal>

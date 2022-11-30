@@ -1,0 +1,75 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+
+        <div class="d-inline-flex pt-3 pb-3 px-2" [routerLink]="['/event']">
+            <img src="../../../../../assets/images/ic_back.svg" height="15" width="15" style="cursor: pointer;">
+        </div>
+
+        <br>
+
+        <p class="title-content">Ongoing Events</p>
+        <br><br>
+
+        <div class="">
+            <div class="list-group">
+                <div *ngFor="let data of contents; let i=index" class="row-highlighted">
+                    <a href='javascript:;' (click)="onDetailContent(data?._id)">
+                        <div class="d-flex">
+                            <div class="col-md-4 img-wrap">
+                                <img [src]="data?.image" onerror="this.src='../../../../../assets/images/black.jpeg'">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="row">
+                                    <div class="col-8 article-title">
+                                        {{data?.title}}
+                                    </div>
+
+                                    <div *ngIf="data?.registerable" class="col-4" style="text-align: right; margin-top: 5px">
+                                        <button class="button-wrap dialog-button button-primary" style="width: 100px">Register Now</button>
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-left: -30px; margin-top: 20px;">
+                                    <div class="col-12 col-xl-6" style="text-align: left;">
+                                        <img class="icon-wrap" src="../../../../../assets/images/calendar.svg" height="30" width="30" style="float: left; margin-top: 10px;">
+                                        <span class="greyed-out">
+                                            {{data.date}}
+                                            <br>
+                                            <div class="time">
+                                                {{data.startTime}} - {{data.endTime}}
+                                            </div>
+                                            </span>
+                                    </div>
+                                    <div class="col-12 col-xl-6" style="text-align: left; margin-top: 10px;">
+                                        <img class="icon-wrap" src="../../../../../assets/images/location.svg" height="30" width="30" style="float: left;">
+                                        <span class="greyed-out">
+                                            {{data.eventLocation}}
+                                        </span>
+                                    </div>
+                                    <div *ngIf="data.eventLink !== ''" class="col-12" style="text-align: center;">
+                                        <button (click)="joinEvent(data.eventLink)" ibmButton="primary">Join Event</button>
+                                    </div>
+                                </div>
+                                <div class="row height-div"></div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div *ngIf="!contents.length" class="article-title d-flex justify-content-center my-3">
+                    No event found
+                </div>
+            </div>
+        </div>
+
+        <nav aria-label="Page Navigation">
+            <div class="row" style="align-items: center; justify-content: center;">
+                <ul class="pagination" style="margin-top: 10px;">
+                    <li *ngIf="page !== 1" class="page-item"><a class="page-link" href='javascript:;' (click)="previousPage()">Previous</a></li>
+                    <li class="page-item active"><a class="page-link" href='javascript:;' (click)="changePage(page, 0)">{{this.page}}</a></li>
+                    <li *ngIf="page + 1 <= pageMax" class="page-item"><a class="page-link" href='javascript:;' (click)="changePage(page, 1)">{{this.page + 1}}</a></li>
+                    <li *ngIf="page + 2 <= pageMax" class="page-item"><a class="page-link" href='javascript:;' (click)="changePage(page, 2)">{{this.page + 2}}</a></li>
+                    <li *ngIf="page + 1 <= pageMax" class="page-item"><a class="page-link" href='javascript:;' (click)="nextPage()">Next</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Request Detail</p>
+                </div>
+            </div>
+
+            <div *ngIf="status !== 'cancelled' && status !== 'requested'">
+                <p class="label-text">Reason of {{reasonText}}</p>
+                <input ibmText disabled [value]="reason">
+                <br><br>
+            </div>
+
+            <div>
+                <p class="label-text">Status</p>
+                <input ibmText disabled [value]="status" style="width: 100%">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled [value]="name">
+                <br>
+            </div>
+
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+
+                    <div>
+                        <br>
+                        <p class="label-text">Requested Item</p>
+                        <input ibmText disabled [value]="itemType" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled [value]="requestDate" style="width: 100%">
+                        <br>
+                    </div>
+
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Point</p>
+                        <input ibmText disabled [value]="point" style="width: 100%">
+                        <br>
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+
+                    <div>
+                        <br>
+                        <p class="label-text">Quantity</p>
+                        <input ibmText disabled [value]="quantity" style="width: 100%">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Review Date</p>
+                        <input ibmText disabled [value]="reviewDate" style="width: 100%">
+                        <br>
+                    </div>
+
+
+
+                    <div>
+                        <br>
+                        <p class="label-text">Pickup Time</p>
+                        <input ibmText disabled [value]="time" style="width: 100%">
+                        <br>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Remarks</p>
+                <TextArea ibmTextArea disabled style="width: 100%">{{ remarks }}</TextArea>
+                <br>
+            </div>
+
+            <br><br>
+
+            <div *ngIf="status !== 'received' && isActive === 'Y'" ibmRow class="custom-row">
+                <div ibmCol style="text-align: center">
+                    <button style="justify-content: center; margin-left: 0%" id="buttonSubmit" class="bx--btn bx--btn--danger" (click)="sureCancel()">Cancel This Request</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</ibm-modal>

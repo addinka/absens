@@ -1,0 +1,148 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Employee Shift</p>
+        <br>
+
+        <mwl-demo-utils-calendar-header [(view)]="view" [(viewDate)]="viewDate">
+        </mwl-demo-utils-calendar-header>
+        <br>
+
+        <div>
+          <div ibmRow>
+              <div style="padding-left: 5%; padding-top: 4%;">
+                  <h5>Retrieve Employee Schedule:</h5>
+              </div>
+          </div>
+
+          <div ibmRow class="form-field">
+              <br><br>
+              <div ibmCol style="padding-inline: 7%; padding-top: 2%">
+                <ibm-combo-box placeholder="Select Employee" [(ngModel)]="findEmployeeID" [items]="employees" (selected)="search($event)" (keyup)="searchEmployee($event)">
+                  <ibm-dropdown-list></ibm-dropdown-list>
+                </ibm-combo-box>
+              </div>
+          </div>
+
+          <div *ngIf="this.currentDate && this.myName" ibmRow style="justify-content: center; margin-top: 20px;" >
+            <div (click)="createUpdateShift()" class="btn btn-primary">
+              + Create New Shift ({{currentDate}})
+            </div>
+           
+          </div>
+
+          <ng-container *ngIf="retrieveLoading">
+            <div ibmRow class="justify-content-center mt-2">
+              <img class="ml-1" src="../../../../../assets/images/loader.gif" height="45">
+            </div>
+            <div ibmRow class="justify-content-center" style="font-size: 12px;">
+              Retrieving Employee's Schedule...
+            </div>
+          </ng-container>
+         
+          <div class="row form-field" style="justify-content: center;">
+              <div *ngIf="!retrieveLoading && myName" (click)="loadSchedule()" class="shift-name">
+              {{ this.myName }} ({{ this.myID }}) <span *ngIf="!retrieveLoading && myID !== '-'">Schedule</span>
+            </div>
+          </div>
+      </div>
+
+        <ng-template #customCellTemplate let-day="day" let-locale="locale">
+            <div class="cal-cell-top" (click)="onClick(day)">
+                <span class="cal-day-badge" *ngIf="day.badgeTotal > 0">{{ day.badgeTotal }}</span
+            >
+            <span class="cal-day-number">
+              {{ day.date | calendarDate:'monthViewDayNumber':locale }}
+            </span>
+            </div>
+            <small style="margin: 5px;" (click)="onClick(day.events)">
+            {{ day.events[0]?.title }} {{ day.events[1]?.title }} {{ day.events[2]?.title }}
+            </small>
+        </ng-template>
+
+        <ng-container *ngFor="let event of currentEvent; let i = index">
+          <div ibmRow class="mt-3">
+            <div style="padding-left: 5%">
+              <p class="shift-list">{{ event?.title }}</p>
+            </div>
+            <div *ngIf="currentEvent" ibmCol [columnNumbers]="6" style="padding-left: 10%">
+              <p class="shift-list">{{ currentDate }}</p>
+            </div>
+
+            <div *ngIf="event" style="display: flex; justify-content: flex-end; padding-right: 5%;">
+              <p class="shift-list"><a href="javascript:;" (click)="exchange(event)">ASSIGN</a></p>
+            </div>
+
+            <div *ngIf="event" style="display: flex; justify-content: flex-end; padding-right: 5%;">
+              <p class="shift-list"><a href="javascript:;" (click)="editShift(event)">EDIT</a></p>
+            </div>
+
+            <div *ngIf="event" style="display: flex; justify-content: flex-end; padding-right: 5%;">
+              <p class="shift-list"><a href="javascript:;" (click)="delete(event)">DELETE</a></p>
+            </div>
+          </div>
+        </ng-container>
+
+        <div *ngIf="exchangeFlag">
+          <div ibmRow>
+            <div style="padding-left: 5%; padding-top: 4%;">
+              <h5>Assign to:</h5>
+            </div>
+          </div>
+  
+          <div ibmRow class="form-field">
+            <br><br>
+            <div ibmCol style="padding-inline: 7%; padding-top: 2%">
+              <ibm-combo-box placeholder="Select Employee" [(ngModel)]="employeeID" [items]="employees" (selected)="search2($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+              </ibm-combo-box>
+            </div>
+          </div>
+
+          <ng-container *ngIf="loading">
+            <div ibmRow class="justify-content-center mt-2">
+              <img class="ml-1" src="../../../../../assets/images/loader.gif" height="45">
+            </div>
+            <div ibmRow class="justify-content-center" style="font-size: 12px;">
+              Retrieving Employee's Schedule...
+            </div>
+          </ng-container>
+
+          <div class="row form-field" style="justify-content: center;">
+            <div *ngIf="!loading && switchName" (click)="openModal(this.switchID)"
+                class="btn btn-primary" style="justify-content: center; margin-top: 2%; padding-top: 2%">
+            {{ this.switchName }} ({{ this.switchID }})
+            </div>
+          </div>
+
+          
+        </div>
+        
+        <div [ngSwitch]="view" class="mt-4">
+          <mwl-calendar-month-view
+            *ngSwitchCase="'month'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+            [cellTemplate]="customCellTemplate"
+            (beforeViewRender)="beforeMonthViewRender($event)"
+          >
+          </mwl-calendar-month-view>
+          <mwl-calendar-week-view
+            *ngSwitchCase="'week'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+          >
+          </mwl-calendar-week-view>
+          <mwl-calendar-day-view
+            *ngSwitchCase="'day'"
+            [viewDate]="viewDate"
+            [events]="events"
+            [refresh]="refresh"
+          >
+          </mwl-calendar-day-view>
+        </div>
+        
+    </div>
+    
+</div>

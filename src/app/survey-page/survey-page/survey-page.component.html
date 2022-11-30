@@ -1,0 +1,200 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <div>
+            <div>
+                <div style="border: 3px solid; border-color: black; border-radius: 10px; padding: 10px;">
+                    <ol>
+                        <li>
+                            <h5 style="text-align: center;">
+                                If you and/or your dependent family members want to participate in our office Vaccination program, please fill-in the required info below.
+                            </h5>
+                        </li>
+
+                        <br>
+
+                        <li>
+                            <h5 style="text-align: center;">
+                                You can register your family members and they will be eligible to receive the vaccination as long as they are at least 18 years old, and registered as dependent family members in the company's benefit system.
+                            </h5>
+                        </li>
+
+                        <br>
+
+                        <li>
+                            <h5 style="text-align: center;">
+                                All personal information collected through this form is done exclusively with your consent as described in the 'Vaccination Program' email from HR.
+                            </h5>
+                        </li>
+                    </ol>
+                </div>
+
+                <br>
+
+                <span class="bx--tooltip__label">
+                        <h5 style="font-weight: normal;">1. Nama Lengkap</h5><br><br>
+                    </span>
+                <input ibmText [(ngModel)]="answers[0]" placeholder="e.g: John Doe">
+                <br><br><br>
+            </div>
+
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">2. NIK</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[1]" placeholder="e.g: 3172061712940005">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">3. Status</h5><br><br>
+                </span>
+            <fieldset class="bx--fieldset">
+                <form [formGroup]="formGroupOne">
+                    <ibm-radio-group id="radioOne" aria-label="radiogroupone" formControlName="radioGroupOne" [(ngModel)]="answers[2]">
+                        <ibm-radio value="zero" (click)="onChange(0)">
+                            Karyawan
+                        </ibm-radio>
+                        <ibm-radio value="one" (click)="onChange(1)">
+                            Anggota Keluarga Karyawan
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </form>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">4. Hubungan Keluarga</h5><br><br>
+                </span>
+            <fieldset class="bx--fieldset">
+                <form [formGroup]="formGroupTwo">
+                    <ibm-radio-group aria-label="radiogrouptwo" formControlName="radioGroupTwo" [(ngModel)]="answers[3]">
+                        <ibm-radio value="zero" [disabled]="!familyMember">
+                            Suami
+                        </ibm-radio>
+                        <ibm-radio value="one" [disabled]="!familyMember">
+                            Istri
+                        </ibm-radio>
+                        <ibm-radio value="two" [disabled]="!familyMember">
+                            Anak
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </form>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">5. Jenis Pekerjaan</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[4]" placeholder="e.g: Karyawan/Ibu Rumah Tangga/Siswa/Mahasiswa">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">6. Jenis Kelamin</h5><br><br>
+            </span>
+            <fieldset class="bx--fieldset">
+                <form [formGroup]="formGroupThree">
+                    <ibm-radio-group aria-label="radiogroupthree" formControlName="radioGroupThree" [(ngModel)]="answers[5]">
+                        <ibm-radio value="zero">
+                            Laki-laki
+                        </ibm-radio>
+                        <ibm-radio value="one">
+                            Perempuan
+                        </ibm-radio>
+                    </ibm-radio-group>
+                </form>
+            </fieldset>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">7. Nomor Handphone</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[6]" placeholder="e.g: 08176636888">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">8. Alamat</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[7]" placeholder="e.g: Jl. M.H. Thamrin No.Kav. 28-30">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">9. Kelurahan</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[8]" placeholder="e.g: Gondangdia">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">10. Kecamatan</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[9]" placeholder="e.g: Menteng">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">11. Kabupaten / Kota</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[10]" placeholder="e.g: Jakarta Pusat">
+            <br><br><br>
+        </div>
+
+        <div>
+            <span class="bx--tooltip__label">
+                    <h5 style="font-weight: normal;">12. Provinsi</h5><br><br>
+                </span>
+            <input ibmText [(ngModel)]="answers[11]" placeholder="e.g: DKI Jakarta">
+            <br><br><br>
+        </div>
+
+        <h5>
+            Previously Registered Family Member:
+        </h5>
+
+
+        <br>
+
+        <div *ngFor="let item of allData; let i = index">
+            <div ibmRow>
+                <div ibmCol [columnNumbers]="{'lg': 1, 'md': 1, 'sm': 1}">
+                    <h5>{{i + 1}}. </h5>
+                </div>
+                <div ibmCol [columnNumbers]="{'lg': 4, 'md': 4, 'sm': 4}">
+                    <h5 style="font-weight: normal;">{{item.doc[0].response}}</h5>
+                </div>
+                <div ibmCol style="margin-top: 0.5%" *ngIf="!onEdit">
+                    <a style="font-size: 16px;" href="javascript:;" (click)="editEntry(allData[i]._id)">Edit Entry</a>
+                </div>
+                <div ibmCol style="margin-top: 0.5%" *ngIf="!onEdit">
+                    <a style="font-size: 16px;" href="javascript:;" (click)="deleteEntry(allData[i]._id)">Delete Entry</a>
+                </div>
+
+                <br><br>
+            </div>
+        </div>
+
+        <br><br>
+        <div ibmRow class="custom-row">
+            <div ibmCol [columnNumbers]="4">
+                <button ibmButton="secondary" (click)="cancelModal()">Back</button>
+            </div>
+            <div *ngIf="!edited" ibmCol [columnNumbers]="4">
+                <button ibmButton="primary" (click)="submitModal()">Submit</button>
+            </div>
+            <div *ngIf="edited" ibmCol [columnNumbers]="4">
+                <button ibmButton="primary" (click)="editReservation()">Edit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

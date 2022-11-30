@@ -1,0 +1,75 @@
+<div class="wrapper">
+    <ibm-modal size="sm" (overlaySelected)="closeModal(); navigate()">
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'success'">
+            <h4 style="text-align: center; color:#001d6c;">
+                Your Travel Request Has Been Requested
+            </h4>
+        </section>
+
+        <section clas="modal-body" style="margin: 2rem;" *ngIf="type === 'exposureSymptoms'">
+            <h4 style="text-align: center; color:red;">
+                For Personnel with Exposure and Symptoms:
+            </h4>
+            <br>• Seek medical attention immediately, call ahead to inform them of your exposure and symptoms.
+            <br><br>• Self-isolate for 14 days starting from the day you were exposed. Refrain from going into an IBM location or client site during this period and advise your manager of your health status.
+            <br><br>• Avoid contact with others.
+            <br><br>• Do not travel while sick.
+            <br><br>• Cover your mouth and nose with a tissue or bent elbow when coughing or sneezing.
+            <br><br>• Wash hands often with soap and water for at least 20 seconds or use an alcohol-based sanitizer with at least 60% alcohol.
+        </section>
+
+        <section class="modal-body" style="margin: 2rem;" *ngIf="type === 'exposure'">
+            <h4 style="text-align: center; color:red;">
+                For Personnel with Exposure but No Symptoms:
+            </h4>
+            <br>• Self-isolate for 14 days starting from the day you were exposed. Refrain from going into an IBM location or client site during this period and advise your manager of your health status.
+            <br><br>• Self-monitor and if you experience any symptom, seek medical attention immediately, call ahead fto inform them of your exposure and symptoms.
+        </section>
+
+        <section class="modal-body" style="margin: 2rem;" *ngIf="type === 'symptoms'">
+            <h4 style="text-align: center; color:red;">
+                For Personnel with Symptoms but No Exposure:
+            </h4>
+            <br>• Seek medical attention to manage the illness symptoms.
+            <br><br>• Refrain from going into an IBM location or client site until you get evaluated by a healthcare provider and advise your manager of your health status.
+        </section>
+
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'updateAccount'">
+            <h4 style="text-align: center; color: #001d6c;">
+                Your Account Information Is Updated
+            </h4>
+            <br><br>
+        </section>
+
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'itemRequest'">
+            <h4 style="text-align: center; color:#001d6c;">
+                Your Item Request Has Been Requested
+            </h4>
+        </section>
+
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'Overtime'">
+            <h4 style="text-align: center; color:#001d6c;">
+                Your Overtime Request Has Been Requested
+            </h4>
+        </section>
+
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'WorkAssignment'">
+            <h4 style="text-align: center; color:#001d6c;">
+                Your Work Assignment Request Has Been Requested
+            </h4>
+        </section>
+
+        <section class="modal-request" style="margin: 2rem;" *ngIf="type === 'Leave'">
+            <h4 style="text-align: center; color:#001d6c;">
+                Your Leave Request Has Been Requested
+            </h4>
+        </section>
+
+        <div ibmRow>
+            <div ibmCol>
+                <button ibmButton="primary" style="align-content: center;" (click)="closeModal(); navigate();">Back To Dashboard</button>
+            </div>
+        </div>
+
+    </ibm-modal>
+</div>

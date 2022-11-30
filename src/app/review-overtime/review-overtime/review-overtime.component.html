@@ -1,0 +1,160 @@
+<ibm-modal size='sm' (overlaySelected)="closeModal()" style="max-height: 100%;">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div *ngIf="requestType !== 'Details'" ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Review Action</p>
+                </div>
+            </div>
+
+            <div *ngIf="requestType === 'Details'" ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Request Detail</p>
+                </div>
+            </div>
+
+            <br>
+
+            <div>
+                <br>
+                <p class="label-text">Status</p>
+                <input ibmText disabled [value]="status">
+                <br>
+            </div>
+
+            <div>
+                <p class="label-text">Approval</p>
+                <div class="col-auto first-col">
+                    <label class="sr-only" for="inlineFormInputGroup">First Approver</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text first">1st</div>
+                        </div>
+                        <input type="text" disabled="true" [value]="approverOneName" class="form-control approver-name" id="inlineFormInputGroup" placeholder="First Approver">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text approver-name">{{approverOneStatus}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto second-col">
+                    <label class="sr-only" for="inlineFormInputGroup">Second Approver</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text second">2nd</div>
+                        </div>
+                        <input type="text" disabled="true" [value]="approverTwoName" class="form-control approver-name" id="inlineFormInputGroup" placeholder="Second Approver">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text approver-name">{{approverTwoStatus}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled [value]="requesterName">
+                <br>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled value="04-22-2004 08:43 AM" [(ngModel)]="displayDate">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Start Time</p>
+                        <input ibmText disabled value="Start Time" [(ngModel)]="startTime">
+                    </div>
+
+                    <div *ngIf="type === 'Overtime'">
+                        <br>
+                        <p class="label-text">Total Overtime Hours (This Month)</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="totalOTHour">
+                        <br>
+                    </div>
+
+                    <div *ngIf="type === 'WorkAssignment'">
+                        <br>
+                        <p class="label-text">Total Work Assignment Hours (This Month)</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="totalOTHour">
+                        <br>
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div *ngIf="type === 'Overtime'">
+                        <br>
+                        <p class="label-text">Overtime Date</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="overtimeDate">
+                        <br>
+                    </div>
+
+                    <div *ngIf="type === 'WorkAssignment'">
+                        <br>
+                        <p class="label-text">Work Assignment Date</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="overtimeDate">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">End Time</p>
+                        <input ibmText disabled value="End Time" [(ngModel)]="endTime">
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Category</p>
+                <input ibmText disabled value="Category" [(ngModel)]="overtimeCategory">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Remarks</p>
+                <input ibmText disabled value="Remarks" [(ngModel)]="remarks">
+                <br>
+            </div>
+
+
+            <div *ngIf="requestType === 'Pending'">
+                <br>
+                <TextArea ibmTextArea class="reason" ngDefaultControl placeholder="Reason for rejection/approval" [(ngModel)]="rejection">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+            <div *ngIf="requestType === 'Pending'" ibmRow class="custom-row">
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--danger" id="buttonReject" (click)="rejectRequest()">Reject</button>
+                </div>
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--primary" id="buttonSubmit" (click)="approveRequest()">Approve</button>
+                </div>
+            </div>
+
+            <div *ngIf="requestType === 'Details' && ((status === 'APPROVED') || (status === 'REQUESTED'))" ibmRow class="custom-row">
+                <div ibmCol style="text-align: center">
+                    <button style="justify-content: center; margin-left: 0%" id="buttonSubmit" class="bx--btn bx--btn--danger" (click)="cancelOvertime()">Cancel This Request</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

@@ -1,0 +1,127 @@
+<ibm-modal size="sm" class="modal-sm" (overlaySelected)="closeModal()">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <section>
+            <div *ngIf="type === 'Overtime'" ibmCol class="title-div" [columnNumbers]="12">
+                <p class="request-title">Overtime Checkout</p>
+            </div>
+
+            <div *ngIf="type === 'WorkAssignment'" ibmCol class="title-div" [columnNumbers]="12">
+                <p class="request-title">Work Assignment Checkout</p>
+            </div>
+        </section>
+
+        <div class="form-field" [formGroup]="submitForm">
+            <br><br>
+            <h5>Overtime Start Date</h5>
+            <br>
+            <div>
+                <mat-form-field>
+                    <input matInput formControlName="overtimeDate" [matDatepicker]="overtimeDate" (dateInput)="addOvertimeDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="overtimeDate"></mat-datepicker-toggle>
+                    <mat-datepicker #overtimeDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-field" [formGroup]="submitForm">
+            <h5>Overtime End Date</h5>
+            <br>
+            <div>
+                <mat-form-field>
+                    <input matInput formControlName="overtimeEndDate" [matDatepicker]="overtimeEndDate" (dateInput)="addOvertimeEndDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="overtimeEndDate"></mat-datepicker-toggle>
+                    <mat-datepicker #overtimeEndDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div ibmRow ibmRow class="time">
+            <div ibmCol [columnNumbers]="16">
+                <span class="check-text">Actual Start Time</span>
+
+                <div ibmRow class="time-row">
+                    <div ibmCol>
+
+                        <div>
+                            <ibm-dropdown id="start-hour-dropdown" class="time-drop" [placeholder]="startHour" (selected)="onSelectedHourStart($event)">
+                                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                    <div ibmCol class="time-sprt">
+                        :
+                    </div>
+                    <div ibmCol>
+                        <div>
+                            <ibm-dropdown id="start-minute-dropdown" class="time-drop" [placeholder]="startMinute" (selected)="onSelectedMinuteStart($event)">
+                                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ibmRow ibmRow class="time">
+            <div ibmCol [columnNumbers]="16">
+                <span class="check-text">Actual End Time</span>
+
+                <div ibmRow class="time-row">
+                    <div ibmCol>
+
+                        <div>
+                            <ibm-dropdown id="end-hour-dropdown" class="time-drop" [placeholder]="endHour" (selected)="onSelectedHourEnd($event)">
+                                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                    <div ibmCol class="time-sprt">
+                        :
+                    </div>
+                    <div ibmCol>
+                        <div>
+                            <ibm-dropdown id="end-minute-dropdown" class="time-drop" [placeholder]="endMinute" (selected)="onSelectedMinuteEnd($event)">
+                                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div ibmRow class="reason">
+            <div ibmCol>
+                <div>
+                    <TextArea ibmTextArea [(ngModel)]="remarks" ngDefaultControl placeholder="Remarks" style="width: 100%"></TextArea>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="address">
+            <br><br>
+            <h5 class="request-label">Your Current Location:</h5>
+            <br> {{address.results[0].formatted_address}}
+        </div>
+
+        <br><br>
+
+        <div ibmRow class="button-check">
+            <div *ngIf="type === 'Overtime'" ibmCol [columnNumbers]="12">
+                <button ibmButton id="buttonSubmit" class="check-btn check-btn-check-in" (click)="reportOvertime()">CLICK HERE TO REPORT OVERTIME</button>
+            </div>
+
+            <div *ngIf="type === 'WorkAssignment'" ibmCol [columnNumbers]="12">
+                <button ibmButton id="buttonSubmit" class="check-btn check-btn-check-in" (click)="reportOvertime()">CLICK HERE TO REPORT WORK ASSIGNMENT</button>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

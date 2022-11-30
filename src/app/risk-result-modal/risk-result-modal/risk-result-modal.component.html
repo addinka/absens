@@ -1,0 +1,40 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <button ibmButton="danger" style="align-content: center;" (click)="closeModal(); navigate();">
+            X
+        </button>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <h3 style="text-align: left;">
+                Results
+            </h3>
+            <br><br>
+
+            <span class="text">According to our calculation, your estimated
+                <span class="text-bold">Risk of Infection</span> is considered </span>
+            <span class="low-risk" style="font-weight: 1000;" *ngIf="infectionRisk === 'Low'">Low</span>
+            <span class="medium-risk" style="font-weight: 1000;" *ngIf="infectionRisk === 'Medium'">Medium</span>
+            <span class="high-risk" style="font-weight: 1000;" *ngIf="infectionRisk === 'High'">High</span>
+            <br>
+
+            <div class="chart-row" style="margin-bottom: 5%;">
+                <ibm-gauge-chart [data]="this.infection" [options]="options"></ibm-gauge-chart>
+            </div>
+
+            <br><br>
+
+            <span class="text">According to our calculation, your estimated
+                <span class="text-bold">Risk of Mortality</span> is considered </span>
+
+            <span class="low-risk" style="font-weight: 1000;" *ngIf="mortalityRisk === 'Low'">Low</span>
+            <span class="medium-risk" style="font-weight: 1000;" *ngIf="mortalityRisk === 'Medium'">Medium</span>
+            <span class="high-risk" style="font-weight: 1000;" *ngIf="mortalityRisk === 'High'">High</span>
+            <br>
+
+            <div class="chart-row">
+                <ibm-gauge-chart [data]="this.mortality" [options]="options1"></ibm-gauge-chart>
+            </div>
+
+            <br><br>
+        </section>
+    </div>
+</ibm-modal>

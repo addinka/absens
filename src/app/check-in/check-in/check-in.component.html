@@ -1,0 +1,102 @@
+<ibm-modal size="sm" class="modal-sm" (overlaySelected)="closeModal()">
+    <div ibmGrid class="modal-request">
+        <div ibmRow>
+            <div ibmCol class="close-div">
+                <div style="float: right; cursor: pointer;">
+                    <img (click)="closeModal()" src="../../../assets//images/close-icon.svg">
+                </div>
+            </div>
+        </div>
+        <section *ngIf="isCheckingOut === false">
+            <div ibmCol class="title-div" [columnNumbers]="12">
+                <p class="request-title">New Workplace Safety Norms</p>
+            </div>
+            <div ibmRow class="reminder">
+                <ol ibmList>
+                    <li ibmListItem>Wear mask at all times.</li>
+                    <li ibmListItem>Two meter social distance; no handshake.</li>
+                    <li ibmListItem>Frequent hand washing and coughing etiquette.</li>
+                    <li ibmListItem>Limited in-person meetings; minimized contact.</li>
+                </ol>
+            </div>
+        </section>
+
+        <section *ngIf="isCheckingOut === true" class="reminder">
+            <div ibmCol class="title-div" [columnNumbers]="12">
+                <p class="request-title">Best Practices</p>
+            </div>
+
+            <div ibmRow class="reminder">
+                <ol ibmList>
+                    <li ibmListItem>Avoid touching your eyes, nose, and mouth with unwashed hands.</li>
+                    <li ibmListItem>Avoid close contact with people who are sick.</li>
+                    <li ibmListItem>Stay home when you are sick.</li>
+                </ol>
+            </div>
+
+        </section>
+
+        <div ibmRow ibmRow class="check-box">
+            <div ibmCol style="margin-top: 3%;padding-left: 4%;">
+                <div class="bx--tooltip__label">
+                    <ibm-checkbox [(ngModel)]="checkboxCheck" ngDefaultControl>
+                        <div class="checkboxText">I will carry out all the safety norms and apply all the best practices provided in here to the best of my ability.</div>
+                    </ibm-checkbox>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow ibmRow class="time">
+            <div ibmCol>
+                <span class="check-text" *ngIf="isCheckingOut === false">Check-in Time</span>
+                <span class="check-text" *ngIf="isCheckingOut === true">Check-out Time</span>
+                <!-- <div class="bx--time-picker__input">
+                    <input type="time" [(ngModel)]="checkTime" (keyup)="onKeyUp($event)" class="bx--time-picker__input-field bx--text-input" placeholder="HH:MM" (change)="timePickerChange($event)" appBlockCopyPaste>
+                </div> -->
+                <div ibmRow class="time-row">
+                    <div ibmCol class="time-col">
+
+                        <div class="time-format">
+                            <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHour($event)">
+                                <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                    <div ibmCol class="time-sprt">
+                        :
+                    </div>
+                    <div ibmCol class="time-col">
+                        <div class="time-format">
+                            <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinute($event)">
+                                <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                            </ibm-dropdown>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div ibmRow class="reason" *ngIf="isCheckingOut === true && isOvertime === true">
+            <div ibmCol>
+                <div>
+                    <input ibmText [(ngModel)]="overtimeReasonValue" placeholder="Overtime reason" style="width: 100%">
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="address">
+            <br><br>
+            <h5 class="request-label">Your Current Location:</h5>
+            <br> {{address.results[0].formatted_address}}
+        </div>
+
+        <br><br>
+
+        <div ibmRow class="button-check">
+            <div ibmCol [columnNumbers]="12">
+                <button id="buttonSubmit" *ngIf="isCheckingOut === false" ibmButton class="check-btn check-btn-check-in" [disabled]="!checkboxCheck" (click)="checkingIn()">CLICK HERE TO CHECK IN</button>
+                <button id="buttonSubmit" *ngIf="isCheckingOut === true" ibmButton class="check-btn check-btn-check-out" [disabled]="!checkboxCheck" (click)="checkingOut()">CLICK HERE TO CHECK OUT</button>
+            </div>
+        </div>
+    </div>
+</ibm-modal>

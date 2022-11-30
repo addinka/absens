@@ -1,0 +1,266 @@
+.bx--btn {
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    padding: calc(0.875rem - 3px) 0px calc(0.875rem - 3px) 12px;
+}
+
+.bx--row.btn-row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 5%;
+}
+
+.text {
+    text-align: left;
+    @media only screen and (max-width: 375px) {
+        font-size: 14px;
+    }
+    @media only screen and (max-width: 320px) {
+        font-size: 13px;
+    }
+}
+
+.bx--col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+:host ::ng-deep .bx--modal.is-visible .bx--modal-container {
+    overflow: scroll;
+    @media only screen and (max-width: 428px) {
+        height: 240px;
+        width: 400px;
+        margin-top: 200px;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-top: 200px;
+        height: 230px;
+        width: 350px;
+    }
+    @media only screen and (max-width: 320px) {
+        margin-top: 200px;
+        height: 230px;
+        width: 290px;
+    }
+}
+
+@import "~carbon-components/scss/globals/scss/typography";
+@import "~carbon-components/scss/globals/scss/spacing";
+@import '../../../variables';
+.wrapper {
+    background-color: #001D6C;
+    max-width: 576px;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.wrapper-2 {
+    background-color: white;
+    border-radius: 2px;
+    /* Rounded borders */
+    padding: 16px;
+    /* Padding */
+}
+
+.request-title {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0;
+    @media only screen and (max-width: 375px) {
+        font-size: 28px;
+    }
+}
+
+.bx--col {
+    padding-left: 0px;
+}
+
+.bx--btn {
+    padding: calc(0.875rem - 3px) 10% calc(0.875rem - 3px) 5%;
+    width: 65%;
+    justify-content: center;
+    @media only screen and (max-width: 375px) {
+        font-size: 12px;
+        width: 75%;
+    }
+}
+
+.bx--btn--primary {
+    @media only screen and (max-width: 4096px) {
+        margin-left: 0%;
+    }
+    @media only screen and (max-width: 1024px) {
+        margin-left: 6%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 5%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 4%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 10%;
+    }
+    @media only screen and (max-width: 360px) {}
+    @media only screen and (max-width: 320px) {
+        margin-left: 0%;
+    }
+    @media only screen and (max-width: 305px) {
+        margin-left: 20%;
+        width: 70px;
+        padding-left: 5px;
+        font-size: 12px;
+    }
+}
+
+.bx--btn--secondary {
+    @media only screen and (max-width: 4096px) {
+        margin-left: 35%;
+    }
+    @media only screen and (max-width: 1024px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 768px) {
+        margin-left: 30%;
+    }
+    @media only screen and (max-width: 428px) {
+        margin-left: 14%;
+    }
+    @media only screen and (max-width: 375px) {
+        margin-left: 15%;
+    }
+    @media only screen and (max-width: 360px) {}
+    @media only screen and (max-width: 320px) {
+        margin-left: 20%;
+    }
+    @media only screen and (max-width: 305px) {
+        margin-left: 20%;
+        width: 70px;
+        padding-left: 5px;
+        font-size: 12px;
+    }
+}
+
+.bx--col.btn-col {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.checkboxText {
+    margin-left: 10px;
+    color: red;
+}
+
+.bx--time-picker__input-field {
+    font-family: $font-regular;
+    width: 45%;
+    @media only screen and (max-width: 428px) {
+        width: 50%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 60%;
+    }
+}
+
+.bx--number__input-wrapper {
+    font-family: $font-regular;
+    width: 45%;
+    @media only screen and (max-width: 428px) {
+        width: 50%;
+    }
+    @media only screen and (max-width: 320px) {
+        width: 60%;
+    }
+}
+
+.bx--row.btn-row {
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 5%;
+}
+
+:host ::ng-deep .mat-form-field-flex {
+    background: #f4f4f4;
+    padding-right: 5%;
+    padding-left: 16px;
+}
+
+:host ::ng-deep .mat-form-field-appearance-legacy .mat-form-field-infix {
+    @media only screen and (max-width: 428px) {
+        width: 100%;
+    }
+    @media only screen and (max-width: 375px) {
+        width: 130px;
+    }
+}
+
+.mat-datepicker-toggle {
+    color: black;
+}
+
+input.mat-input-element {
+    font-family: $font-regular;
+}
+
+.bx--row.time-row {
+    padding-left: 7%;
+}
+
+.bx--col.time-col {
+    max-width: 100px;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 75px;
+    }
+}
+
+.bx--col.time-sprt {
+    max-width: 10px;
+    display: flex;
+    align-content: center;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 0;
+    font-weight: bold;
+    font-size: 16px;
+    @media only screen and (max-width: 428px) {
+        max-width: 20px;
+        padding-left: 8px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 10px;
+        padding-left: 3px;
+    }
+}
+
+::ng-deep .bx--list-box__menu {
+    max-height: 10rem;
+}
+
+:host ::ng-deep .time-drop div.bx--list-box__field {
+    @media only screen and (max-width: 428px) {
+        padding: 0 1rem 0 1rem;
+    }
+}
+
+::ng-deep .time-drop div.bx--list-box__menu-item__option {
+    @media only screen and (max-width: 428px) {
+        font-size: 12px;
+    }
+}
+
+.time-format {
+    width: 100px;
+    @media only screen and (max-width: 428px) {
+        max-width: 82px;
+    }
+    @media only screen and (max-width: 375px) {
+        max-width: 75px;
+    }
+}

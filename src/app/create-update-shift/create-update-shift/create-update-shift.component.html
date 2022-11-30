@@ -1,0 +1,192 @@
+<ibm-modal size="sm" (overlaySelected)="closeModal()">
+    <div>
+        <section class="modal-body" style="scroll-behavior: auto; margin: 2rem;">
+            <div *ngIf="event === '-'">
+                <div ibmRow style="justify-content: center;">
+                    <div style="padding-top: 4%;">
+                        <h5>New Shift Information</h5>
+                    </div>
+                </div>
+
+                <div ibmRow>
+                    <div style="padding-left: 5%; padding-top: 4%;">
+                        <h5>Shift Name</h5>
+                    </div>
+                </div>
+
+                <div ibmRow class="form-field">
+                    <br><br>
+                    <div ibmCol style="padding-inline: 7%; padding-top: 2%">
+                        <ibm-combo-box placeholder="Select Shift" [(ngModel)]="shiftName" [items]="shifts">
+                            <ibm-dropdown-list></ibm-dropdown-list>
+                        </ibm-combo-box>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br>
+                    <h5 style="padding-left: 2%;">Start Time</h5>
+                    <br>
+                    <div ibmRow class="time-row">
+                        <div ibmCol class="time-col">
+
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourStart($event)">
+                                    <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                        <div ibmCol class="time-sprt">
+                            :
+                        </div>
+                        <div ibmCol class="time-col">
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteStart($event)">
+                                    <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br>
+                    <h5 style="padding-left: 2%;">End Time</h5>
+                    <br>
+                    <div ibmRow class="time-row">
+                        <div ibmCol class="time-col">
+
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourEnd($event)">
+                                    <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                        <div ibmCol class="time-sprt">
+                            :
+                        </div>
+                        <div ibmCol class="time-col">
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteEnd($event)">
+                                    <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br><br>
+                    <h5 style="padding-left: 2%">Work / Off</h5>
+                    <br>
+                    <div style="padding-inline: 3%;">
+                        <ibm-dropdown [(ngModel)]="workCategory" placeholder="Select Mode">
+                            <ibm-dropdown-list [items]="category"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+                <br><br>
+
+                <div ibmRow style="justify-content: center;">
+                    <div (click)="createShift()" class="btn btn-primary" style="justify-content: center;">
+                        Create New Shift for {{showDate}}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Edit Shift -->
+            <div *ngIf="event !== '-'">
+                <div ibmRow style="justify-content: center;">
+                    <div style="padding-top: 4%;">
+                        <h5>Edit Shift</h5>
+                    </div>
+                </div>
+
+                <div ibmRow>
+                    <div style="padding-left: 5%; padding-top: 4%;">
+                        <h5>Shift Name</h5>
+                    </div>
+                </div>
+
+                <div ibmRow class="form-field">
+                    <br><br>
+                    <div ibmCol style="padding-inline: 7%; padding-top: 2%">
+                        <ibm-combo-box [placeholder]="shiftName" [(ngModel)]="shiftName" [items]="shifts">
+                            <ibm-dropdown-list></ibm-dropdown-list>
+                        </ibm-combo-box>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br>
+                    <h5 style="padding-left: 2%;">Start Time</h5>
+                    <br>
+                    <div ibmRow class="time-row">
+                        <div ibmCol class="time-col">
+
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" [placeholder]="startHour" (selected)="onSelectedHourStart($event)">
+                                    <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                        <div ibmCol class="time-sprt">
+                            :
+                        </div>
+                        <div ibmCol class="time-col">
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" [placeholder]="startMinute" (selected)="onSelectedMinuteStart($event)">
+                                    <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br>
+                    <h5 style="padding-left: 2%;">End Time</h5>
+                    <br>
+                    <div ibmRow class="time-row">
+                        <div ibmCol class="time-col">
+
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" [placeholder]="endHour" (selected)="onSelectedHourEnd($event)">
+                                    <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                        <div ibmCol class="time-sprt">
+                            :
+                        </div>
+                        <div ibmCol class="time-col">
+                            <div class="time-format">
+                                <ibm-dropdown class="time-drop" [placeholder]="endMinute" (selected)="onSelectedMinuteEnd($event)">
+                                    <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                                </ibm-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-field">
+                    <br><br>
+                    <h5 style="padding-left: 2%">Work / Off</h5>
+                    <br>
+                    <div style="padding-inline: 3%;">
+                        <ibm-dropdown [(ngModel)]="workCategory" [placeholder]="workCategory">
+                            <ibm-dropdown-list [items]="category"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+                <br><br>
+
+                <div ibmRow style="justify-content: center;">
+                    <div (click)="editShift(shiftID)" class="btn btn-primary" style="justify-content: center;">
+                        Edit Shift for {{showDate}}
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</ibm-modal>

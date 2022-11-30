@@ -1,0 +1,38 @@
+<ibm-modal class="cancel-mdl" size="sm" (overlaySelected)="closeModal()">
+    <section class="modal-body">
+        <p class="title">
+            On Leave
+        </p>
+        <br><br>
+        <div class="date-row" [formGroup]="submitForm" ibmRow>
+            <div ibmCol class="date-div">
+                <!-- <ibm-date-picker [(ngModel)]="startDate" label="Start Date" placeholder="mm/dd/yyyy" dateFormat="m/d/Y">
+                </ibm-date-picker> -->
+                <mat-form-field>
+                    <mat-label>Choose a start date</mat-label>
+                    <input matInput formControlName="startDate" [matDatepicker]="startDate" (dateChange)="selectDate('start', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                    <mat-datepicker #startDate></mat-datepicker>
+                </mat-form-field>
+                
+            </div>
+            
+            <div ibmCol class="date-div">
+                <!-- <ibm-date-picker [(ngModel)]="endDate" label="End Date" placeholder="mm/dd/yyyy" dateFormat="m/d/Y">
+                </ibm-date-picker> -->
+                <mat-form-field>
+                    <mat-label>Choose an end date</mat-label>
+                    <input matInput formControlName="endDate" [matDatepicker]="endDate" (dateChange)="selectDate('end', $event)">
+                    <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                    <mat-datepicker #endDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+        <div ibmRow style="margin-top: 10%;">
+            <div class="btn-div" ibmCol>
+                <button ibmButton="primary" style="align-content: center;" (click)="closeModal(); setStatus()">Submit</button>
+            </div>
+        </div>
+        
+    </section>
+</ibm-modal>

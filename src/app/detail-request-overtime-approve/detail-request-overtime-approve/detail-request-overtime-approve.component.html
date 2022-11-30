@@ -1,0 +1,142 @@
+<div class="wrapper" ibmGrid>
+    <div *ngIf="isValidId" class="wrapper-2">
+        <div>
+            <div ibmRow>
+                <div ibmCol class="title-div" [columnNumbers]="12">
+                    <p class="request-title">Review Action</p>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Requester Name</p>
+                <input ibmText disabled value="Requester Name" [(ngModel)]="requesterName">
+                <br>
+            </div>
+
+            <div>
+                <p class="label-text">Approval</p>
+                <div class="col-auto first-col">
+                    <label class="sr-only" for="inlineFormInputGroup">First Approver</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text first">1st</div>
+                        </div>
+                        <input type="text" disabled="true" [value]="approverOneName" class="form-control approver-name" id="inlineFormInputGroup" placeholder="First Approver">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text approver-name">{{approverOneStatus}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-auto second-col">
+                    <label class="sr-only" for="inlineFormInputGroup">Second Approver</label>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text second">2nd</div>
+                        </div>
+                        <input type="text" disabled="true" [value]="approverTwoName" class="form-control approver-name" id="inlineFormInputGroup" placeholder="Second Approver">
+                        <div class="input-group-prepend">
+                            <div class="input-group-text approver-name">{{approverTwoStatus}}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div ibmRow>
+                <div ibmCol class="left-col">
+                    <div>
+                        <br>
+                        <p class="label-text">Request Date</p>
+                        <input ibmText disabled value="22-04-2004 08:43 AM" [(ngModel)]="displayDate">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">Start Time</p>
+                        <input ibmText disabled value="Start Time" [(ngModel)]="startTime">
+                    </div>
+
+                    <div *ngIf="type === 'overtime'">
+                        <br>
+                        <p class="label-text">Total Overtime Hours (This Month)</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="totalOTHour">
+                        <br>
+                    </div>
+
+                    <div *ngIf="type === 'work'">
+                        <br>
+                        <p class="label-text">Total Work Assignment Hours (This Month)</p>
+                        <input ibmText disabled value="Total Work Assignment Hour" [(ngModel)]="totalOTHour">
+                        <br>
+                    </div>
+                </div>
+
+                <div ibmCol class="right-col">
+                    <div *ngIf="type === 'overtime'">
+                        <br>
+                        <p class="label-text">Overtime Date</p>
+                        <input ibmText disabled value="Total OT Hour" [(ngModel)]="overtimeDate">
+                        <br>
+                    </div>
+
+                    <div *ngIf="type === 'work'">
+                        <br>
+                        <p class="label-text">Work Assignment Date</p>
+                        <input ibmText disabled value="Total Assignment Hour" [(ngModel)]="overtimeDate">
+                        <br>
+                    </div>
+
+                    <div>
+                        <br>
+                        <p class="label-text">End Time</p>
+                        <input ibmText disabled value="End Time" [(ngModel)]="endTime">
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Overtime Category</p>
+                <input ibmText disabled value="Category" [(ngModel)]="overtimeCategory">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Remarks</p>
+                <input ibmText disabled value="Remarks" [(ngModel)]="remarks">
+                <br>
+            </div>
+
+            <div>
+                <br>
+                <p class="label-text">Request Location</p>
+                <TextArea ibmTextArea class="location" ngDefaultControl disabled placeholder="Location" [(ngModel)]="location"></TextArea>
+                <br>
+            </div>
+
+            <div *ngIf="requestType === 'Pending'">
+                <br>
+                <TextArea ibmTextArea class="reason" ngDefaultControl placeholder="Reason for rejection/approval" [(ngModel)]="rejection">
+                </TextArea>
+                <br>
+            </div>
+
+            <br><br>
+            <div ibmRow class="custom-row">
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--danger" (click)="rejectRequest()">Reject</button>
+                </div>
+                <div class="btn-col" ibmCol>
+                    <button class="bx--btn bx--btn--primary" (click)="approveRequest()">Approve</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isValidId" class="wrapper-2">
+        Id is invalid or no longer exists
+    </div>
+</div>

@@ -1,0 +1,119 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Create Work Assignment Request</p>
+        <br>
+        <h5 style="font-size: 0.95rem; color: red">&nbsp;Your total Work Assignment hours this month:<br> &nbsp;{{otHour}} hour(s), {{otMinutes}} minute(s)</h5>
+        <div class="form-field" [formGroup]="submitForm">
+            <br><br>
+            <h5>Work Assignment Start Date</h5>
+            <br>
+            <div>
+                <mat-form-field>
+                    <input matInput [min]="minDate" formControlName="assignmentDate" [matDatepicker]="assignmentDate" (dateInput)="addAssignmentDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="assignmentDate"></mat-datepicker-toggle>
+                    <mat-datepicker #assignmentDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-field" [formGroup]="submitForm">
+            <br><br>
+            <h5>Work Assignment End Date</h5>
+            <br>
+            <div>
+                <mat-form-field>
+                    <input matInput [min]="minDate" [max]="maxDate" formControlName="assignmentEndDate" [matDatepicker]="assignmentEndDate" (dateInput)="addAssignmentEndDate($event)">
+                    <mat-datepicker-toggle matSuffix [for]="assignmentEndDate"></mat-datepicker-toggle>
+                    <mat-datepicker #assignmentEndDate></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <br>
+            <h5>Start Time</h5>
+            <br>
+            <div ibmRow class="time-row">
+                <div ibmCol class="time-col">
+
+                    <div class="time-format">
+                        <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourStart($event)">
+                            <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+                <div ibmCol class="time-sprt">
+                    :
+                </div>
+                <div ibmCol class="time-col">
+                    <div class="time-format">
+                        <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteStart($event)">
+                            <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <br>
+            <h5>End Time</h5>
+            <br>
+            <div ibmRow class="time-row">
+                <div ibmCol class="time-col">
+
+                    <div class="time-format">
+                        <ibm-dropdown class="time-drop" placeholder="HH" (selected)="onSelectedHourEnd($event)">
+                            <ibm-dropdown-list [items]="hour" style="height: 100px;"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+                <div ibmCol class="time-sprt">
+                    :
+                </div>
+                <div ibmCol class="time-col">
+                    <div class="time-format">
+                        <ibm-dropdown class="time-drop" placeholder="MM" (selected)="onSelectedMinuteEnd($event)">
+                            <ibm-dropdown-list [items]="minute" style="height: 100px;"></ibm-dropdown-list>
+                        </ibm-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-field">
+            <br><br>
+            <h5>Remarks</h5>
+            <br>
+            <div>
+                <TextArea [(ngModel)]="remarks" ibmTextArea ngDefaultControl placeholder="e.g: Need to fix bugs outside of Office Hour" style="width: 100%"></TextArea>
+            </div>
+        </div>
+
+        <div *ngIf="address">
+            <br><br>
+            <h5 class="request-label">Your Current Location:</h5>
+            <br> {{address.results[0].formatted_address}}
+        </div>
+
+        <br><br>
+        <!-- <div ibmRow class="custom-row">
+            <div ibmCol [columnNumbers]="5">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol [columnNumbers]="5">
+                <button ibmButton="primary" id="buttonSubmit" disabled="true" (click)="reqItems()">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div> -->
+
+        <div ibmRow class="btn-row">
+            <div ibmCol class="btn-col">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol class="btn-col">
+                <button ibmButton="primary" id="buttonSubmit" disabled="true" (click)="reqAssignment()">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+
+    </div>
+</div>

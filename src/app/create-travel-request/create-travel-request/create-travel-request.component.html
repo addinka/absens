@@ -1,0 +1,207 @@
+<div class="wrapper" ibmGrid>
+    <div class="wrapper-2">
+        <p class="request-title">Create Travel Request</p>
+        <div>
+            <br><br>
+            <h5 class="request-label">Origin</h5>
+            <br>
+            <ibm-combo-box (click)="clear($event, 'Origin')" [invalid]="originInvalid" invalidText="Please select a valid Origin" placeholder="Type in your Origin..." [(ngModel)]="originValue" [items]="filteredOrigin" (selected)="onSelectedOrigin($event)" (keyup)="originUpdate.next($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div *ngIf="showOriginDetails">
+            <br><br>
+            <h5 class="request-label">Origin Details</h5>
+            <br>
+            <input ibmText [(ngModel)]="originAddressValue" placeholder="Building / Address">
+            <br>
+            <ibm-combo-box [invalid]="invalidOriginDistrict" invalidText="Please select a valid District" placeholder="District (Kecamatan)" [(ngModel)]="originDistrict" [items]="filteredOriginDistricts" (selected)="onSelectedOriginDistricts($event)" (keyup)="districtUpdate.next($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Destination</h5>
+            <br>
+            <ibm-combo-box [invalid]="destinationInvalid" invalidText="Please select a valid Destination" placeholder="Type in your Destination..." [(ngModel)]="destinationValue" [items]="filteredDestination" (selected)="onSelectedDestination($event)" (keyup)="destinationUpdate.next($event)"
+                (click)="clear($event, 'Destination')">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div *ngIf="docType === 'office' && destinationValue.content === 'Office The Plaza (Jakarta)'">
+            <br><br>
+            <h5 class="request-label">Destination Floor</h5>
+            <br>
+            <ibm-label [invalid]="destinationFloorInvalid" invalidText="Please fill in your destination floor">
+                <ibm-dropdown [(ngModel)]="destinationFloorValue" placeholder="Floor" (selected)="onSelectedFloor($event)">
+                    <ibm-dropdown-list [items]="floors"></ibm-dropdown-list>
+                </ibm-dropdown>
+            </ibm-label>
+        </div>
+
+        <div *ngIf="docType === 'office' && destinationValue.content !== 'Office The Plaza (Jakarta)'">
+            <br><br>
+            <h5 class="request-label">Destination Floor</h5>
+            <br>
+            <ibm-label [invalid]="destinationFloorInvalid" invalidText="Please fill in your destination floor">
+                <input ibmText [(ngModel)]="destinationFloorValue" (keyup)="destinationFloorChange($event)" placeholder="Floor">
+            </ibm-label>
+        </div>
+
+        <div *ngIf="showDestinationDetail">
+            <br><br>
+            <h5 class="request-label">Destination Details</h5>
+            <br>
+            <input ibmText [(ngModel)]="destinationAddressValue" placeholder="Building / Address">
+            <br>
+            <ibm-combo-box [invalid]="invalidDestinationDistrict" invalidText="Please select a valid District" placeholder="District (Kecamatan)" [(ngModel)]="destinationDistrict" [items]="filteredDestinationDistricts" (selected)="onSelectedDestinationDistricts($event)"
+                (keyup)="destinationDistrictUpdate.next($event)">
+                <ibm-dropdown-list></ibm-dropdown-list>
+            </ibm-combo-box>
+        </div>
+
+        <div *ngIf="destinationStatus !== '' && destinationStatus !== null && destinationStatus !== undefined">
+            <br><br>
+            <h5 [ngClass]="{'request-label-red': destinationStatus === 'Closed', 'request-label-green' : destinationStatus === 'Open'}">Destination Status : {{destinationStatus}}</h5>
+        </div>
+
+        <div *ngIf="destinationRiskLevel !== '' && destinationRiskLevel !== null && destinationRiskLevel !== undefined">
+            <br>
+            <h5 [ngClass]="{'request-label-red': destinationRiskLevel === 'high', 'request-label-yellow': destinationRiskLevel === 'medium', 'request-label-green' : destinationRiskLevel === 'low'}">Destination Risk Level : {{destinationRiskLevel}}</h5>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Date</h5>
+            <br>
+            <div class="date-row" [formGroup]="submitForm" ibmRow>
+                <div ibmCol class="date-div">
+                    <!-- <ibm-date-picker [(ngModel)]="startDate" label="Start Date" placeholder="mm/dd/yyyy" dateFormat="m/d/Y">
+                    </ibm-date-picker> -->
+                    <mat-form-field>
+                        <mat-label>Choose a start date</mat-label>
+                        <input matInput formControlName="startDate" [matDatepicker]="startDate" (dateChange)="selectDate('start', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="startDate"></mat-datepicker-toggle>
+                        <mat-datepicker #startDate></mat-datepicker>
+                    </mat-form-field>
+
+                </div>
+
+                <div ibmCol class="date-div">
+                    <!-- <ibm-date-picker [(ngModel)]="endDate" label="End Date" placeholder="mm/dd/yyyy" dateFormat="m/d/Y">
+                    </ibm-date-picker> -->
+                    <mat-form-field>
+                        <mat-label>Choose an end date</mat-label>
+                        <input matInput formControlName="endDate" [matDatepicker]="endDate" (dateChange)="selectDate('end', $event)">
+                        <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+                        <mat-datepicker #endDate></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <br>
+            <h5 class="request-label">Period</h5>
+            <br>
+            <ibm-dropdown [(ngModel)]="periodValue" [placeholder]="periodValue">
+                <ibm-dropdown-list [items]="period"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Purpose</h5>
+            <br>
+            <ibm-label [invalid]="purposeInvalid" invalidText="Please fill in your visit purpose">
+                <textarea ibmTextArea placeholder="Please Describe Your Purpose" [(ngModel)]="purposeValue" (keyup)="purposeChange($event)" theme="dark" rows="3" cols="30" aria-label="textarea">
+            </textarea>
+            </ibm-label>
+        </div>
+
+        <div>
+            <br><br>
+            <h5 class="request-label">Transportation</h5>
+            <br>
+            <ibm-dropdown [placeholder]="transportationValue" [(ngModel)]="transportationValue">
+                <ibm-dropdown-list [items]="transport"></ibm-dropdown-list>
+            </ibm-dropdown>
+        </div>
+
+        <div *ngIf="address">
+            <br><br>
+            <h5 class="request-label">Your Current Location:</h5>
+            <br> {{address.results[0].formatted_address}}
+        </div>
+
+        <br><br>
+
+        <!-- <div ibmRow class="custom-row">
+            <div ibmCol [columnNumbers]="5">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol [columnNumbers]="5">
+                <button ibmButton="primary" (click)="submitTravelRequest() ">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div> -->
+
+        <div ibmRow class="btn-row">
+            <div ibmCol class="btn-col">
+                <button ibmButton="secondary" (click)="cancelModal()">&nbsp;&nbsp;&nbsp;Cancel</button>
+            </div>
+            <div ibmCol class="btn-col">
+                <button ibmButton="primary" id="buttonSubmit" (click)="submitTravelRequest() ">&nbsp;&nbsp;&nbsp;&nbsp;Submit</button>
+            </div>
+        </div>
+
+        <!-- <div>
+            <button class="bx--btn bx--btn--primary " (click)="openModal() ">Travel Request Rejected</button>
+        </div> -->
+    </div>
+</div>
+
+<ng-template #exposure let-tooltip="tooltip" style="background: black;">
+    <h5>DO YOU HAVE EXPOSURE?</h5>
+    <br><br>
+    <ul ibmList>
+        <li ibmListItem>Traveled a location experiencing Cluster of Cases OR Community Transmission OR Pending Transmission classification of COVID-19 within the last 14 days.</li>
+        <li ibmListItem>Working or staying in a community* with Cluster of Cases OR Community Transmission of COVID-19.</li>
+        <li ibmListItem>In close contact with a person confirmed to have COVID-19 or with a person under quarantine because of a suspected case of COVID-19 infection.</li>
+    </ul>
+    <br><br> *A community can be a residential community, work community (IBM location), or religious clusters (congregation)
+    <div class="bx--tooltip__footer ">
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/situation-reports " target="_blank " class="bx--link ">Learn More</a>
+        <button class="bx--btn bx--btn--primary " (click)="tooltip.doClose() ">Close&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+</ng-template>
+
+<ng-template #symptoms let-tooltip="tooltip">
+    <h5>DO YOU HAVE ANY OF THE FOLLOWING SYMPTOMS?</h5>
+    <!-- <ul ibmList>
+        <li ibmListItem>Fever (≥ 37.5C/99.5F)</li>
+        <li ibmListItem>Sore Throat</li>
+        <li ibmListItem>Cough Or Cold</li>
+        <li ibmListItem>Diarrhea</li>
+        <li ibmListItem>Tiredness</li>
+        <li ibmListItem>Aches & Pains</li>
+        <li ibmListItem>Difficulty Breathing</li>
+        <li ibmListItem>Shortness of Breath</li>
+        <li ibmListItem>New Loss of Taste or Smell</li>
+    </ul> -->
+    <br><br>• Cough Or Cold
+    <br><br>• Sore Throat
+    <br><br>• Diarrhea
+    <br><br>• Fever (≥ 37.5C/99.5F)
+    <br><br>• Tiredness
+    <br><br>• Aches & Pains
+    <br><br>• Difficulty Breathing
+    <br><br>• Shortness of Breath
+    <br><br>• New Loss of Taste or Smell
+    <div class="bx--tooltip__footer ">
+        <a href="https://www.who.int/emergencies/diseases/novel-coronavirus-2019/question-and-answers-hub/q-a-detail/q-a-coronaviruses#:~:text=symptoms " target="_blank " class="bx--link ">Learn More</a>
+        <button class="bx--btn bx--btn--primary " (click)="tooltip.doClose() ">Close&nbsp;&nbsp;&nbsp;&nbsp;</button>
+    </div>
+</ng-template>
