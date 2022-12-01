@@ -685,6 +685,15 @@
                                             <mat-datepicker-toggle matSuffix [for]="pickerupdate"></mat-datepicker-toggle>
                                             <mat-datepicker #pickerupdate></mat-datepicker>
                                         </mat-form-field>
+                                        <form name="form" [formGroup]="form">
+                                            <mat-form-field>
+                                              <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="purchaseDate">
+                                              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                              <mat-datepicker #picker></mat-datepicker>
+                                            </mat-form-field>
+                                            </form>
+                                            <p>Is valid moment object: {{isValidMoment}}</p>
+                                            <pre><code>{{ form.value | json }}</code></pre>
                                     </div>
                                 </div>
                                 <div class="col-md-12">

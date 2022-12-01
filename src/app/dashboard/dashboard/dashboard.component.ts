@@ -1,7 +1,7 @@
 import '@carbon/charts/styles.css';
 import 'app/ibm-plex-font.css';
 
-import { Component, Inject, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Inject, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Router, ActivatedRoute, NavigationStart } from '@angular/router';
 import {
@@ -36,14 +36,26 @@ import { ReviewOvertimeComponent } from '../../review-overtime/review-overtime/r
 import { TableApprovalComponent } from '../../table-approval/table-approval/table-approval.component';
 // End of Modal Imports //
 
+import { MatDatepicker } from '@angular/material';
+import { Moment } from 'moment';
+import * as moment from 'moment';
+
 @Component({
 	selector: 'app-dashboard',
 	templateUrl: './dashboard.component.html',
 	styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements AfterViewInit, OnInit {
 	todayDate;
 	tomorrowDate;
+
+
+
+	
+	
+	isValidMoment: boolean = false;
+	form: FormGroup;
+
 
 	// Navigation stuff
 	dashboardMode = 0; // 0 is default for Employee Dashboard
@@ -57,7 +69,7 @@ export class DashboardComponent implements OnInit {
 	otEligibility = '';
 	isManager = '';
 	isVaccinated = '';
-
+	
 	// Employee Subtitle
 	currTime: string;
 	zone = 'Origin';
@@ -568,7 +580,7 @@ export class DashboardComponent implements OnInit {
 		public modalService: ModalService,
 		private funService: FunService,
 		public toastr: ToastrService,
-		public fb: FormBuilder
+		public fb: FormBuilder,
 	) {
 		this.contentForm = this.fb.group({
 			title: ['', Validators.required],
@@ -609,8 +621,18 @@ export class DashboardComponent implements OnInit {
 			this.page += 1;
 		});
 	}
+	ngAfterViewInit(): void {
+		throw new Error('Method not implemented.');
+		
+		
+	}
 
 	ngOnInit() {
+
+		this.form = this.fb.group({
+			purchaseDate: '',
+		}); 
+		
 		this.todayDate = new Date();
 		this.todayDate = this.todayDate.toDateString();
 		this.todayDate = new Date(this.todayDate);
@@ -4214,4 +4236,5 @@ export class DashboardComponent implements OnInit {
 			this.invalidEndTimeTwo = false;
 		}
 	}
+	
 }

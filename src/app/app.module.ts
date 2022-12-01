@@ -8,15 +8,19 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { GlobalErrorHandler } from './core/error-handler/global-error-handler';
 import { BlockCopyPasteDirective } from './block-copy-paste.directive';
-
-
+import {MatInputModule} from '@angular/material/input'; 
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import { MatFormFieldModule} from "@angular/material/form-field";
+import {MatNativeDateModule,MAT_DATE_FORMATS,MAT_DATE_LOCALE} from '@angular/material/core';
+import { MatMomentDateModule, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from "@angular/material-moment-adapter";
+import { MomentUtcDateAdapter } from './moment-utc-date-adapter';
 // carbon-components-angular default imports
 import { UIShellModule } from 'carbon-components-angular';
 import { ListModule } from 'carbon-components-angular';
 import { DropdownModule } from 'carbon-components-angular';
 import { ModalModule } from 'carbon-components-angular';
 import { ModalService, BaseModal } from 'carbon-components-angular';
-
+import { MAT_MOMENT_DATE_FORMATS } from '@angular/material-moment-adapter';
 // material-angular module
 import { MatSliderModule } from '@angular/material/slider';
 import { MatMenuModule } from '@angular/material/menu';
@@ -125,6 +129,11 @@ export function momentAdapterFactory() {
 		MatDividerModule,
 		HttpClientModule,
 		PositionHistoryModule,
+		MatDatepickerModule,
+		MatFormFieldModule,
+		MatNativeDateModule,
+		MatMomentDateModule,
+		MatInputModule,
 		ToastrModule.forRoot({
 			closeButton: true,
 			timeOut: 5000,
@@ -150,7 +159,13 @@ export function momentAdapterFactory() {
 		{
 			provide: ErrorHandler,
 			useClass: GlobalErrorHandler
-		}
+		},
+	
+      	{ provide: MAT_DATE_FORMATS, useValue: MAT_MOMENT_DATE_FORMATS },
+      	{ provide: DateAdapter, useClass: MomentUtcDateAdapter,deps: [MAT_MOMENT_DATE_ADAPTER_OPTIONS] },
+		{ provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } },
+		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' }
+
 	],
 	bootstrap: [
 		AppComponent
